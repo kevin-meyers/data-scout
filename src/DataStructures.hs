@@ -1,4 +1,7 @@
+{-# LANGUAGE DuplicateRecordFields #-}
+
 module DataStructures where
+-- Hiding PhoneNumber and emailAddress
 
 data Permission = View | Edit | Own
 
@@ -27,9 +30,17 @@ data ContactInfo = ContactInfo {
     email :: Maybe EmailAddress
 }
 
-type PhoneNumber = String
+newtype PhoneNumber = PhoneNumber String
 
-type EmailAddress = String
+newtype EmailAddress = EmailAddress String
+
+-- Add regex validation OR parser validation
+makePhoneNumber :: String -> PhoneNumber
+makePhoneNumber = PhoneNumber
+
+-- Add regex validation
+makeEmailAddress:: String -> EmailAddress
+makeEmailAddress = EmailAddress
 
 data Column = Column {
     name :: String,

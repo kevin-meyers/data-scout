@@ -18,8 +18,8 @@
                     <h1 #start>Starting
 
                     <p>
-                        Now that you have a working project you should use the
-                        <a href=http://www.yesodweb.com/book/>Yesod book</a> to learn more.
+                        Go to my form at
+                        <a href=@{MetadataFormR}>this link</a>.
                     <p>
                         You can also use this scaffolded site to explore some concepts, and best practices.
 

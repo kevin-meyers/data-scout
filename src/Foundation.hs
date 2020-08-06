@@ -76,9 +76,7 @@ instance Yesod App where
     -- see: https://github.com/yesodweb/yesod/wiki/Overriding-approot
     approot :: Approot App
     approot = ApprootRequest $ \app req ->
-        case appRoot $ appSettings app of
-            Nothing -> getApprootText guessApproot app req
-            Just root -> root
+        fromMaybe (getApprootText guessApproot app req) (appRoot $ appSettings app)
 
     -- Store session data on the client in encrypted cookies,
     -- default session idle timeout is 120 minutes
@@ -110,22 +108,22 @@ instance Yesod App where
 
         -- Define the menu items of the header.
         let menuItems =
-                [ NavbarLeft $ MenuItem
+                [ NavbarLeft MenuItem
                     { menuItemLabel = "Home"
                     , menuItemRoute = HomeR
                     , menuItemAccessCallback = True
                     }
-                , NavbarLeft $ MenuItem
+                , NavbarLeft MenuItem
                     { menuItemLabel = "Profile"
                     , menuItemRoute = ProfileR
                     , menuItemAccessCallback = isJust muser
                     }
-                , NavbarRight $ MenuItem
+                , NavbarRight MenuItem
                     { menuItemLabel = "Login"
                     , menuItemRoute = AuthR LoginR
                     , menuItemAccessCallback = isNothing muser
                     }
-                , NavbarRight $ MenuItem
+                , NavbarRight MenuItem
                     { menuItemLabel = "Logout"
                     , menuItemRoute = AuthR LogoutR
                     , menuItemAccessCallback = isJust muser
@@ -170,6 +168,7 @@ instance Yesod App where
     -- the profile route requires that the user is authenticated, so we
     -- delegate to that function
     isAuthorized ProfileR _ = isAuthenticated
+    isAuthorized MetadataFormR _ = isAuthenticated
 
     -- This function creates static content files in the static folder
     -- and names them based on a hash of their content. This allows
@@ -258,7 +257,7 @@ instance YesodAuth App where
 
     -- You can add other plugins like Google Email, email or OAuth here
     authPlugins :: App -> [AuthPlugin App]
-    authPlugins app = [authOpenId Claimed []] ++ extraAuthPlugins
+    authPlugins app = authOpenId Claimed [] : extraAuthPlugins
         -- Enable authDummy login if enabled.
         where extraAuthPlugins = [authDummy | appAuthDummyLogin $ appSettings app]
 

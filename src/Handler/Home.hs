@@ -27,7 +27,7 @@ getHomeR = do
     (formWidget, formEnctype) <- generateFormPost sampleForm
     let submission = Nothing :: Maybe FileForm
         handlerName = "getHomeR" :: Text
-    allComments <- runDB $ getAllComments
+    allComments <- runDB getAllComments
 
     defaultLayout $ do
         let (commentFormId, commentTextareaId, commentListId) = commentIds
@@ -42,7 +42,7 @@ postHomeR = do
         submission = case result of
             FormSuccess res -> Just res
             _ -> Nothing
-    allComments <- runDB $ getAllComments
+    allComments <- runDB getAllComments
 
     defaultLayout $ do
         let (commentFormId, commentTextareaId, commentListId) = commentIds
