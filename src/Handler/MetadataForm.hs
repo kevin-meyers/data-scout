@@ -42,7 +42,7 @@ personForm = renderDivs $ Person
 -- parsed person. Otherwise, it displays the form again with error messages.
 postMetadataFormR :: Handler Html
 postMetadataFormR = do
-    ((result, widget), enctype) <- runFormPost personForm
+    ((result, _), _) <- runFormPost personForm
     case result of
         FormSuccess person -> defaultLayout [whamlet|<p>#{show person}|]
         _ -> defaultLayout

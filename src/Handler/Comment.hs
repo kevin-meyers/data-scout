@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Handler.Comment where
 
 import Import
@@ -11,6 +12,9 @@ postCommentR = do
     -- The YesodAuth instance in Foundation.hs defines the UserId to be the type used for authentication.
     maybeCurrentUserId <- maybeAuthId
     let comment' = comment { commentUserId = maybeCurrentUserId }
+    -- use commentId <- insert comment
+    -- update commentId [commentUserId =. maybeCurrentUserId]
 
     insertedComment <- runDB $ insertEntity comment'
+
     returnJson insertedComment

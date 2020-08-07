@@ -14,3 +14,7 @@
 /profile ProfileR GET
 
 /metadata-form MetadataFormR GET POST
+
+/data-home DataHomeR GET
+
+/data-table/#TableId DataTableR GET

@@ -16,3 +16,21 @@ Comment json -- Adding "json" causes ToJSON and FromJSON instances to be derived
     userId UserId Maybe
     deriving Eq
     deriving Show
+Table
+    name Text
+    owningTeamId TeamId Maybe
+    description Text Maybe
+Team
+    name Text
+    description Text Maybe
+    phoneNumber Text Maybe
+    emailAddress Text Maybe
+Column
+    name Text
+    description Text Maybe
+    datatype Datatype Maybe
+    example Text Maybe
+    tableId TableId 
+Connections
+    columnId ColumnId
+    columnMatchId Int
