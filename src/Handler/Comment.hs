@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
 module Handler.Comment where
 
 import Import
@@ -14,7 +13,6 @@ postCommentR = do
     let comment' = comment { commentUserId = maybeCurrentUserId }
     -- use commentId <- insert comment
     -- update commentId [commentUserId =. maybeCurrentUserId]
-
+    
     insertedComment <- runDB $ insertEntity comment'
-
     returnJson insertedComment

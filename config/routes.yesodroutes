@@ -18,3 +18,5 @@
 /data-home DataHomeR GET
 
 /data-table/#TableId DataTableR GET
+
+/data-table/form DataTableFormR GET POST
