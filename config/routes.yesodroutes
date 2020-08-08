@@ -19,4 +19,4 @@
 
 /data-table/#TableId DataTableR GET
 
-/data-table/form DataTableFormR GET POST
+/data-table-form/#ColumnId DataTableFormR GET POST

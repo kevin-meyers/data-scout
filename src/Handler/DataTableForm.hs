@@ -7,41 +7,40 @@ module Handler.DataTableForm where
 
 import Import
 
-getDataTableFormR :: Handler Html
-getDataTableFormR = do
+getDataTableFormR :: ColumnId -> Handler Html
+getDataTableFormR columnId = do
     (widget, enctype) <- generateFormPost columnForm
     defaultLayout
         [whamlet|
-            <form method=post action=@{DataTableFormR} enctype=#{enctype}>
+            <form method=post action=@{DataTableFormR columnId} enctype=#{enctype}>
                 ^{widget}
                 <button>Submit
         |]
     
 data ColumnData = ColumnData
-    { columnId :: ColumnId
-    , columnDataDescription :: Maybe Text
+    { columnDataDescription :: Maybe Text
     , columnDataDatatype :: Maybe Datatype
     , columnDataExample :: Maybe Text
     }
   deriving Show
 
-columnForm :: ColumnId -> Html -> MForm Handler (FormResult ColumnData, Widget)
-columnForm columnId = renderDivs $ ColumnData
-    <$> pure columnId
-    <*> aopt textField "Description" Nothing
-    <*> aopt textField "Datatype (leave empty)" Nothing
+columnForm ::  Html -> MForm Handler (FormResult ColumnData, Widget)
+columnForm = renderDivs $ ColumnData
+    <$> aopt textField "Description" Nothing
+    <*> pure Nothing -- aopt textField "Datatype (leave empty)" Nothing
     <*> aopt textField "Example" Nothing
 
-postMetadataFormR :: Handler Html
-postMetadataFormR = do
+postDataTableFormR :: ColumnId -> Handler Html
+postDataTableFormR columnId = do
     ((result, _), _) <- runFormPost columnForm
     case result of
-        FormSuccess columnData -> 
-            update (columnId columnData)
+        FormSuccess columnData -> do
+            runDB $ update columnId
                 [ ColumnDescription =. columnDataDescription columnData
                 , ColumnDatatype =. columnDataDatatype columnData
                 , ColumnExample =. columnDataExample columnData
                 ]
+            defaultLayout [whamlet| |]
         _ -> defaultLayout
             [whamlet|
                 <p>Invalid input, let's try again
