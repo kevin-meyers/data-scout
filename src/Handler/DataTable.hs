@@ -14,8 +14,18 @@ getDataTableR tableId = do
     columns <- runDB $ selectList [ColumnTableId ==. tableId] []
     defaultLayout
         [whamlet|
+            $maybe team <- getTeam $ columnTeamId column
+                <a href="url-for-team">#{teamName team}
+            $nothing
+                <a href="">Add your team!
             <ul>
-                $forall Entity _ column <- columns
+                $forall Entity columnId column <- columns
                     <li>
-                        #{columnName column}
+                        <a href=@{DataTableFormR tableId columnId}>#{columnName column}
+                        $maybe description <- columnDescription column
+                            <p>#{description}
+                        $maybe example <- columnExample column
+                            <p>#{example}
+
+            <a href=@{DataHomeR}>Go home
         |]
