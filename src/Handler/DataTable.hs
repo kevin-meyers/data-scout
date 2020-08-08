@@ -12,10 +12,14 @@ import Import
 getDataTableR :: TableId -> Handler Html
 getDataTableR tableId = do
     columns <- runDB $ selectList [ColumnTableId ==. tableId] []
+    table <- runDB $ getJust tableId
+    maybeTeamEntity <- case tableTeamId table of
+        Nothing -> pure Nothing
+        Just teamId -> runDB $ getEntity teamId
     defaultLayout
         [whamlet|
-            $maybe team <- getTeam $ columnTeamId column
-                <a href="url-for-team">#{teamName team}
+            $maybe Entity teamId team <- maybeTeamEntity
+                <a href=@{DataTeamR teamId}>#{teamName team}
             $nothing
                 <a href="">Add your team!
             <ul>
