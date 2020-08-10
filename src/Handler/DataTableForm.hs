@@ -7,42 +7,39 @@ module Handler.DataTableForm where
 
 import Import
 
-getDataTableFormR :: Handler Html
-getDataTableFormR = do
+getDataTableFormR :: TableId -> ColumnId -> Handler Html
+getDataTableFormR tableId columnId = do
     (widget, enctype) <- generateFormPost columnForm
     defaultLayout
         [whamlet|
-            <form method=post action=@{DataTableFormR} enctype=#{enctype}>
+            <form method=post action=@{DataTableFormR tableId columnId} enctype=#{enctype}>
                 ^{widget}
                 <button>Submit
+            <a href=@{DataTableR tableId}>Go back!
         |]
     
 data ColumnData = ColumnData
-    { columnId :: ColumnId
-    , columnDataDescription :: Maybe Text
+    { columnDataDescription :: Maybe Text
     , columnDataDatatype :: Maybe Datatype
     , columnDataExample :: Maybe Text
     }
   deriving Show
 
-columnForm :: ColumnId -> Html -> MForm Handler (FormResult ColumnData, Widget)
-columnForm columnId = renderDivs $ ColumnData
-    <$> pure columnId
-    <*> aopt textField "Description" Nothing
-    <*> aopt textField "Datatype (leave empty)" Nothing
+columnForm ::  Html -> MForm Handler (FormResult ColumnData, Widget)
+columnForm = renderDivs $ ColumnData
+    <$> aopt textField "Description" Nothing
+    <*> pure Nothing -- aopt textField "Datatype (leave empty)" Nothing
     <*> aopt textField "Example" Nothing
 
-postMetadataFormR :: Handler Html
-postMetadataFormR = do
+postDataTableFormR :: TableId -> ColumnId -> Handler ()
+postDataTableFormR tableId columnId = do
     ((result, _), _) <- runFormPost columnForm
     case result of
-        FormSuccess columnData -> 
-            update (columnId columnData)
+        FormSuccess columnData -> do
+            runDB $ update columnId
                 [ ColumnDescription =. columnDataDescription columnData
                 , ColumnDatatype =. columnDataDatatype columnData
                 , ColumnExample =. columnDataExample columnData
                 ]
-        _ -> defaultLayout
-            [whamlet|
-                <p>Invalid input, let's try again
-            |]
+            redirect (DataTableR tableId)
+        _ -> redirect (DataTableFormR tableId columnId)

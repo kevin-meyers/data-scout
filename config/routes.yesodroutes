@@ -19,4 +19,8 @@
 
 /data-table/#TableId DataTableR GET
 
-/data-table/form DataTableFormR GET POST
+/data-table-form/#TableId/#ColumnId DataTableFormR GET POST
+
+/data-team/#TeamId DataTeamR GET
+
+/data-team-form DataTeamFormR GET POST
