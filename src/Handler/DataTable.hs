@@ -21,7 +21,7 @@ getDataTableR tableId = do
             $maybe Entity teamId team <- maybeTeamEntity
                 <a href=@{DataTeamR teamId}>#{teamName team}
             $nothing
-                <a href=@{DataTeamNewR}>Add your team!
+                <a href=@{DataTeamFormR}>Add your team!
             <ul>
                 $forall Entity columnId column <- columns
                     <li>

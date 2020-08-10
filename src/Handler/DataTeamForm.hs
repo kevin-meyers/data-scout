@@ -7,12 +7,12 @@ module Handler.DataTeamForm where
 
 import Import
 
-getDataTeamFormR :: TeamId -> Handler Html
-getDataTeamFormR teamId = do
+getDataTeamFormR :: Handler Html
+getDataTeamFormR = do
     (widget, enctype) <- generateFormPost teamForm
     defaultLayout
         [whamlet|
-            <form method=post action=@{DataTeamFormR teamId} enctype=#{enctype}>
+            <form method=post action=@{DataTeamFormR} enctype=#{enctype}>
                 ^{widget}
                 <button>Submit
             <a href=@{DataHomeR}>Go Home!
@@ -33,16 +33,15 @@ teamForm = renderDivs $ TeamData
     <*> aopt textField "Phone Number" Nothing
     <*> aopt textField "Email Address" Nothing
 
-postDataTeamFormR :: TeamId -> Handler ()
-postDataTeamFormR teamId = do
+postDataTeamFormR :: Handler ()
+postDataTeamFormR = do
     ((result, _), _) <- runFormPost teamForm
     case result of
         FormSuccess teamData -> do
-            runDB $ update teamId
-                [ TeamName =. teamDataName teamData
-                , TeamDescription =. teamDataDescription teamData
-                , TeamPhoneNumber =. teamDataPhoneNumber teamData
-                , TeamEmailAddress =. teamDataEmailAddress teamData
-                ]
-            redirect DataHomeR
-        _ -> redirect (DataTeamFormR teamId)
+            teamId <- runDB $ insert $ Team
+                (teamDataName teamData)
+                (teamDataDescription teamData)
+                (teamDataPhoneNumber teamData)
+                (teamDataEmailAddress teamData)
+            redirect $ DataTeamR teamId
+        _ -> redirect DataTeamFormR

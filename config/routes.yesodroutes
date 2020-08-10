@@ -23,6 +23,4 @@
 
 /data-team/#TeamId DataTeamR GET
 
-/data-team-form/#TeamId DataTeamFormR GET POST
-
-/data-team-new DataTeamNewR POST
+/data-team-form DataTeamFormR GET POST
