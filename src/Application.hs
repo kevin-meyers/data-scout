@@ -48,6 +48,8 @@ import Handler.MetadataForm
 import Handler.DataHome
 import Handler.DataTable
 import Handler.DataTableForm
+import Handler.DataTeam
+import Handler.DataTeamForm
 
 -- This line actually creates our YesodDispatch instance. It is the second half
 -- of the call to mkYesodData which occurs in Foundation.hs. Please see the

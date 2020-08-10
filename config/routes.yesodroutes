@@ -22,3 +22,5 @@
 /data-table-form/#TableId/#ColumnId DataTableFormR GET POST
 
 /data-team/#TeamId DataTeamR GET
+
+/data-team-form/#TeamId DataTeamFormR GET POST
