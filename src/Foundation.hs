@@ -171,7 +171,7 @@ instance Yesod App where
     isAuthorized MetadataFormR _ = isAuthenticated
     isAuthorized DataHomeR _ = isAuthenticated
     isAuthorized (DataTableR _) _ = isAuthenticated
-    isAuthorized (DataTableFormR _ _) _ = isAuthenticated
+    isAuthorized (DataTableFormR _) _ = isAuthenticated
     isAuthorized (DataTeamR _) _ = isAuthenticated
     isAuthorized DataTeamFormR _ = isAuthenticated
 
