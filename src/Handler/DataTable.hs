@@ -25,7 +25,7 @@ getDataTableR tableId = do
             <ul>
                 $forall Entity columnId column <- columns
                     <li>
-                        <a href=@{DataTableFormR tableId columnId}>#{columnName column}
+                        <a href=@{DataTableFormR columnId}>#{columnName column}
                         $maybe description <- columnDescription column
                             <p>#{description}
                         $maybe example <- columnExample column

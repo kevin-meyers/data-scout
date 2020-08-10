@@ -7,12 +7,14 @@ module Handler.DataTableForm where
 
 import Import
 
-getDataTableFormR :: TableId -> ColumnId -> Handler Html
-getDataTableFormR tableId columnId = do
+getDataTableFormR :: ColumnId -> Handler Html
+getDataTableFormR columnId = do
     (widget, enctype) <- generateFormPost columnForm
+    column <- runDB $ getJust columnId
+    let tableId = columnTableId column
     defaultLayout
         [whamlet|
-            <form method=post action=@{DataTableFormR tableId columnId} enctype=#{enctype}>
+            <form method=post action=@{DataTableFormR columnId} enctype=#{enctype}>
                 ^{widget}
                 <button>Submit
             <a href=@{DataTableR tableId}>Go back!
@@ -31,9 +33,11 @@ columnForm = renderDivs $ ColumnData
     <*> pure Nothing -- aopt textField "Datatype (leave empty)" Nothing
     <*> aopt textField "Example" Nothing
 
-postDataTableFormR :: TableId -> ColumnId -> Handler ()
-postDataTableFormR tableId columnId = do
+postDataTableFormR :: ColumnId -> Handler ()
+postDataTableFormR columnId = do
     ((result, _), _) <- runFormPost columnForm
+    column <- runDB $ getJust columnId
+    let tableId = columnTableId column
     case result of
         FormSuccess columnData -> do
             runDB $ update columnId
@@ -42,4 +46,4 @@ postDataTableFormR tableId columnId = do
                 , ColumnExample =. columnDataExample columnData
                 ]
             redirect (DataTableR tableId)
-        _ -> redirect (DataTableFormR tableId columnId)
+        _ -> redirect (DataTableFormR columnId)
