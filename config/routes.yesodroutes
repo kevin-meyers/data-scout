@@ -24,3 +24,7 @@
 /data-team/#TeamId DataTeamR GET
 
 /data-team-form DataTeamFormR GET POST
+
+/data-team-table-list/#TeamId DataTeamTableListR GET
+
+/data-team-add-table/#TeamId/#TableId DataTeamAddTableR POST
