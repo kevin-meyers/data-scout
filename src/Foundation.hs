@@ -174,6 +174,8 @@ instance Yesod App where
     isAuthorized (DataTableFormR _) _ = isAuthenticated
     isAuthorized (DataTeamR _) _ = isAuthenticated
     isAuthorized DataTeamFormR _ = isAuthenticated
+    isAuthorized (DataTeamTableListR _) _ = isAuthenticated
+    isAuthorized (DataTeamAddTableR _ _) _ = isAuthenticated
 
     -- This function creates static content files in the static folder
     -- and names them based on a hash of their content. This allows
