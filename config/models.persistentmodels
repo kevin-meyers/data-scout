@@ -34,3 +34,8 @@ Column
 Connections
     columnId ColumnId
     columnMatchId Int
+Permission
+    userId UserId
+    tableId TableId
+    permissionType PermissionType
+    UniquePair userId tableId
