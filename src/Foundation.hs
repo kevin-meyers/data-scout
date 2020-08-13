@@ -170,9 +170,9 @@ instance Yesod App where
     isAuthorized ProfileR _ = isAuthenticated
     isAuthorized MetadataFormR _ = isAuthenticated
     isAuthorized DataHomeR _ = isAuthenticated
-    isAuthorized (DataTableR _) _ = isAuthenticated
-    isAuthorized (DataTableFormR _) _ = isAuthenticated
-    isAuthorized (DataTeamR _) _ = isAuthenticated
+    isAuthorized (DataTableR tableId) _ = userPermittedTable tableId View
+    isAuthorized (DataTableFormR tableId) _ = userPermittedTable tableId Edit
+    isAuthorized (DataTeamR teamId) _ = isAuthenticated -- userPermittedTeam teamId View
     isAuthorized DataTeamFormR _ = isAuthenticated
     isAuthorized (DataTeamTableListR _) _ = isAuthenticated
     isAuthorized (DataTeamAddTableR _ _) _ = isAuthenticated
@@ -275,6 +275,15 @@ isAuthenticated = do
     return $ case muid of
         Nothing -> Unauthorized "You must login to access this page"
         Just _ -> Authorized
+
+userPermittedTable :: TableId -> PermissionType ->Handler AuthResult
+userPermittedTable tableId permissionType = do
+    muid <- maybeAuthId
+    case muid of
+        Nothing -> Unauthorized
+        Just uid -> do
+            permission <- runDB $ getBy UniquePair uid tableId
+
 
 instance YesodAuthPersist App
 

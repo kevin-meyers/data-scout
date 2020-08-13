@@ -38,3 +38,4 @@ Permission
     userId UserId
     tableId TableId
     permissionType PermissionType
+    UniquePair userId tableId
