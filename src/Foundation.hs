@@ -25,6 +25,7 @@ import Yesod.Core.Types     (Logger)
 import qualified Yesod.Core.Unsafe as Unsafe
 import qualified Data.CaseInsensitive as CI
 import qualified Data.Text.Encoding as TE
+import qualified Data.Text as T
 
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -171,7 +172,7 @@ instance Yesod App where
     isAuthorized MetadataFormR _ = isAuthenticated
     isAuthorized DataHomeR _ = isAuthenticated
     isAuthorized (DataTableR tableId) _ = userPermittedTable tableId View
-    isAuthorized (DataTableFormR tableId) _ = userPermittedTable tableId Edit
+    isAuthorized (DataTableFormR columnId) _ = userPermittedTableFromColumn columnId Edit
     isAuthorized (DataTeamR teamId) _ = isAuthenticated -- userPermittedTeam teamId View
     isAuthorized DataTeamFormR _ = isAuthenticated
     isAuthorized (DataTeamTableListR _) _ = isAuthenticated
@@ -276,13 +277,24 @@ isAuthenticated = do
         Nothing -> Unauthorized "You must login to access this page"
         Just _ -> Authorized
 
-userPermittedTable :: TableId -> PermissionType ->Handler AuthResult
+userPermittedTableFromColumn :: ColumnId -> PermissionType -> Handler AuthResult
+userPermittedTableFromColumn columnId permissionType = do
+    column <- runDB $ getJust columnId
+    userPermittedTable (columnTableId column) permissionType
+
+userPermittedTable :: TableId -> PermissionType -> Handler AuthResult
 userPermittedTable tableId permissionType = do
     muid <- maybeAuthId
     case muid of
-        Nothing -> Unauthorized
+        Nothing -> return $ Unauthorized "You must login to access this page"
         Just uid -> do
-            permission <- runDB $ getBy UniquePair uid tableId
+            mPermissionRow <- runDB $ getBy $ UniquePair uid tableId
+            return $ case mPermissionRow of
+                Nothing -> Unauthorized $ T.pack $ "You do not have the correct permissions to " ++ show permissionType ++ " this table."
+                Just (Entity _ permissionRow) -> 
+                    if permissionPermissionType permissionRow == permissionType 
+                    then Authorized 
+                    else Unauthorized $ T.pack $ "You do not have the correct permissions to " ++ show permissionType ++ " this table."
 
 
 instance YesodAuthPersist App
