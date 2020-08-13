@@ -13,6 +13,9 @@ postCommentR = do
     let comment' = comment { commentUserId = maybeCurrentUserId }
     -- use commentId <- insert comment
     -- update commentId [commentUserId =. maybeCurrentUserId]
+    --mTE <- runDB $ selectFirst [TableName ==. "fake table"] []
+    --let (Entity tableId _) = fromJust mTE
+    --runDB $ insert $ Permission (fromJust maybeCurrentUserId) tableId View
     
     insertedComment <- runDB $ insertEntity comment'
     returnJson insertedComment

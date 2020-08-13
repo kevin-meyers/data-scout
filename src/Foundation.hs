@@ -173,7 +173,7 @@ instance Yesod App where
     isAuthorized DataHomeR _ = isAuthenticated
     isAuthorized (DataTableR tableId) _ = userPermittedTable tableId View
     isAuthorized (DataTableFormR columnId) _ = userPermittedTableFromColumn columnId Edit
-    isAuthorized (DataTeamR teamId) _ = isAuthenticated -- userPermittedTeam teamId View
+    isAuthorized (DataTeamR _) _ = isAuthenticated -- userPermittedTeam teamId View
     isAuthorized DataTeamFormR _ = isAuthenticated
     isAuthorized (DataTeamTableListR _) _ = isAuthenticated
     isAuthorized (DataTeamAddTableR _ _) _ = isAuthenticated
@@ -292,7 +292,7 @@ userPermittedTable tableId permissionType = do
             return $ case mPermissionRow of
                 Nothing -> Unauthorized $ T.pack $ "You do not have the correct permissions to " ++ show permissionType ++ " this table."
                 Just (Entity _ permissionRow) -> 
-                    if permissionPermissionType permissionRow == permissionType 
+                    if permissionPermissionType permissionRow >= permissionType 
                     then Authorized 
                     else Unauthorized $ T.pack $ "You do not have the correct permissions to " ++ show permissionType ++ " this table."
 
