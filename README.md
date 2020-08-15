@@ -27,6 +27,9 @@ Searchable documentation: You can search the documentation to help you locate da
 
 This combined with the custom permission system will give a powerful discovery combination where other teams can let you discover their tables in the data dictionary even if you dont have permission to use the data itself. So if you discover tables that you want to use, you can reach out to the team and request access!
 
+### Existing solution and difference
+The most similar existing solution I found was dataedo, with their ability to add documentation very similar to how I would like to. The main differentiating factor will be my novel combination of permission system and searchability of documentation. Also mine will be much more focused on usability by people searching for data to solve their problems like data and business analysts, data scientists, management, and software engineers. 
+
 ## Haskell Setup
 
 1. If you haven't already, [install Stack](https://haskell-lang.org/get-started)
