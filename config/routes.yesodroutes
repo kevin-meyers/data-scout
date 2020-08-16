@@ -17,6 +17,7 @@
 
 /tables TablesR:
     / TableListR GET
+    /create TableCreateR GET POST
 
 /table/#TableId TableR:
     / TableDetailR GET

@@ -1,3 +1,5 @@
+<a href=@{TablesR TableCreateR}>Create a table
+
 <ul>
     $forall Entity tableId table <- tables
         <li>

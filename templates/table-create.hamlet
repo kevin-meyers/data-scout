@@ -1,0 +1,4 @@
+<form method=post action=@{TablesR TableCreateR} enctype=#{enctype}>
+    ^{widget}
+    <button>Submit
+<a href=@{TablesR TableListR}>Go Home!
