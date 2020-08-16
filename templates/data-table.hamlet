@@ -1,0 +1,15 @@
+$maybe Entity teamId team <- maybeTeamEntity
+    <a href=@{DataTeamR teamId}>#{teamName team}
+$nothing
+    <a href=@{DataTeamFormR}>Add your team!
+<ul>
+    $forall Entity columnId column <- columns
+        <li>
+            <a href=@{DataTableFormR columnId}>#{columnName column}
+            $maybe description <- columnDescription column
+                <p>#{description}
+            $maybe example <- columnExample column
+                <p>#{example}
+
+<a href=@{DataHomeR}>Go home
+
