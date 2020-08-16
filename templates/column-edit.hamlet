@@ -1,4 +1,4 @@
 <form method=post action=@{ColumnEditR columnId} enctype=#{enctype}>
     ^{widget}
     <button>Submit
-<a href=@{TableDetailR tableId}>Go back!
+<a href=@{TablesR $ TableDetailR tableId}>Go back!

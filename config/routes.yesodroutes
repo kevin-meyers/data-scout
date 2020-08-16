@@ -17,10 +17,8 @@
 
 /tables TablesR:
     / TableListR GET
-
-/table/#TableId TableDetailR GET
-
-/column-edit/#ColumnId ColumnEditR GET POST
+    /#TableId TableDetailR GET
+/column/#ColumnId/edit ColumnEditR GET POST
 
 /team/#TeamId TeamDetailR GET
 
