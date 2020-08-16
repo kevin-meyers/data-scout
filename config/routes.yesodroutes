@@ -15,16 +15,17 @@
 
 /metadata-form MetadataFormR GET POST
 
-/tables TableListR GET
+/tables TablesR:
+    / TableListR GET
 
 /table/#TableId TableR:
     / TableDetailR GET
     /column/#ColumnId/edit ColumnEditR GET POST
 
-/team/#TeamId TeamDetailR GET
+/teams TeamsR:
+    /create TeamCreateR GET POST
 
-/team-create TeamCreateR GET POST
-
-/data-team-table-list/#TeamId DataTeamTableListR GET
-
-/data-team-add-table/#TeamId/#TableId DataTeamAddTableR POST
+/team/#TeamId TeamR:
+    / TeamDetailR GET
+    /table-list DataTeamTableListR GET
+    /add-table/#TableId DataTeamAddTableR POST
