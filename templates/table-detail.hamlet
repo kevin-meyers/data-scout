@@ -5,10 +5,10 @@ $nothing
 <ul>
     $forall Entity columnId column <- columns
         <li>
-            <a href=@{ColumnEditR columnId}>#{columnName column}
+            <a href=@{TableR tableId $ ColumnEditR columnId}>#{columnName column}
             $maybe description <- columnDescription column
                 <p>#{description}
             $maybe example <- columnExample column
                 <p>#{example}
 
-<a href=@{TablesR TableListR}>Go home
+<a href=@{TableListR}>Go home

@@ -15,10 +15,11 @@
 
 /metadata-form MetadataFormR GET POST
 
-/tables TablesR:
-    / TableListR GET
-    /#TableId TableDetailR GET
-/column/#ColumnId/edit ColumnEditR GET POST
+/tables TableListR GET
+
+/table/#TableId TableR:
+    / TableDetailR GET
+    /column/#ColumnId/edit ColumnEditR GET POST
 
 /team/#TeamId TeamDetailR GET
 

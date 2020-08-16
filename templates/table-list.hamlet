@@ -1,4 +1,4 @@
 <ul>
     $forall Entity tableId table <- tables
         <li>
-            <a href=@{TablesR $ TableDetailR tableId}>#{tableName table}
+            <a href=@{TableR tableId TableDetailR}>#{tableName table}
