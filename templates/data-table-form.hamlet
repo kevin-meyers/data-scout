@@ -1,4 +1,4 @@
 <form method=post action=@{DataTableFormR columnId} enctype=#{enctype}>
     ^{widget}
     <button>Submit
-<a href=@{DataTableR tableId}>Go back!
+<a href=@{TableDetailR tableId}>Go back!

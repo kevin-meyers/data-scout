@@ -44,5 +44,5 @@ postDataTableFormR columnId = do
                 , ColumnDatatype =. columnDataDatatype columnData
                 , ColumnExample =. columnDataExample columnData
                 ]
-            redirect (DataTableR tableId)
+            redirect (TableDetailR tableId)
         _ -> redirect (DataTableFormR columnId)

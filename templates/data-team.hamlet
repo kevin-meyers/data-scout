@@ -8,4 +8,4 @@ $maybe description <- teamDescription team
         <p>The email address is: #{emailAddress}
 
     $forall Entity tableId table <- tables
-        <a href=@{DataTableR tableId}>#{tableName table}
+        <a href=@{TableDetailR tableId}>#{tableName table}

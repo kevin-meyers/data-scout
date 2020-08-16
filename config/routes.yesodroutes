@@ -17,7 +17,7 @@
 
 /tables TableListR GET
 
-/table/#TableId DataTableR GET
+/table/#TableId TableDetailR GET
 
 /data-table-form/#ColumnId DataTableFormR GET POST
 

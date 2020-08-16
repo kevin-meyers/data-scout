@@ -15,4 +15,4 @@ import Import
 getTableListR :: Handler Html
 getTableListR = do
     tables <- runDB $ selectList ([] :: [Filter Table]) []
-    defaultLayout $(widgetFile "data-home")
+    defaultLayout $(widgetFile "table-list")

@@ -1,5 +1,0 @@
-<ul>
-    $forall Entity tableId table <- tables
-        <li>
-            <a href=@{DataTableR tableId}>#{tableName table}
-

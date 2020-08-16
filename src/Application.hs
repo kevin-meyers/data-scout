@@ -46,7 +46,7 @@ import Handler.Comment
 import Handler.Profile
 import Handler.MetadataForm
 import Handler.TableList
-import Handler.DataTable
+import Handler.TableDetail
 import Handler.DataTableForm
 import Handler.DataTeam
 import Handler.DataTeamForm
