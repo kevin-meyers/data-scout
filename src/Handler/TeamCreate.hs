@@ -40,5 +40,5 @@ postTeamCreateR = do
                 (teamDataDescription teamData)
                 (teamDataPhoneNumber teamData)
                 (teamDataEmailAddress teamData)
-            redirect $ TeamDetailR teamId
-        _ -> redirect TeamCreateR
+            redirect $ TeamR teamId TeamDetailR
+        _ -> redirect $ TeamsR TeamCreateR

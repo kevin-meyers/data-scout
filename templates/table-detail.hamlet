@@ -1,14 +1,14 @@
 $maybe Entity teamId team <- maybeTeamEntity
-    <a href=@{TeamDetailR teamId}>#{teamName team}
+    <a href=@{TeamR teamId TeamDetailR}>#{teamName team}
 $nothing
-    <a href=@{TeamCreateR}>Add your team!
+    <a href=@{TeamsR TeamCreateR}>Add your team!
 <ul>
     $forall Entity columnId column <- columns
         <li>
-            <a href=@{ColumnEditR columnId}>#{columnName column}
+            <a href=@{TableR tableId $ ColumnEditR columnId}>#{columnName column}
             $maybe description <- columnDescription column
                 <p>#{description}
             $maybe example <- columnExample column
                 <p>#{example}
 
-<a href=@{TableListR}>Go home
+<a href=@{TablesR TableListR}>Go home

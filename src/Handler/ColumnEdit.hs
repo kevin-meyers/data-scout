@@ -10,11 +10,9 @@ module Handler.ColumnEdit where
 import Import
 import qualified Data.Text as T
 
-getColumnEditR :: ColumnId -> Handler Html
-getColumnEditR columnId = do
+getColumnEditR :: TableId -> ColumnId -> Handler Html
+getColumnEditR tableId columnId = do
     (widget, enctype) <- generateFormPost columnForm
-    column <- runDB $ getJust columnId
-    let tableId = columnTableId column
     defaultLayout $ do
         setTitle . toHtml $ T.pack "Update column"
         $(widgetFile "column-edit")
@@ -32,11 +30,9 @@ columnForm = renderDivs $ ColumnData
     <*> pure Nothing -- aopt textField "Datatype (leave empty)" Nothing
     <*> aopt textField "Example" Nothing
 
-postColumnEditR :: ColumnId -> Handler ()
-postColumnEditR columnId = do
+postColumnEditR :: TableId -> ColumnId -> Handler ()
+postColumnEditR tableId columnId = do
     ((result, _), _) <- runFormPost columnForm
-    column <- runDB $ getJust columnId
-    let tableId = columnTableId column
     case result of
         FormSuccess columnData -> do
             runDB $ update columnId
@@ -44,5 +40,5 @@ postColumnEditR columnId = do
                 , ColumnDatatype =. columnDataDatatype columnData
                 , ColumnExample =. columnDataExample columnData
                 ]
-            redirect (TableDetailR tableId)
-        _ -> redirect (ColumnEditR columnId)
+            redirect $ TableR tableId TableDetailR
+        _ -> redirect $ TableR tableId $ ColumnEditR columnId
