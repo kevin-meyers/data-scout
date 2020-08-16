@@ -1,0 +1,4 @@
+<form method=post action=@{DataTeamFormR} enctype=#{enctype}>
+    ^{widget}
+    <button>Submit
+<a href=@{DataHomeR}>Go Home!

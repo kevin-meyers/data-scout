@@ -1,8 +1,10 @@
-{-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE OverloadedStrings     #-}
 {-# LANGUAGE QuasiQuotes           #-}
-{-# LANGUAGE TypeFamilies          #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE TypeFamilies #-}
+
 module Handler.DataTeamForm where
 
 import Import
@@ -10,14 +12,8 @@ import Import
 getDataTeamFormR :: Handler Html
 getDataTeamFormR = do
     (widget, enctype) <- generateFormPost teamForm
-    defaultLayout
-        [whamlet|
-            <form method=post action=@{DataTeamFormR} enctype=#{enctype}>
-                ^{widget}
-                <button>Submit
-            <a href=@{DataHomeR}>Go Home!
-        |]
-    
+    defaultLayout $(widgetFile "data-team-form")
+   
 data TeamData = TeamData
     { teamDataName :: Text
     , teamDataDescription :: Maybe Text
