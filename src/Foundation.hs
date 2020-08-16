@@ -172,7 +172,7 @@ instance Yesod App where
     isAuthorized MetadataFormR _ = isAuthenticated
     isAuthorized TableListR _ = isAuthenticated
     isAuthorized (TableDetailR tableId) _ = userPermittedTable tableId View
-    isAuthorized (DataTableFormR columnId) _ = userPermittedTableFromColumn columnId Edit
+    isAuthorized (ColumnEditR columnId) _ = userPermittedTableFromColumn columnId Edit
     isAuthorized (DataTeamR _) _ = isAuthenticated -- userPermittedTeam teamId View
     isAuthorized DataTeamFormR _ = isAuthenticated
     isAuthorized (DataTeamTableListR _) _ = isAuthenticated

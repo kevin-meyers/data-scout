@@ -19,7 +19,7 @@
 
 /table/#TableId TableDetailR GET
 
-/data-table-form/#ColumnId DataTableFormR GET POST
+/column-edit/#ColumnId ColumnEditR GET POST
 
 /data-team/#TeamId DataTeamR GET
 
