@@ -1,6 +1,6 @@
 <a href=@{TablesR TableCreateR}>Create a table
 
 <ul>
-    $forall Entity tableId table <- tables
+    $forall (E.Value tableId, E.Value name) <- tables
         <li>
-            <a href=@{TableR tableId TableDetailR}>#{tableName table}
+            <a href=@{TableR tableId TableDetailR}>#{name}
