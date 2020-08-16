@@ -1,24 +1,23 @@
-{-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE OverloadedStrings     #-}
 {-# LANGUAGE QuasiQuotes           #-}
-{-# LANGUAGE TypeFamilies          #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE TypeFamilies #-}
+
 module Handler.DataTableForm where
 
 import Import
+import qualified Data.Text as T
 
 getDataTableFormR :: ColumnId -> Handler Html
 getDataTableFormR columnId = do
     (widget, enctype) <- generateFormPost columnForm
     column <- runDB $ getJust columnId
     let tableId = columnTableId column
-    defaultLayout
-        [whamlet|
-            <form method=post action=@{DataTableFormR columnId} enctype=#{enctype}>
-                ^{widget}
-                <button>Submit
-            <a href=@{DataTableR tableId}>Go back!
-        |]
+    defaultLayout $ do
+        setTitle . toHtml $ T.pack "Update column"
+        $(widgetFile "data-table-form")
     
 data ColumnData = ColumnData
     { columnDataDescription :: Maybe Text

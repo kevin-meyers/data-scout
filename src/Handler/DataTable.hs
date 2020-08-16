@@ -2,9 +2,13 @@
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE FlexibleContexts           #-}
 {-# LANGUAGE GADTs                      #-}
-{-# LANGUAGE MultiParamTypeClasses      #-}
-{-# LANGUAGE TypeFamilies               #-}
-{-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE QuasiQuotes           #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE TypeFamilies #-}
+
 module Handler.DataTable where
 
 import Import
@@ -16,20 +20,4 @@ getDataTableR tableId = do
     maybeTeamEntity <- case tableTeamId table of
         Nothing -> pure Nothing
         Just teamId -> runDB $ getEntity teamId
-    defaultLayout
-        [whamlet|
-            $maybe Entity teamId team <- maybeTeamEntity
-                <a href=@{DataTeamR teamId}>#{teamName team}
-            $nothing
-                <a href=@{DataTeamFormR}>Add your team!
-            <ul>
-                $forall Entity columnId column <- columns
-                    <li>
-                        <a href=@{DataTableFormR columnId}>#{columnName column}
-                        $maybe description <- columnDescription column
-                            <p>#{description}
-                        $maybe example <- columnExample column
-                            <p>#{example}
-
-            <a href=@{DataHomeR}>Go home
-        |]
+    defaultLayout $(widgetFile "data-table")
