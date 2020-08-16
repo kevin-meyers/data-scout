@@ -8,11 +8,11 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell #-}
 
-module Handler.DataHome where
+module Handler.TableList where
 
 import Import
 
-getDataHomeR :: Handler Html
-getDataHomeR = do
+getTableListR :: Handler Html
+getTableListR = do
     tables <- runDB $ selectList ([] :: [Filter Table]) []
     defaultLayout $(widgetFile "data-home")

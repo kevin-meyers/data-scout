@@ -2,5 +2,5 @@ $forall Entity tableId table <- validTableOptions
     <form action=@{DataTeamAddTableR teamId tableId} method="POST">
         <input type="submit" value="add #{tableName table}">
 
-<a href=@{DataHomeR}>Go home
+<a href=@{TableListR}>Go home
 

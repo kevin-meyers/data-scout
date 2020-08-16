@@ -15,9 +15,9 @@
 
 /metadata-form MetadataFormR GET POST
 
-/data-home DataHomeR GET
+/tables TableListR GET
 
-/data-table/#TableId DataTableR GET
+/table/#TableId DataTableR GET
 
 /data-table-form/#ColumnId DataTableFormR GET POST
 

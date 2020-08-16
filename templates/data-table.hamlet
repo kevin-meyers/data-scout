@@ -11,5 +11,4 @@ $nothing
             $maybe example <- columnExample column
                 <p>#{example}
 
-<a href=@{DataHomeR}>Go home
-
+<a href=@{TableListR}>Go home
