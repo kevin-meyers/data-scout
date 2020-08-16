@@ -5,14 +5,14 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeFamilies #-}
 
-module Handler.DataTeamForm where
+module Handler.TeamCreate where
 
 import Import
 
-getDataTeamFormR :: Handler Html
-getDataTeamFormR = do
+getTeamCreateR :: Handler Html
+getTeamCreateR = do
     (widget, enctype) <- generateFormPost teamForm
-    defaultLayout $(widgetFile "data-team-form")
+    defaultLayout $(widgetFile "team-create")
    
 data TeamData = TeamData
     { teamDataName :: Text
@@ -30,8 +30,8 @@ teamForm = renderDivs $ TeamData
     <*> aopt textField "Phone Number" Nothing
     <*> aopt textField "Email Address" Nothing
 
-postDataTeamFormR :: Handler ()
-postDataTeamFormR = do
+postTeamCreateR :: Handler ()
+postTeamCreateR = do
     ((result, _), _) <- runFormPost teamForm
     case result of
         FormSuccess teamData -> do
@@ -40,5 +40,5 @@ postDataTeamFormR = do
                 (teamDataDescription teamData)
                 (teamDataPhoneNumber teamData)
                 (teamDataEmailAddress teamData)
-            redirect $ DataTeamR teamId
-        _ -> redirect DataTeamFormR
+            redirect $ TeamDetailR teamId
+        _ -> redirect TeamCreateR

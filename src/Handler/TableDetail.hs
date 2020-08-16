@@ -9,15 +9,15 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeFamilies #-}
 
-module Handler.DataTable where
+module Handler.TableDetail where
 
 import Import
 
-getDataTableR :: TableId -> Handler Html
-getDataTableR tableId = do
+getTableDetailR :: TableId -> Handler Html
+getTableDetailR tableId = do
     columns <- runDB $ selectList [ColumnTableId ==. tableId] []
     table <- runDB $ getJust tableId
     maybeTeamEntity <- case tableTeamId table of
         Nothing -> pure Nothing
         Just teamId -> runDB $ getEntity teamId
-    defaultLayout $(widgetFile "data-table")
+    defaultLayout $(widgetFile "table-detail")

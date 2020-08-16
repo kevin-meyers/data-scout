@@ -45,11 +45,11 @@ import Handler.Home
 import Handler.Comment
 import Handler.Profile
 import Handler.MetadataForm
-import Handler.DataHome
-import Handler.DataTable
-import Handler.DataTableForm
-import Handler.DataTeam
-import Handler.DataTeamForm
+import Handler.TableList
+import Handler.TableDetail
+import Handler.ColumnEdit
+import Handler.TeamDetail
+import Handler.TeamCreate
 import Handler.DataTeamTableList
 import Handler.DataTeamAddTable
 

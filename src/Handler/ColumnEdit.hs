@@ -5,19 +5,19 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeFamilies #-}
 
-module Handler.DataTableForm where
+module Handler.ColumnEdit where
 
 import Import
 import qualified Data.Text as T
 
-getDataTableFormR :: ColumnId -> Handler Html
-getDataTableFormR columnId = do
+getColumnEditR :: ColumnId -> Handler Html
+getColumnEditR columnId = do
     (widget, enctype) <- generateFormPost columnForm
     column <- runDB $ getJust columnId
     let tableId = columnTableId column
     defaultLayout $ do
         setTitle . toHtml $ T.pack "Update column"
-        $(widgetFile "data-table-form")
+        $(widgetFile "column-edit")
     
 data ColumnData = ColumnData
     { columnDataDescription :: Maybe Text
@@ -32,8 +32,8 @@ columnForm = renderDivs $ ColumnData
     <*> pure Nothing -- aopt textField "Datatype (leave empty)" Nothing
     <*> aopt textField "Example" Nothing
 
-postDataTableFormR :: ColumnId -> Handler ()
-postDataTableFormR columnId = do
+postColumnEditR :: ColumnId -> Handler ()
+postColumnEditR columnId = do
     ((result, _), _) <- runFormPost columnForm
     column <- runDB $ getJust columnId
     let tableId = columnTableId column
@@ -44,5 +44,5 @@ postDataTableFormR columnId = do
                 , ColumnDatatype =. columnDataDatatype columnData
                 , ColumnExample =. columnDataExample columnData
                 ]
-            redirect (DataTableR tableId)
-        _ -> redirect (DataTableFormR columnId)
+            redirect (TableDetailR tableId)
+        _ -> redirect (ColumnEditR columnId)

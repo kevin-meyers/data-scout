@@ -15,15 +15,15 @@
 
 /metadata-form MetadataFormR GET POST
 
-/data-home DataHomeR GET
+/tables TableListR GET
 
-/data-table/#TableId DataTableR GET
+/table/#TableId TableDetailR GET
 
-/data-table-form/#ColumnId DataTableFormR GET POST
+/column-edit/#ColumnId ColumnEditR GET POST
 
-/data-team/#TeamId DataTeamR GET
+/team/#TeamId TeamDetailR GET
 
-/data-team-form DataTeamFormR GET POST
+/team-create TeamCreateR GET POST
 
 /data-team-table-list/#TeamId DataTeamTableListR GET
 
