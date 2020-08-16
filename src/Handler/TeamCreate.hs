@@ -23,7 +23,7 @@ data TeamData = TeamData
   deriving Show
 
 
-teamForm :: Html -> MForm Handler (FormResult TeamData, Widget)
+teamForm :: Form TeamData
 teamForm = renderDivs $ TeamData
     <$> areq textField "Name*" Nothing
     <*> aopt textField "Description" Nothing
