@@ -48,7 +48,7 @@ import Handler.MetadataForm
 import Handler.TableList
 import Handler.TableDetail
 import Handler.ColumnEdit
-import Handler.DataTeam
+import Handler.TeamDetail
 import Handler.DataTeamForm
 import Handler.DataTeamTableList
 import Handler.DataTeamAddTable

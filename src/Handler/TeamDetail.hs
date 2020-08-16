@@ -9,12 +9,12 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeFamilies #-}
 
-module Handler.DataTeam where
+module Handler.TeamDetail where
 
 import Import
 
-getDataTeamR :: TeamId -> Handler Html
-getDataTeamR teamId = do
+getTeamDetailR :: TeamId -> Handler Html
+getTeamDetailR teamId = do
     team <- runDB $ getJust teamId
     tables <- runDB $ selectList [TableTeamId ==. Just teamId] []
-    defaultLayout $(widgetFile "data-team")
+    defaultLayout $(widgetFile "team-detail")

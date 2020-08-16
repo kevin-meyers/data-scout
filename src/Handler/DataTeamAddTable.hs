@@ -8,4 +8,4 @@ import Import
 postDataTeamAddTableR :: TeamId -> TableId -> Handler ()
 postDataTeamAddTableR teamId tableId = do
     runDB $ update tableId [ TableTeamId =. Just teamId ]
-    redirect $ DataTeamR teamId
+    redirect $ TeamDetailR teamId

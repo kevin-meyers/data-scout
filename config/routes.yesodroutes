@@ -21,7 +21,7 @@
 
 /column-edit/#ColumnId ColumnEditR GET POST
 
-/data-team/#TeamId DataTeamR GET
+/team/#TeamId TeamDetailR GET
 
 /data-team-form DataTeamFormR GET POST
 

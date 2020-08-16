@@ -40,5 +40,5 @@ postDataTeamFormR = do
                 (teamDataDescription teamData)
                 (teamDataPhoneNumber teamData)
                 (teamDataEmailAddress teamData)
-            redirect $ DataTeamR teamId
+            redirect $ TeamDetailR teamId
         _ -> redirect DataTeamFormR

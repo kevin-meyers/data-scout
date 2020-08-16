@@ -1,5 +1,5 @@
 $maybe Entity teamId team <- maybeTeamEntity
-    <a href=@{DataTeamR teamId}>#{teamName team}
+    <a href=@{TeamDetailR teamId}>#{teamName team}
 $nothing
     <a href=@{DataTeamFormR}>Add your team!
 <ul>
