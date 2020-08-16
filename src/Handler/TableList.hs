@@ -12,7 +12,21 @@ module Handler.TableList where
 
 import Import
 
+import qualified Database.Esqueleto as E
+import           Database.Esqueleto      ((^.))
+
+import Data.Maybe (fromJust)
+
 getTableListR :: Handler Html
 getTableListR = do
-    tables <- runDB $ selectList ([] :: [Filter Table]) []
+    muid <- maybeAuthId
+    tables <- runDB 
+        $ E.select
+        $ E.from $ \(table `E.InnerJoin` permission) -> do
+            E.on $ table ^. TableId E.==. permission ^. PermissionTableId
+            E.where_ $ permission ^. PermissionUserId E.==. E.val (fromJust muid)
+            return
+                ( table ^. TableId
+                , table ^. TableName
+                )
     defaultLayout $(widgetFile "table-list")
