@@ -23,7 +23,7 @@
 
 /team/#TeamId TeamDetailR GET
 
-/data-team-form DataTeamFormR GET POST
+/team-create TeamCreateR GET POST
 
 /data-team-table-list/#TeamId DataTeamTableListR GET
 

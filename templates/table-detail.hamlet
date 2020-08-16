@@ -1,7 +1,7 @@
 $maybe Entity teamId team <- maybeTeamEntity
     <a href=@{TeamDetailR teamId}>#{teamName team}
 $nothing
-    <a href=@{DataTeamFormR}>Add your team!
+    <a href=@{TeamCreateR}>Add your team!
 <ul>
     $forall Entity columnId column <- columns
         <li>

@@ -1,4 +1,4 @@
-<form method=post action=@{DataTeamFormR} enctype=#{enctype}>
+<form method=post action=@{TeamCreateR} enctype=#{enctype}>
     ^{widget}
     <button>Submit
 <a href=@{TableListR}>Go Home!
