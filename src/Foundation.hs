@@ -170,7 +170,7 @@ instance Yesod App where
     -- delegate to that function
     isAuthorized ProfileR _ = isAuthenticated
     isAuthorized MetadataFormR _ = isAuthenticated
-    isAuthorized TableListR _ = isAuthenticated
+    isAuthorized (TablesR TableListR) _ = isAuthenticated
     isAuthorized (TableDetailR tableId) _ = userPermittedTable tableId View
     isAuthorized (ColumnEditR columnId) _ = userPermittedTableFromColumn columnId Edit
     isAuthorized (TeamDetailR _) _ = isAuthenticated -- userPermittedTeam teamId View

@@ -15,7 +15,8 @@
 
 /metadata-form MetadataFormR GET POST
 
-/tables TableListR GET
+/tables TablesR:
+    / TableListR GET
 
 /table/#TableId TableDetailR GET
 
