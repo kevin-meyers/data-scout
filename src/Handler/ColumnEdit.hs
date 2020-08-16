@@ -24,7 +24,7 @@ data ColumnData = ColumnData
     }
   deriving Show
 
-columnForm ::  Html -> MForm Handler (FormResult ColumnData, Widget)
+columnForm :: Form ColumnData
 columnForm = renderDivs $ ColumnData
     <$> aopt textField "Description" Nothing
     <*> pure Nothing -- aopt textField "Datatype (leave empty)" Nothing

@@ -22,7 +22,7 @@ data TableData = TableData
   deriving Show
 
 
-tableForm :: Html -> MForm Handler (FormResult TableData, Widget)
+tableForm :: Form TableData
 tableForm = renderDivs $ TableData
     <$> areq textField "Name*" Nothing
     <*> aopt textField "Description" Nothing
