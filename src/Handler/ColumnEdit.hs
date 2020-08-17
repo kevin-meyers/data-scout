@@ -10,9 +10,12 @@ module Handler.ColumnEdit where
 import Import
 import qualified Data.Text as T
 
+
 getColumnEditR :: TableId -> ColumnId -> Handler Html
 getColumnEditR tableId columnId = do
     (widget, enctype) <- generateFormPost columnForm
+    column <- runDB $ getJust columnId
+    table <- runDB $ getJust tableId
     defaultLayout $ do
         setTitle . toHtml $ T.pack "Update column"
         $(widgetFile "column-edit")
