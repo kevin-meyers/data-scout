@@ -1,0 +1,6 @@
+<h1>Edit team: #{teamName team}
+
+<form method=post action=@{TeamR teamId TeamEditR} enctype=#{enctype}>
+    ^{widget}
+    <button>Submit
+<a href=@{TeamR teamId TeamDetailR}>Go back!
