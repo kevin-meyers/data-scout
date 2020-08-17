@@ -18,5 +18,5 @@ getTeamDetailR teamId = do
     team <- runDB $ getJust teamId
     tables <- runDB $ selectList [TableTeamId ==. Just teamId] []
     defaultLayout $ do
-        setTitle . toHtml $ "Update column " <> teamName team
+        setTitle . toHtml $ teamName team <> "'s page"
         $(widgetFile "team-detail")
