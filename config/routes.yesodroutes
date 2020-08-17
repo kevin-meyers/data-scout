@@ -21,7 +21,9 @@
 
 /table/#TableId TableR:
     / TableDetailR GET
-    /column/#ColumnId/edit ColumnEditR GET POST
+    /column/#ColumnId ColumnR:
+        /edit ColumnEditR GET POST
+        /delete ColumnDeleteR POST
 
 /teams TeamsR:
     /create TeamCreateR GET POST
