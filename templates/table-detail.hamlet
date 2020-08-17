@@ -6,6 +6,9 @@ $nothing
     <a href=@{TeamsR TeamCreateR}>Add your team!
 
 <a href=@{TableR tableId $ ColumnsR ColumnCreateR}>Create new column
+
+<a href=@{TableR tableId TableEditR}>Edit the table
+
 <ul>
     $forall Entity columnId column <- columns
         <li>
