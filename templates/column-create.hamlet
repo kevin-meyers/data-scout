@@ -1,0 +1,8 @@
+<h1>Create a new column for table #{tableName table}
+<p>You can always edit or delete columns at any time
+
+<form method=post action=@{TableR tableId $ ColumnsR ColumnCreateR} enctype=#{enctype}>
+    ^{widget}
+    <button>Submit
+
+<a href=@{TableR tableId TableDetailR}>Go back
