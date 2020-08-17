@@ -8,8 +8,6 @@
 module Handler.ColumnEdit where
 
 import Import
-import qualified Data.Text as T
-
 
 getColumnEditR :: TableId -> ColumnId -> Handler Html
 getColumnEditR tableId columnId = do
@@ -17,7 +15,7 @@ getColumnEditR tableId columnId = do
     column <- runDB $ getJust columnId
     table <- runDB $ getJust tableId
     defaultLayout $ do
-        setTitle . toHtml $ T.pack "Update column"
+        setTitle . toHtml $ "Update column " <> columnName column
         $(widgetFile "column-edit")
     
 data ColumnData = ColumnData

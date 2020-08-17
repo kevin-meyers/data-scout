@@ -9,11 +9,14 @@ module Handler.TableCreate where
 
 import Import
 import Data.Maybe (fromJust)
+import qualified Data.Text as T
 
 getTableCreateR :: Handler Html
 getTableCreateR = do
     (widget, enctype) <- generateFormPost tableForm
-    defaultLayout $(widgetFile "table-create")
+    defaultLayout $ do
+        setTitle . toHtml $ T.pack "Create new table"
+        $(widgetFile "table-create")
    
 data TableData = TableData
     { tableDataName :: Text

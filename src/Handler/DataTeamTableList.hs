@@ -17,4 +17,6 @@ getDataTeamTableListR :: TeamId -> Handler Html
 getDataTeamTableListR teamId = do
     validTableOptions <- runDB $ selectList [TableTeamId ==. Nothing] []
     team <- runDB $ getJust teamId
-    defaultLayout $(widgetFile "data-team-table-list")
+    defaultLayout $ do
+        setTitle . toHtml $ "Add table to " <> teamName team
+        $(widgetFile "data-team-table-list")
