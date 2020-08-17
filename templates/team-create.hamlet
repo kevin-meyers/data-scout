@@ -1,3 +1,6 @@
+<h1>Create a new team
+<p>The team will be used to manage tables. More features such as users belonging to a team on their way!
+
 <form method=post action=@{TeamsR TeamCreateR} enctype=#{enctype}>
     ^{widget}
     <button>Submit
