@@ -33,5 +33,6 @@
 
 /team/#TeamId TeamR:
     / TeamDetailR GET
+    /edit TeamEditR GET POST
     /table-list DataTeamTableListR GET
     /add-table/#TableId DataTeamAddTableR POST
