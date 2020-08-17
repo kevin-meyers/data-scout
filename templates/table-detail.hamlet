@@ -1,3 +1,5 @@
+<h1>#{tableName table}
+
 $maybe Entity teamId team <- maybeTeamEntity
     <a href=@{TeamR teamId TeamDetailR}>#{teamName team}
 $nothing
