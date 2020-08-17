@@ -12,7 +12,9 @@ import Import
 getTeamCreateR :: Handler Html
 getTeamCreateR = do
     (widget, enctype) <- generateFormPost teamForm
-    defaultLayout $(widgetFile "team-create")
+    defaultLayout $ do
+        setTitle . toHtml $ ("Create a team" :: Text)
+        $(widgetFile "team-create")
    
 data TeamData = TeamData
     { teamDataName :: Text

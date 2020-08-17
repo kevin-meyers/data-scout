@@ -9,8 +9,6 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeFamilies #-}
 
-
-
 module Handler.TeamDetail where
 
 import Import
