@@ -20,4 +20,6 @@ getTableDetailR tableId = do
     maybeTeamEntity <- case tableTeamId table of
         Nothing -> pure Nothing
         Just teamId -> runDB $ getEntity teamId
-    defaultLayout $(widgetFile "table-detail")
+    defaultLayout $ do
+        setTitle . toHtml $ tableName table
+        $(widgetFile "table-detail")

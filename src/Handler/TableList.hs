@@ -7,6 +7,7 @@
 {-# LANGUAGE TypeFamilies               #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module Handler.TableList where
 
@@ -29,4 +30,6 @@ getTableListR = do
                 ( table ^. TableId
                 , table ^. TableName
                 )
-    defaultLayout $(widgetFile "table-list")
+    defaultLayout $ do
+        setTitle . toHtml $ ("All tables" :: Text)
+        $(widgetFile "table-list")
