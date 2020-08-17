@@ -7,9 +7,11 @@ $maybe Entity teamId team <- maybeTeamEntity
 $nothing
     <a href=@{TeamsR TeamCreateR}>Add your team!
 
-<a href=@{TableR tableId $ ColumnsR ColumnCreateR}>Create new column
+$if permissionPermissionType perm >= Own
+    <a href=@{TableR tableId $ ColumnsR ColumnCreateR}>Create new column
 
-<a href=@{TableR tableId TableEditR}>Edit the table
+$if permissionPermissionType perm >= Edit
+    <a href=@{TableR tableId TableEditR}>Edit the table
 
 <ul>
     $forall Entity columnId column <- columns
