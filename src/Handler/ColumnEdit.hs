@@ -42,4 +42,4 @@ postColumnEditR tableId columnId = do
                 , ColumnExample =. columnDataExample columnData
                 ]
             redirect $ TableR tableId TableDetailR
-        _ -> redirect $ TableR tableId $ ColumnEditR columnId
+        _ -> redirect $ TableR tableId $ ColumnR columnId ColumnEditR

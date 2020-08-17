@@ -1,7 +1,7 @@
 <h1>Edit column: #{columnName column}
 <h2>on table: #{tableName table}
 
-<form method=post action=@{TableR tableId $ ColumnEditR columnId} enctype=#{enctype}>
+<form method=post action=@{TableR tableId $ ColumnR columnId ColumnEditR} enctype=#{enctype}>
     ^{widget}
     <button>Submit
 <a href=@{TableR tableId TableDetailR}>Go back!
