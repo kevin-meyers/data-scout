@@ -5,19 +5,10 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeFamilies #-}
 
-module Handler.ColumnEdit where
+module Handler.ColumnCreateEdit where
 
 import Import
 
-getColumnEditR :: TableId -> ColumnId -> Handler Html
-getColumnEditR tableId columnId = do
-    column <- runDB $ getJust columnId
-    table <- runDB $ getJust tableId
-    (widget, enctype) <- generateFormPost $ columnForm $ Just column
-    defaultLayout $ do
-        setTitle . toHtml $ "Update column " <> columnName column
-        $(widgetFile "column-edit")
-    
 data ColumnData = ColumnData
     { columnDataName :: Text
     , columnDataDescription :: Maybe Text
@@ -33,6 +24,16 @@ columnForm column = renderDivs $ ColumnData
     <*> pure Nothing -- aopt textField "Datatype (leave empty)" Nothing
     <*> aopt textField "Example" (columnExample <$> column)
 
+
+getColumnEditR :: TableId -> ColumnId -> Handler Html
+getColumnEditR tableId columnId = do
+    column <- runDB $ getJust columnId
+    table <- runDB $ getJust tableId
+    (widget, enctype) <- generateFormPost $ columnForm $ Just column
+    defaultLayout $ do
+        setTitle . toHtml $ "Update column " <> columnName column
+        $(widgetFile "column-edit")
+
 postColumnEditR :: TableId -> ColumnId -> Handler ()
 postColumnEditR tableId columnId = do
     ((result, _), _) <- runFormPost $ columnForm Nothing
@@ -46,3 +47,28 @@ postColumnEditR tableId columnId = do
                 ]
             redirect $ TableR tableId TableDetailR
         _ -> redirect $ TableR tableId $ ColumnR columnId ColumnEditR
+
+
+getColumnCreateR :: TableId -> Handler Html
+getColumnCreateR tableId = do
+    (widget, enctype) <- generateFormPost $ columnForm Nothing
+    table <- runDB $ getJust tableId
+    defaultLayout $ do
+        setTitle . toHtml $ "Add column to " <> tableName table
+        $(widgetFile "column-create")
+   
+
+postColumnCreateR :: TableId -> Handler ()
+postColumnCreateR tableId = do
+    ((result, _), _) <- runFormPost $ columnForm Nothing
+    case result of
+        FormSuccess columnData -> do
+            _ <- runDB $ insert $ Column
+                (columnDataName columnData)
+                (columnDataDescription columnData)
+                Nothing
+                (columnDataExample columnData)
+                tableId
+            redirect $ TableR tableId TableDetailR
+        _ -> redirect $ TableR tableId $ ColumnsR ColumnCreateR
+

@@ -47,8 +47,7 @@ import Handler.Profile
 import Handler.MetadataForm
 import Handler.TableList
 import Handler.TableDetail
-import Handler.ColumnCreate
-import Handler.ColumnEdit
+import Handler.ColumnCreateEdit
 import Handler.ColumnDelete
 import Handler.TeamDetail
 import Handler.TeamCreate
