@@ -1,4 +1,6 @@
 <h1>#{tableName table}
+$maybe description <- tableDescription table
+    <p>#{description}
 
 $maybe Entity teamId team <- maybeTeamEntity
     <a href=@{TeamR teamId TeamDetailR}>#{teamName team}
@@ -6,6 +8,9 @@ $nothing
     <a href=@{TeamsR TeamCreateR}>Add your team!
 
 <a href=@{TableR tableId $ ColumnsR ColumnCreateR}>Create new column
+
+<a href=@{TableR tableId TableEditR}>Edit the table
+
 <ul>
     $forall Entity columnId column <- columns
         <li>

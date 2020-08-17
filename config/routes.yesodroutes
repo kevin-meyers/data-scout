@@ -21,6 +21,7 @@
 
 /table/#TableId TableR:
     / TableDetailR GET
+    /edit TableEditR GET POST
     /columns ColumnsR:
         /create ColumnCreateR GET POST
     /column/#ColumnId ColumnR:

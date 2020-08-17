@@ -173,6 +173,7 @@ instance Yesod App where
     isAuthorized (TablesR TableListR) _ = isAuthenticated
     isAuthorized (TablesR TableCreateR) _ = isAuthenticated 
     isAuthorized (TableR tableId TableDetailR) _ = userPermittedTable tableId View
+    isAuthorized (TableR tableId TableEditR) _ = userPermittedTable tableId Edit
     isAuthorized (TableR tableId (ColumnR _ ColumnEditR)) _ = userPermittedTable tableId Edit
     isAuthorized (TableR tableId (ColumnR _ ColumnDeleteR)) _ = userPermittedTable tableId Own
     isAuthorized (TableR tableId (ColumnsR ColumnCreateR)) _ = userPermittedTable tableId Edit

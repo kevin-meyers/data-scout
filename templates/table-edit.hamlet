@@ -1,0 +1,6 @@
+<h1>Edit table: #{tableName table}
+
+<form method=post action=@{TableR tableId TableEditR} enctype=#{enctype}>
+    ^{widget}
+    <button>Submit
+<a href=@{TableR tableId TableDetailR}>Go back!
