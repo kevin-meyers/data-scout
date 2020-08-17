@@ -1,3 +1,6 @@
+<h1>Edit column: #{columnName column}
+<h2>on table: #{tableName table}
+
 <form method=post action=@{TableR tableId $ ColumnEditR columnId} enctype=#{enctype}>
     ^{widget}
     <button>Submit

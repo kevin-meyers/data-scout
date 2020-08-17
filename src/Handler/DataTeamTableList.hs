@@ -16,4 +16,5 @@ import Import
 getDataTeamTableListR :: TeamId -> Handler Html
 getDataTeamTableListR teamId = do
     validTableOptions <- runDB $ selectList [TableTeamId ==. Nothing] []
+    team <- runDB $ getJust teamId
     defaultLayout $(widgetFile "data-team-table-list")
