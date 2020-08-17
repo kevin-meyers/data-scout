@@ -7,10 +7,13 @@ $nothing
 <ul>
     $forall Entity columnId column <- columns
         <li>
-            <a href=@{TableR tableId $ ColumnEditR columnId}>#{columnName column}
+            <a href=@{TableR tableId $ ColumnR columnId ColumnEditR}>#{columnName column}
             $maybe description <- columnDescription column
                 <p>#{description}
             $maybe example <- columnExample column
                 <p>#{example}
+            $if permissionPermissionType perm >= Own
+                <form method="POST" action=@{TableR tableId $ ColumnR columnId ColumnDeleteR}>
+                    <input type="submit" value="DELETE">
 
 <a href=@{TablesR TableListR}>Go home
