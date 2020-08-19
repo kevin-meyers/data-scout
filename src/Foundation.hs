@@ -16,16 +16,21 @@ import Text.Hamlet          (hamletFile)
 import Text.Jasmine         (minifym)
 import Control.Monad.Logger (LogSource)
 
--- Used only when in "auth-dummy-login" setting is enabled.
-import Yesod.Auth.Dummy
-
-import Yesod.Auth.OpenId    (authOpenId, IdentifierType (Claimed))
+import Yesod.Auth.OAuth2.Google
 import Yesod.Default.Util   (addStaticContentExternal)
 import Yesod.Core.Types     (Logger)
 import qualified Yesod.Core.Unsafe as Unsafe
 import qualified Data.CaseInsensitive as CI
 import qualified Data.Text.Encoding as TE
 import qualified Data.Text as T
+
+-- Replace with Google client ID.
+clientId :: Text
+clientId = "116467907892-u186h8n1tec5lb7alru80gjp6isk4n9f.apps.googleusercontent.com"
+
+-- Replace with Google secret ID.
+clientSecret :: Text
+clientSecret = "jMSGqDcwnzQFSBt6-YJAVB0E"
 
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -270,9 +275,7 @@ instance YesodAuth App where
 
     -- You can add other plugins like Google Email, email or OAuth here
     authPlugins :: App -> [AuthPlugin App]
-    authPlugins app = authOpenId Claimed [] : extraAuthPlugins
-        -- Enable authDummy login if enabled.
-        where extraAuthPlugins = [authDummy | appAuthDummyLogin $ appSettings app]
+    authPlugins _ = [oauth2GoogleScoped ["email", "profile"] clientId clientSecret]
 
 -- | Access function to determine if a user is logged in.
 isAuthenticated :: Handler AuthResult
