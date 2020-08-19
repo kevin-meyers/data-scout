@@ -20,7 +20,7 @@ $if permissionPermissionType perm >= Edit
             $maybe description <- columnDescription column
                 <p>#{description}
             $maybe example <- columnExample column
-                <p>#{example}
+                <p>Example: #{example}
             $if permissionPermissionType perm >= Own
                 <form method="POST" action=@{TableR tableId $ ColumnR columnId ColumnDeleteR}>
                     <input type="submit" value="DELETE">
