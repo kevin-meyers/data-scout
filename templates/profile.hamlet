@@ -1,10 +1,12 @@
 <div .ui.container>
 
-    <h1>
-      Access granted!
+    <h1>#{profileName profile}
 
-    <p>
-      This page is protected and access is allowed only for authenticated users.
+    $maybe bio <- profileBio profile
+        <p>#{bio}
 
-    <p>
-      Your data is protected with us <strong><span class="username">#{profileName profile}</span></strong>!
+    $maybe photoUrl <- profilePhotoUrl profile
+        <p>The photo url is #{photoUrl}
+
+    <p>#{profileName profile} belongs to team:
+    <a href=@{TeamR teamId TeamDetailR}>#{teamName team}

@@ -47,6 +47,7 @@ import Handler.MetadataForm
 
 import Handler.ProfileDetail
 import Handler.ProfileCreateEdit
+import Handler.ProfileRedirect
 
 import Handler.TableList
 import Handler.TableDetail
