@@ -17,13 +17,8 @@ data ProfileData = ProfileData
 
 getProfileDetailR :: ProfileId -> Handler Html
 getProfileDetailR profileId = do
-    mprofile <- runDB $ get profileId
-    case mprofile of
-        Nothing -> do
-            setUltDest $ ProfileR profileId ProfileDetailR
-            redirect $ ProfileR profileId ProfileEditR
-        Just profile -> do
-            team <- runDB $ getJust $ profileTeamId profile
-            defaultLayout $ do
-                setTitle . toHtml $ profileName profile <> "'s User page"
-                $(widgetFile "profile")
+    profile <- runDB $ getJust profileId
+    team <- runDB $ getJust $ profileTeamId profile
+    defaultLayout $ do
+        setTitle . toHtml $ profileName profile <> "'s User page"
+        $(widgetFile "profile")

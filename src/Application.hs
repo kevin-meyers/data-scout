@@ -43,18 +43,25 @@ import System.Log.FastLogger                (defaultBufSize, newStdoutLoggerSet,
 import Handler.Common
 import Handler.Home
 import Handler.Comment
-import Handler.ProfileDetail
 import Handler.MetadataForm
+
+import Handler.ProfileDetail
+import Handler.ProfileCreateEdit
+
 import Handler.TableList
 import Handler.TableDetail
-import Handler.ColumnCreateEdit
-import Handler.ColumnDelete
-import Handler.TeamDetail
-import Handler.TeamCreateEdit
-import Handler.DataTeamTableList
-import Handler.DataTeamAddTable
 import Handler.TableCreateEdit
 import Handler.TablePermissions
+
+import Handler.ColumnCreateEdit
+import Handler.ColumnDelete
+
+import Handler.TeamDetail
+import Handler.TeamCreateEdit
+
+import Handler.DataTeamTableList
+import Handler.DataTeamAddTable
+
 
 -- This line actually creates our YesodDispatch instance. It is the second half
 -- of the call to mkYesodData which occurs in Foundation.hs. Please see the

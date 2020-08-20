@@ -11,11 +11,12 @@
 
 /comments CommentR POST
 
-/profile-redirect ProfileRedirectR GET
+/profiles ProfilesR:
+    /redirect ProfileRedirectR GET
+    /create ProfileCreateR GET POST
 
 /profile/#ProfileId ProfileR:
     / ProfileDetailR GET
-    /create ProfileCreateR GET POST
     /edit ProfileEditR GET POST
 
 /metadata-form MetadataFormR GET POST
