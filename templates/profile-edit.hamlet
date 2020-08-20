@@ -1,0 +1,6 @@
+<h1>Editing your profile, #{profileName profile}
+
+<form method=post action=@{ProfileR profileId ProfileEditR} enctype=#{enctype}>
+    ^{widget}
+    <button>Submit
+<a href=@{ProfileR profileId ProfileDetailR}>Go back!

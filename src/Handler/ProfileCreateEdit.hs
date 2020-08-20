@@ -39,36 +39,36 @@ postProfileCreateR = do
     case result of
         FormSuccess profileData -> do
             userId <- requireAuthId
-            teamId <- selectFirst [TeamName ==. "team1"] []
+            mteamId <- runDB $ selectFirst [TeamName ==. "team1"] []
+            let (Entity teamId _) = fromJust mteamId
             profileId <- runDB $ insert $ Profile
+                (profileDataName profileData)
                 userId
-                (profileDataName profile)
-                (profileDataBio profile)
-                (profileDataPhotoUrl profile)
-                (fromJust teamId)
+                (profileDataBio profileData)
+                (profileDataPhotoUrl profileData)
+                teamId
 
-            redirect $ TeamR teamId TeamDetailR
-        _ -> redirect $ TeamsR TeamCreateR
+            redirect $ ProfileR profileId ProfileDetailR
+        _ -> redirect $ ProfilesR ProfileCreateR
 
 
-getTeamEditR :: TeamId -> Handler Html
-getTeamEditR teamId = do
-    team <- runDB $ getJust teamId
-    (widget, enctype) <- generateFormPost $ teamForm $ Just team
+getProfileEditR :: ProfileId -> Handler Html
+getProfileEditR profileId = do
+    profile <- runDB $ getJust profileId
+    (widget, enctype) <- generateFormPost $ profileForm $ Just profile
     defaultLayout $ do
-        setTitle . toHtml $ "Edit team " <> teamName team
-        $(widgetFile "team-edit")
+        setTitle . toHtml $ "Edit " <> profileName profile <> "'s profile"
+        $(widgetFile "profile-edit")
    
-postTeamEditR :: TeamId -> Handler ()
-postTeamEditR teamId = do
-    ((result, _), _) <- runFormPost $ teamForm Nothing
+postProfileEditR :: ProfileId -> Handler ()
+postProfileEditR profileId = do
+    ((result, _), _) <- runFormPost $ profileForm Nothing
     case result of
-        FormSuccess teamData -> do
-            runDB $ update teamId
-                [ TeamName =. teamDataName teamData
-                , TeamDescription =. teamDataDescription teamData
-                , TeamPhoneNumber =. teamDataPhoneNumber teamData
-                , TeamEmailAddress =. teamDataEmailAddress teamData
+        FormSuccess profileData -> do
+            runDB $ update profileId
+                [ ProfileName =. profileDataName profileData
+                , ProfileBio =. profileDataBio profileData
+                , ProfilePhotoUrl =. profileDataPhotoUrl profileData
                 ]
-            redirect $ TeamR teamId TeamDetailR
-        _ -> redirect $ TeamR teamId TeamEditR
+            redirect $ ProfileR profileId ProfileDetailR
+        _ -> redirect $ ProfileR profileId ProfileEditR
