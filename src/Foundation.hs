@@ -121,7 +121,7 @@ instance Yesod App where
                     }
                 , NavbarLeft MenuItem
                     { menuItemLabel = "Profile"
-                    , menuItemRoute = ProfileR
+                    , menuItemRoute = HomeR -- for now
                     , menuItemAccessCallback = isJust muser
                     }
                 , NavbarRight MenuItem
@@ -173,7 +173,7 @@ instance Yesod App where
 
     -- the profile route requires that the user is authenticated, so we
     -- delegate to that function
-    isAuthorized ProfileR _ = isAuthenticated
+    isAuthorized (ProfileR _) _ = isAuthenticated
     isAuthorized MetadataFormR _ = isAuthenticated
     isAuthorized (TablesR TableListR) _ = isAuthenticated
     isAuthorized (TablesR TableCreateR) _ = isAuthenticated 
@@ -235,7 +235,7 @@ instance YesodBreadcrumbs App where
         -> Handler (Text, Maybe (Route App))
     breadcrumb HomeR = return ("Home", Nothing)
     breadcrumb (AuthR _) = return ("Login", Just HomeR)
-    breadcrumb ProfileR = return ("Profile", Just HomeR)
+    breadcrumb (ProfileR _)= return ("Profile", Just HomeR)
     breadcrumb  _ = return ("home", Nothing)
 
 -- How to run database actions.

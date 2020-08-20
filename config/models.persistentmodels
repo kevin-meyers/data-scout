@@ -12,7 +12,8 @@ Profile
     userId UserId
     bio Text Maybe
     photoUrl Text Maybe
-    teamId TeamId Maybe
+    teamId TeamId
+    UniqueProfile userId
 Email
     email Text
     userId UserId Maybe

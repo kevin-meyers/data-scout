@@ -11,7 +11,7 @@
 
 /comments CommentR POST
 
-/profile ProfileR GET
+/profile/#UserId ProfileR GET
 
 /metadata-form MetadataFormR GET POST
 
