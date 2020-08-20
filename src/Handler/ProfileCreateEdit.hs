@@ -9,9 +9,11 @@ module Handler.ProfileCreateEdit where
 
 import Import
 
+import Data.Maybe (fromJust)
+
 data ProfileData = ProfileData
     { profileDataName :: Text
-    , profileDatabio :: Maybe Text
+    , profileDataBio :: Maybe Text
     , profileDataPhotoUrl :: Maybe Text
     }
   deriving Show
@@ -28,19 +30,23 @@ getProfileCreateR :: Handler Html
 getProfileCreateR = do
     (widget, enctype) <- generateFormPost $ profileForm Nothing
     defaultLayout $ do
-        setTitle . toHtml $ ("Create a team" :: Text)
-        $(widgetFile "team-create")
+        setTitle . toHtml $ ("Create a new profile" :: Text)
+        $(widgetFile "profile-create")
    
-postTeamCreateR :: Handler ()
-postTeamCreateR = do
-    ((result, _), _) <- runFormPost $ teamForm Nothing
+postProfileCreateR :: Handler ()
+postProfileCreateR = do
+    ((result, _), _) <- runFormPost $ profileForm Nothing
     case result of
-        FormSuccess teamData -> do
-            teamId <- runDB $ insert $ Team
-                (teamDataName teamData)
-                (teamDataDescription teamData)
-                (teamDataPhoneNumber teamData)
-                (teamDataEmailAddress teamData)
+        FormSuccess profileData -> do
+            userId <- requireAuthId
+            teamId <- selectFirst [TeamName ==. "team1"] []
+            profileId <- runDB $ insert $ Profile
+                userId
+                (profileDataName profile)
+                (profileDataBio profile)
+                (profileDataPhotoUrl profile)
+                (fromJust teamId)
+
             redirect $ TeamR teamId TeamDetailR
         _ -> redirect $ TeamsR TeamCreateR
 

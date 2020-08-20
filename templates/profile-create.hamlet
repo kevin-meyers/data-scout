@@ -1,0 +1,6 @@
+<h1>Create a new profile
+<p>The data you put in here will be used to create your profile, it can be edited at any time. This will usually be the first thing users look at when you ask them question or request table permissions.
+
+<form method=post action=@{ProfilesR ProfileCreateR} enctype=#{enctype}>
+    ^{widget}
+    <button>Submit
