@@ -6,6 +6,7 @@ User
     password Text Maybe
     UniqueUser ident
     deriving Typeable
+    deriving Eq
 Email
     email Text
     userId UserId Maybe
@@ -39,3 +40,4 @@ Permission
     tableId TableId
     permissionType PermissionType
     UniquePair userId tableId
+    deriving Eq

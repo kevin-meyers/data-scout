@@ -1,0 +1,9 @@
+<h1>Grant a User permission to table: #{tableName table}
+<p>If you give View, they will be able to read the documentation
+<p>Edit will let them edit the column descriptions and metadata
+<p>Own will give them the same permission as you, delete table, add and remove columns, and grant permissions.
+
+<form method=post action=@{TableR tableId TablePermissionsR} enctype=#{enctype}>
+    ^{widget}
+    <button>Submit
+<a href=@{TableR tableId TableDetailR}>Go Home!

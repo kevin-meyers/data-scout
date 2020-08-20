@@ -22,6 +22,7 @@
 /table/#TableId TableR:
     / TableDetailR GET
     /edit TableEditR GET POST
+    /permissions TablePermissionsR GET POST
     /columns ColumnsR:
         /create ColumnCreateR GET POST
     /column/#ColumnId ColumnR:
