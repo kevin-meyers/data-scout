@@ -7,6 +7,12 @@ User
     UniqueUser ident
     deriving Typeable
     deriving Eq
+Profile
+    name Text
+    userId UserId
+    bio Text Maybe
+    photoUrl Text Maybe
+    teamId TeamId Maybe
 Email
     email Text
     userId UserId Maybe
