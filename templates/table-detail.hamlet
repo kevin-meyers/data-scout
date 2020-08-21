@@ -13,6 +13,10 @@ $if permissionPermissionType perm >= Own
 $if permissionPermissionType perm >= Edit
     <a href=@{TableR tableId TableEditR}>Edit the table
 
+$if permissionPermissionType perm >= Own
+    <form action=@{TableR tableId TableDeleteR} method="POST">
+        <input type="submit" value="Delete table">
+
 <ul>
     $forall Entity columnId column <- columns
         <li>
@@ -23,6 +27,6 @@ $if permissionPermissionType perm >= Edit
                 <p>Example: #{example}
             $if permissionPermissionType perm >= Own
                 <form method="POST" action=@{TableR tableId $ ColumnR columnId ColumnDeleteR}>
-                    <input type="submit" value="DELETE">
+                    <input type="submit" value="Delete column">
 
 <a href=@{TablesR TableListR}>Go home
