@@ -7,5 +7,13 @@ $maybe description <- teamDescription team
     $maybe emailAddress <- teamEmailAddress team
         <p>The email address is: #{emailAddress}
 
+$if not $ null tables
+    <h4>Tables:
     $forall Entity tableId table <- tables
         <a href=@{TableR tableId TableDetailR}>#{tableName table}
+
+$if not $ null profiles
+    <h4>Team members:
+    $forall Entity profileId profile <- profiles
+        <a href=@{ProfileR profileId ProfileDetailR}>#{profileName profile}
+

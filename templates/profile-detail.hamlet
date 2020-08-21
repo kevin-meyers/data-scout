@@ -1,0 +1,13 @@
+<h1>#{profileName profile}
+
+$maybe bio <- profileBio profile
+    <p>#{bio}
+
+$maybe photoUrl <- profilePhotoUrl profile
+    <p>The photo url is #{photoUrl}
+
+<p>#{profileName profile} belongs to team:
+<a href=@{TeamR teamId TeamDetailR}>#{teamName team}
+
+$if canEdit
+    <a href=@{ProfileR profileId ProfileEditR}>Edit your info!

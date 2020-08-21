@@ -9,15 +9,14 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeFamilies #-}
 
-module Handler.TeamDetail where
+module Handler.ProfileRedirect where
 
 import Import
 
-getTeamDetailR :: TeamId -> Handler Html
-getTeamDetailR teamId = do
-    team <- runDB $ getJust teamId
-    tables <- runDB $ selectList [TableTeamId ==. Just teamId] []
-    profiles <- runDB $ selectList [ProfileTeamId ==. teamId] []
-    defaultLayout $ do
-        setTitle . toHtml $ teamName team <> "'s page"
-        $(widgetFile "team-detail")
+getProfileRedirectR :: Handler ()
+getProfileRedirectR = do
+    uid <- requireAuthId
+    mprofile <- runDB $ selectFirst [ProfileUserId ==. uid] []
+    case mprofile of
+        Nothing -> redirect $ ProfilesR ProfileCreateR
+        Just (Entity profileId _) -> redirect $ ProfileR profileId ProfileDetailR

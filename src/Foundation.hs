@@ -121,7 +121,7 @@ instance Yesod App where
                     }
                 , NavbarLeft MenuItem
                     { menuItemLabel = "Profile"
-                    , menuItemRoute = ProfileR
+                    , menuItemRoute = ProfilesR ProfileRedirectR
                     , menuItemAccessCallback = isJust muser
                     }
                 , NavbarRight MenuItem
@@ -170,10 +170,13 @@ instance Yesod App where
     isAuthorized FaviconR _ = return Authorized
     isAuthorized RobotsR _ = return Authorized
     isAuthorized (StaticR _) _ = return Authorized
+    isAuthorized (ProfileR _ ProfileDetailR) _ = return Authorized
 
     -- the profile route requires that the user is authenticated, so we
     -- delegate to that function
-    isAuthorized ProfileR _ = isAuthenticated
+    isAuthorized (ProfileR profileId ProfileEditR) _ = userPermittedProfile profileId
+    isAuthorized (ProfilesR ProfileRedirectR) _ = isAuthenticated
+    isAuthorized (ProfilesR ProfileCreateR) _ = userProfileNotExists
     isAuthorized MetadataFormR _ = isAuthenticated
     isAuthorized (TablesR TableListR) _ = isAuthenticated
     isAuthorized (TablesR TableCreateR) _ = isAuthenticated 
@@ -235,7 +238,7 @@ instance YesodBreadcrumbs App where
         -> Handler (Text, Maybe (Route App))
     breadcrumb HomeR = return ("Home", Nothing)
     breadcrumb (AuthR _) = return ("Login", Just HomeR)
-    breadcrumb ProfileR = return ("Profile", Just HomeR)
+    breadcrumb (ProfilesR ProfileRedirectR) = return ("Profile", Just HomeR)
     breadcrumb  _ = return ("home", Nothing)
 
 -- How to run database actions.
@@ -286,11 +289,6 @@ isAuthenticated = do
         Nothing -> Unauthorized "You must login to access this page"
         Just _ -> Authorized
 
-userPermittedTableFromColumn :: ColumnId -> PermissionType -> Handler AuthResult
-userPermittedTableFromColumn columnId permissionType = do
-    column <- runDB $ getJust columnId
-    userPermittedTable (columnTableId column) permissionType
-
 userPermittedTable :: TableId -> PermissionType -> Handler AuthResult
 userPermittedTable tableId permissionType = do
     muid <- maybeAuthId
@@ -305,6 +303,25 @@ userPermittedTable tableId permissionType = do
                     then Authorized 
                     else Unauthorized $ T.pack $ "You do not have the correct permissions to " ++ show permissionType ++ " this table."
 
+
+userProfileNotExists :: Handler AuthResult
+userProfileNotExists = do
+    userId <- requireAuthId
+    mprofile <- runDB $ selectFirst [ProfileUserId ==. userId] []
+    return $ case mprofile of
+        Nothing -> Authorized
+        Just (Entity _ profile) -> Unauthorized $ T.pack "Profile for " ++ profileName profile ++ " already exists."
+
+userPermittedProfile :: ProfileId -> Handler AuthResult
+userPermittedProfile profileId = do
+    (userId, _) <- requireAuthPair
+    mprofile <- runDB $ get profileId
+    return $ case mprofile of
+        Nothing -> Unauthorized $ T.pack ""
+        Just profile -> 
+            if userId == profileUserId profile 
+              then Authorized 
+              else Unauthorized $ T.pack ""
 
 instance YesodAuthPersist App
 
