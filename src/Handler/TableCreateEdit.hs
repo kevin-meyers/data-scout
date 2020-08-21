@@ -18,11 +18,29 @@ data TableData = TableData
     }
   deriving Show
 
+nameAttributes :: FieldSettings master
+nameAttributes = FieldSettings 
+    "Name*" -- The label
+    Nothing -- The tooltip
+    Nothing -- The Id
+    (Just "Name") -- The name attr
+    [("class", "")] -- list of attributes and their values
+
+
+descriptionAttributes :: FieldSettings master
+descriptionAttributes = FieldSettings 
+    "Description" -- The label
+    Nothing -- The tooltip
+    Nothing -- The Id
+    (Just "Name") -- The name attr
+    [("class", "")] -- list of attributes and their values
+
+
+
 tableForm :: Maybe Table -> Form TableData
 tableForm table = renderDivs $ TableData
-    <$> areq textField "Name" (tableName <$> table)
-    <*> aopt textField "Description" (tableDescription <$> table)
-
+    <$> areq textField nameAttributes (tableName <$> table)
+    <*> aopt textField descriptionAttributes (tableDescription <$> table)
 
 getTableCreateR :: Handler Html
 getTableCreateR = do

@@ -18,13 +18,35 @@ data ProfileData = ProfileData
     }
   deriving Show
 
+nameAttributes :: FieldSettings master
+nameAttributes = FieldSettings 
+    "Name*" -- The label
+    Nothing -- The tooltip
+    Nothing -- The Id
+    (Just "Name") -- The name attr
+    [("class", "profileName inputField")] -- list of attributes and their values
+
+bioAttributes :: FieldSettings master
+bioAttributes = FieldSettings 
+    "Bio" -- The label
+    Nothing -- The tooltip
+    Nothing -- The Id
+    Nothing -- The name attr
+    [("class", "")] -- list of attributes and their values
+
+photoUrlAttributes :: FieldSettings master
+photoUrlAttributes = FieldSettings 
+    "Photo Url" -- The label
+    Nothing -- The tooltip
+    Nothing -- The Id
+    Nothing -- The name attr
+    [("class", "")] -- list of attributes and their values
 
 profileForm :: Maybe Profile -> Form ProfileData
 profileForm profile = renderDivs $ ProfileData
-    <$> areq textField "Name*" (profileName <$> profile)
-    <*> aopt textField "Bio" (profileBio <$> profile)
-    <*> aopt textField "Photo Url" (profilePhotoUrl <$> profile)
-
+    <$> areq textField nameAttributes (profileName <$> profile)
+    <*> aopt textField bioAttributes (profileBio <$> profile)
+    <*> aopt textField photoUrlAttributes (profilePhotoUrl <$> profile)
 
 getProfileCreateR :: Handler Html
 getProfileCreateR = do

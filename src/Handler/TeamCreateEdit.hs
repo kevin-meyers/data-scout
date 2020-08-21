@@ -17,13 +17,44 @@ data TeamData = TeamData
     }
   deriving Show
 
+nameAttributes :: FieldSettings master
+nameAttributes = FieldSettings 
+    "Name*" -- The label
+    Nothing -- The tooltip
+    Nothing -- The Id
+    (Just "Name") -- The name attr
+    [("class", "")] -- list of attributes and their values
+
+descriptionAttributes :: FieldSettings master
+descriptionAttributes = FieldSettings 
+    "Description" -- The label
+    Nothing -- The tooltip
+    Nothing -- The Id
+    (Just "Name") -- The name attr
+    [("class", "")] -- list of attributes and their values
+
+phoneNumberAttributes :: FieldSettings master
+phoneNumberAttributes = FieldSettings 
+    "Phone Number" -- The label
+    Nothing -- The tooltip
+    Nothing -- The Id
+    (Just "Name") -- The name attr
+    [("class", "")] -- list of attributes and their values
+
+emailAddressAttributes :: FieldSettings master
+emailAddressAttributes = FieldSettings 
+    "Email Address" -- The label
+    Nothing -- The tooltip
+    Nothing -- The Id
+    (Just "Name") -- The name attr
+    [("class", "")] -- list of attributes and their values
 
 teamForm :: Maybe Team -> Form TeamData
 teamForm team = renderDivs $ TeamData
-    <$> areq textField "Name*" (teamName <$> team)
-    <*> aopt textField "Description" (teamDescription <$> team)
-    <*> aopt textField "Phone Number" (teamPhoneNumber <$> team)
-    <*> aopt textField "Email Address" (teamEmailAddress <$> team)
+    <$> areq textField nameAttributes (teamName <$> team)
+    <*> aopt textField descriptionAttributes (teamDescription <$> team)
+    <*> aopt textField phoneNumberAttributes (teamPhoneNumber <$> team)
+    <*> aopt textField emailAddressAttributes (teamEmailAddress <$> team)
 
 
 getTeamCreateR :: Handler Html
