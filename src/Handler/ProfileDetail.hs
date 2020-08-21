@@ -18,7 +18,12 @@ data ProfileData = ProfileData
 getProfileDetailR :: ProfileId -> Handler Html
 getProfileDetailR profileId = do
     profile <- runDB $ getJust profileId
+    muid <- maybeAuthId
+    let canEdit = case muid of
+            Nothing -> False
+            Just uid -> uid == profileUserId profile
+
     (Entity teamId team) <- runDB $ getJustEntity $ profileTeamId profile
     defaultLayout $ do
         setTitle . toHtml $ profileName profile <> "'s User page"
-        $(widgetFile "profile")
+        $(widgetFile "profile-detail")
