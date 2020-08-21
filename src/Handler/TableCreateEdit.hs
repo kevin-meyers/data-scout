@@ -22,10 +22,9 @@ nameAttributes :: FieldSettings master
 nameAttributes = FieldSettings 
     "Name*" -- The label
     Nothing -- The tooltip
-    Nothing -- The Id
-    (Just "Name") -- The name attr
-    [("class", "")] -- list of attributes and their values
-
+    (Just "name") -- The Id
+    Nothing -- The name attr
+    [("class", "name")] -- list of attributes and their values
 
 descriptionAttributes :: FieldSettings master
 descriptionAttributes = FieldSettings 

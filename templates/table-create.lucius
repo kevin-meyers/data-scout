@@ -1,0 +1,7 @@
+label[for=name] {
+    color: pink;
+}
+
+.box {
+    display: flex;
+}
