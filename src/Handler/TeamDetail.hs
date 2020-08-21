@@ -17,6 +17,7 @@ getTeamDetailR :: TeamId -> Handler Html
 getTeamDetailR teamId = do
     team <- runDB $ getJust teamId
     tables <- runDB $ selectList [TableTeamId ==. Just teamId] []
+    profiles <- runDB $ selectList [ProfileTeamId ==. teamId] []
     defaultLayout $ do
         setTitle . toHtml $ teamName team <> "'s page"
         $(widgetFile "team-detail")
