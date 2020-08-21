@@ -43,10 +43,10 @@ exampleAttributes = FieldSettings
 
 columnForm :: Maybe Column -> Form ColumnData
 columnForm column = renderDivs $ ColumnData
-    <$> areq textField "Name" (columnName <$> column)
-    <*> aopt textField "Description" (columnDescription <$> column)
+    <$> areq textField nameAttributes (columnName <$> column)
+    <*> aopt textField descriptionAttributes (columnDescription <$> column)
     <*> pure Nothing -- aopt textField "Datatype (leave empty)" Nothing
-    <*> aopt textField "Example" (columnExample <$> column)
+    <*> aopt textField exampleAttributes (columnExample <$> column)
 
 
 getColumnEditR :: TableId -> ColumnId -> Handler Html
