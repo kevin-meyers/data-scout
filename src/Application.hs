@@ -53,6 +53,7 @@ import Handler.TableList
 import Handler.TableDetail
 import Handler.TableCreateEdit
 import Handler.TablePermissions
+import Handler.TableDelete
 
 import Handler.ColumnCreateEdit
 import Handler.ColumnDelete

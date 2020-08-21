@@ -29,6 +29,7 @@
     / TableDetailR GET
     /edit TableEditR GET POST
     /permissions TablePermissionsR GET POST
+    /delete TableDeleteR POST
     /columns ColumnsR:
         /create ColumnCreateR GET POST
     /column/#ColumnId ColumnR:
