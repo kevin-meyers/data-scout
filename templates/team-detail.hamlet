@@ -1,4 +1,4 @@
-<h1>#{teamName team}
+<h1 class="teamName">#{teamName team}
 $maybe description <- teamDescription team
     <p>#{description}
 <p>
