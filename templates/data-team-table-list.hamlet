@@ -1,8 +1,7 @@
 <h1>Claim a table for your team
 <h3>Team name: #{teamName team}
 
-$forall Entity tableId table <- validTableOptions
-    <form action=@{TeamR teamId $ DataTeamAddTableR tableId} method="POST">
-        <input type="submit" value="add #{tableName table}">
-
-<a href=@{TablesR TableListR}>Go home
+<form method=post action=@{TeamR teamId TeamAddTableR} enctype=#{enctype}>
+    ^{widget}
+    <button>Submit
+<a href=@{TeamR teamId TeamDetailR}>Go back!
