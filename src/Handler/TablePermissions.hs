@@ -14,7 +14,7 @@ module Handler.TablePermissions where
 import Import
 
 data PermissionData = PermissionData 
-    { permissionDataUser :: UserId
+    { permissionDataProfileId :: ProfileId
     , permissionDataType :: PermissionType
     }
 
@@ -24,7 +24,7 @@ permissionForm = renderDivs $ PermissionData
     <*> areq (selectFieldList pTuples) "which perm?" Nothing
       where
           pTuples = [("Own" :: Text, Own), ("Edit", Edit), ("View", View)]
-          uTuples = optionsPersistKey ([] :: [Filter User]) [] userIdent
+          uTuples = optionsPersistKey ([] :: [Filter Profile]) [] profileName
 
 getTablePermissionsR :: TableId -> Handler Html
 getTablePermissionsR tableId = do
@@ -39,8 +39,9 @@ postTablePermissionsR tableId = do
     ((result, _), _) <- runFormPost permissionForm
     case result of
         FormSuccess permissionData -> do
+            profile <- runDB $ getJust $ permissionDataProfileId permissionData
             _ <- runDB $ insert $ Permission
-                (permissionDataUser permissionData)
+                (profileUserId profile)
                 tableId
                 (permissionDataType permissionData)
             redirect $ TableR tableId TableDetailR
