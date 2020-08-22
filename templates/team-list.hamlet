@@ -1,0 +1,6 @@
+<a href=@{TeamsR TeamCreateR}>Create a new team
+
+<ul>
+    $forall  (Entity teamId team) <- teams
+        <li>
+            <a href=@{TeamR teamId TeamDetailR}>#{teamName team}
