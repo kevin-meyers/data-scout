@@ -12,7 +12,7 @@ Profile
     userId UserId
     bio Text Maybe
     photoUrl Text Maybe
-    teamId TeamId
+    teamId TeamId Maybe
     UniqueProfile userId
 Email
     email Text

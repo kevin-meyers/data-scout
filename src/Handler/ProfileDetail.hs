@@ -23,7 +23,9 @@ getProfileDetailR profileId = do
             Nothing -> False
             Just uid -> uid == profileUserId profile
 
-    (Entity teamId team) <- runDB $ getJustEntity $ profileTeamId profile
+    mteam <- case profileTeamId profile of
+        Nothing -> pure Nothing
+        Just teamId -> runDB $ getEntity teamId
     defaultLayout $ do
         setTitle . toHtml $ profileName profile <> "'s User page"
         $(widgetFile "profile-detail")

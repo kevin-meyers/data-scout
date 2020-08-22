@@ -9,8 +9,6 @@ module Handler.ProfileCreateEdit where
 
 import Import
 
-import Data.Maybe (fromJust)
-
 data ProfileData = ProfileData
     { profileDataName :: Text
     , profileDataBio :: Maybe Text
@@ -61,14 +59,12 @@ postProfileCreateR = do
     case result of
         FormSuccess profileData -> do
             userId <- requireAuthId
-            mteamId <- runDB $ selectFirst [TeamName ==. "team1"] []
-            let (Entity teamId _) = fromJust mteamId
             profileId <- runDB $ insert $ Profile
                 (profileDataName profileData)
                 userId
                 (profileDataBio profileData)
                 (profileDataPhotoUrl profileData)
-                teamId
+                Nothing
 
             redirect $ ProfileR profileId ProfileDetailR
         _ -> redirect $ ProfilesR ProfileCreateR
