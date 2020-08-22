@@ -31,10 +31,8 @@ descriptionAttributes = FieldSettings
     "Description" -- The label
     Nothing -- The tooltip
     Nothing -- The Id
-    (Just "Name") -- The name attr
+    Nothing
     [("class", "")] -- list of attributes and their values
-
-
 
 tableForm :: Maybe Table -> Form TableData
 tableForm table = renderDivs $ TableData

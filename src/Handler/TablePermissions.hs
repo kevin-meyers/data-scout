@@ -18,10 +18,26 @@ data PermissionData = PermissionData
     , permissionDataType :: PermissionType
     }
 
+profileAttributes :: FieldSettings master
+profileAttributes = FieldSettings 
+    "Select a user" -- The label
+    Nothing -- The tooltip
+    Nothing -- The Id
+    Nothing -- The name attr
+    [("class", "")] -- list of attributes and their values
+
+permissionAttributes :: FieldSettings master
+permissionAttributes = FieldSettings 
+    "Select a Permission type" -- The label
+    Nothing -- The tooltip
+    Nothing -- The Id
+    Nothing -- The name attr
+    [("class", "")] -- list of attributes and their values
+
 permissionForm :: Form PermissionData
 permissionForm = renderDivs $ PermissionData
-    <$> areq (selectField uTuples) "Select a user" Nothing
-    <*> areq (selectFieldList pTuples) "which perm?" Nothing
+    <$> areq (selectField uTuples) profileAttributes Nothing
+    <*> areq (selectFieldList pTuples) permissionAttributes Nothing
       where
           pTuples = [("Own" :: Text, Own), ("Edit", Edit), ("View", View)]
           uTuples = optionsPersistKey ([] :: [Filter Profile]) [] profileName
