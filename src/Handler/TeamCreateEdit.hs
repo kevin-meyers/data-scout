@@ -22,7 +22,7 @@ nameAttributes = FieldSettings
     "Name*" -- The label
     Nothing -- The tooltip
     Nothing -- The Id
-    (Just "Name") -- The name attr
+    Nothing -- The name attr
     [("class", "")] -- list of attributes and their values
 
 descriptionAttributes :: FieldSettings master
@@ -30,7 +30,7 @@ descriptionAttributes = FieldSettings
     "Description" -- The label
     Nothing -- The tooltip
     Nothing -- The Id
-    (Just "Name") -- The name attr
+    Nothing -- The name attr
     [("class", "")] -- list of attributes and their values
 
 phoneNumberAttributes :: FieldSettings master
@@ -38,7 +38,7 @@ phoneNumberAttributes = FieldSettings
     "Phone Number" -- The label
     Nothing -- The tooltip
     Nothing -- The Id
-    (Just "Name") -- The name attr
+    Nothing -- The name attr
     [("class", "")] -- list of attributes and their values
 
 emailAddressAttributes :: FieldSettings master
@@ -46,7 +46,7 @@ emailAddressAttributes = FieldSettings
     "Email Address" -- The label
     Nothing -- The tooltip
     Nothing -- The Id
-    (Just "Name") -- The name attr
+    Nothing
     [("class", "")] -- list of attributes and their values
 
 teamForm :: Maybe Team -> Form TeamData

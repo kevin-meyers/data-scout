@@ -1,3 +1,21 @@
+.col-box {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.row-box {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.description {
+    
+}
+
 .teamName {
     text-align: center;
+}
+
+.tables {
 }
