@@ -16,7 +16,6 @@
                 $forall Entity profileId profile <- profiles
                     <a href=@{ProfileR profileId ProfileDetailR}>#{profileName profile}
 
-
     <a href=@{TeamR teamId TeamAddTableR}>Claim a table
     <div class="col-box">
         $if not $ null tables
