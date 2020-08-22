@@ -37,6 +37,7 @@
         /delete ColumnDeleteR POST
 
 /teams TeamsR:
+    / TeamListR GET
     /create TeamCreateR GET POST
 
 /team/#TeamId TeamR:

@@ -115,15 +115,21 @@ instance Yesod App where
         -- Define the menu items of the header.
         let menuItems =
                 [ NavbarLeft MenuItem
-                    { menuItemLabel = "Home"
-                    , menuItemRoute = HomeR
-                    , menuItemAccessCallback = True
-                    }
-                , NavbarLeft MenuItem
                     { menuItemLabel = "Profile"
                     , menuItemRoute = ProfilesR ProfileRedirectR
                     , menuItemAccessCallback = isJust muser
                     }
+                , NavbarLeft MenuItem
+                    { menuItemLabel = "Tables"
+                    , menuItemRoute = TablesR TableListR
+                    , menuItemAccessCallback = isJust muser
+                    }
+                , NavbarLeft MenuItem
+                    { menuItemLabel = "Teams"
+                    , menuItemRoute = TeamsR TeamListR
+                    , menuItemAccessCallback = isJust muser
+                    }
+
                 , NavbarRight MenuItem
                     { menuItemLabel = "Login"
                     , menuItemRoute = AuthR LoginR
@@ -189,6 +195,7 @@ instance Yesod App where
     isAuthorized (TableR tableId (ColumnsR ColumnCreateR)) _ = userPermittedTable tableId Edit
     isAuthorized (TeamR _ TeamDetailR) _ = isAuthenticated -- userPermittedTeam teamId View
     isAuthorized (TeamsR TeamCreateR) _ = isAuthenticated
+    isAuthorized (TeamsR TeamListR) _ = isAuthenticated
     isAuthorized (TeamR _ TeamEditR) _ = isAuthenticated
     isAuthorized (TeamR _ TeamAddTableR) _ = isAuthenticated
 
