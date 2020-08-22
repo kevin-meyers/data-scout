@@ -12,6 +12,7 @@ $if permissionPermissionType perm >= Own
 
 $if permissionPermissionType perm >= Edit
     <a href=@{TableR tableId TableEditR}>Edit the table
+    <a href=@{TableR tableId TablePermissionsR}>Grant permissions
 
 $if permissionPermissionType perm >= Own
     <form action=@{TableR tableId TableDeleteR} method="POST">
