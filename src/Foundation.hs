@@ -124,6 +124,12 @@ instance Yesod App where
                     , menuItemRoute = TablesR TableListR
                     , menuItemAccessCallback = isJust muser
                     }
+                , NavbarLeft MenuItem
+                    { menuItemLabel = "Teams"
+                    , menuItemRoute = TeamsR TeamListR
+                    , menuItemAccessCallback = isJust muser
+                    }
+
                 , NavbarRight MenuItem
                     { menuItemLabel = "Login"
                     , menuItemRoute = AuthR LoginR
@@ -189,6 +195,7 @@ instance Yesod App where
     isAuthorized (TableR tableId (ColumnsR ColumnCreateR)) _ = userPermittedTable tableId Edit
     isAuthorized (TeamR _ TeamDetailR) _ = isAuthenticated -- userPermittedTeam teamId View
     isAuthorized (TeamsR TeamCreateR) _ = isAuthenticated
+    isAuthorized (TeamsR TeamListR) _ = isAuthenticated
     isAuthorized (TeamR _ TeamEditR) _ = isAuthenticated
     isAuthorized (TeamR _ TeamAddTableR) _ = isAuthenticated
 
