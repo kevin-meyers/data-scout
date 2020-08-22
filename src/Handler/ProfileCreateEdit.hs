@@ -23,7 +23,7 @@ nameAttributes = FieldSettings
     "Name*" -- The label
     Nothing -- The tooltip
     Nothing -- The Id
-    (Just "Name") -- The name attr
+    Nothing
     [("class", "profileName inputField")] -- list of attributes and their values
 
 bioAttributes :: FieldSettings master

@@ -13,6 +13,25 @@ module Handler.TeamAddTable where
 
 import Import
 
+
+newtype SelectedTable = SelectedTable 
+    { selectedTableId :: TableId
+    }
+
+tableAttributes :: FieldSettings master
+tableAttributes = FieldSettings 
+    "Select a table" -- The label
+    Nothing -- The tooltip
+    Nothing -- The Id
+    Nothing -- The name attr
+    [("class", "")] -- list of attributes and their values
+
+selectTableForm :: Form SelectedTable
+selectTableForm = renderDivs $ SelectedTable
+    <$> areq (selectField tableOptions) tableAttributes Nothing
+      where
+          tableOptions = optionsPersistKey [TableTeamId ==. Nothing] [] tableName
+
 getTeamAddTableR :: TeamId -> Handler Html
 getTeamAddTableR teamId = do
     team <- runDB $ get404 teamId
@@ -20,16 +39,6 @@ getTeamAddTableR teamId = do
     defaultLayout $ do
         setTitle . toHtml $ "Add table to " <> teamName team
         $(widgetFile "data-team-table-list")
-
-newtype SelectedTable = SelectedTable 
-    { selectedTableId :: TableId
-    }
-
-selectTableForm :: Form SelectedTable
-selectTableForm = renderDivs $ SelectedTable
-    <$> areq (selectField tableOptions) "Select a table" Nothing
-      where
-          tableOptions = optionsPersistKey [TableTeamId ==. Nothing] [] tableName
 
 postTeamAddTableR :: TeamId -> Handler ()
 postTeamAddTableR teamId = do

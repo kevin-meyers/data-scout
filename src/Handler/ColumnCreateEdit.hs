@@ -22,7 +22,7 @@ nameAttributes = FieldSettings
     "Name*" -- The label
     Nothing -- The tooltip
     Nothing -- The Id
-    (Just "Name") -- The name attr
+    Nothing
     [("class", "")] -- list of attributes and their values
 
 descriptionAttributes :: FieldSettings master
@@ -30,7 +30,7 @@ descriptionAttributes = FieldSettings
     "Description" -- The label
     Nothing -- The tooltip
     Nothing -- The Id
-    (Just "Name") -- The name attr
+    Nothing
     [("class", "")] -- list of attributes and their values
 
 exampleAttributes :: FieldSettings master
@@ -38,7 +38,7 @@ exampleAttributes = FieldSettings
     "Example" -- The label
     Nothing -- The tooltip
     Nothing -- The Id
-    (Just "Name") -- The name attr
+    Nothing
     [("class", "")] -- list of attributes and their values
 
 columnForm :: Maybe Column -> Form ColumnData
