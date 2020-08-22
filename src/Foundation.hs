@@ -190,8 +190,7 @@ instance Yesod App where
     isAuthorized (TeamR _ TeamDetailR) _ = isAuthenticated -- userPermittedTeam teamId View
     isAuthorized (TeamsR TeamCreateR) _ = isAuthenticated
     isAuthorized (TeamR _ TeamEditR) _ = isAuthenticated
-    isAuthorized (TeamR _ DataTeamTableListR) _ = isAuthenticated
-    isAuthorized (TeamR _ (DataTeamAddTableR _)) _ = isAuthenticated
+    isAuthorized (TeamR _ TeamAddTableR) _ = isAuthenticated
 
     -- This function creates static content files in the static folder
     -- and names them based on a hash of their content. This allows

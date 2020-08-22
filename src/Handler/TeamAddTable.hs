@@ -33,8 +33,9 @@ selectTableForm = renderDivs $ SelectedTable
 
 postTeamAddTableR :: TeamId -> Handler ()
 postTeamAddTableR teamId = do
-    ((result, _), _) <- runFormPost permissionForm
+    ((result, _), _) <- runFormPost selectTableForm
     case result of
         FormSuccess selectData -> do
             runDB $ update (selectedTableId selectData) [TableTeamId =. Just teamId]
             redirect $ TeamR teamId TeamDetailR
+        _ -> redirect $ TeamR teamId TeamAddTableR
