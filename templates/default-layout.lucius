@@ -12,6 +12,17 @@
     padding-bottom: 1em;
 }
 
+.navcontainer {
+    margin-right: 100px;
+    margin-left: 50px;
+    margin-top: 5px;
+}
+
+.dslogo {
+    margin-right: 50px;
+    margin-top: 6px;
+}
+
 .masthead {
     margin-top: -21px;
     color: white;
