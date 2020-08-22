@@ -17,8 +17,7 @@
                     <a href=@{ProfileR profileId ProfileDetailR}>#{profileName profile}
 
 
-    <div class="tables">
-        $if not $ null tables
-            <h4>Tables:
-            $forall Entity tableId table <- tables
-                <a href=@{TableR tableId TableDetailR}>#{tableName table}
+    $if not $ null tables
+        <h4>Tables:
+        $forall Entity tableId table <- tables
+            <a href=@{TableR tableId TableDetailR}>#{tableName table}
