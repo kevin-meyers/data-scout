@@ -1,16 +1,19 @@
 .col-box {
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: column nowrap;
 }
 
 .row-box {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     justify-content: space-between;
 }
 
 .description {
-    
+    margin-right: 500px;
+}
+
+.profiles {
 }
 
 .teamName {
@@ -19,3 +22,10 @@
 
 .tables {
 }
+
+.edit {
+    margin-right: auto;
+    margin-left: 20px;
+    margin-top: 30px;
+}
+

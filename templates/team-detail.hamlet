@@ -1,6 +1,7 @@
 <div class="col-box">
     <div class="row-box">
         <h1 class="teamName">#{teamName team}
+        <a class="edit" href=@{TeamR teamId TeamEditR}>Edit team
         <div class="col-box">
             $maybe phoneNumber <- teamPhoneNumber team
                 <p>The phone number is: #{phoneNumber}
@@ -10,6 +11,7 @@
     <div class="row-box">
         $maybe description <- teamDescription team
             <p class="description">#{description}
+        <div>
         <div class="col-box">
             $if not $ null profiles
                 <h4>Team members:
