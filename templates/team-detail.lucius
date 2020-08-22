@@ -1,0 +1,31 @@
+.col-box {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.row-box {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.description {
+    margin-right: 500px;
+}
+
+.profiles {
+}
+
+.teamName {
+    text-align: center;
+}
+
+.tables {
+}
+
+.edit {
+    margin-right: auto;
+    margin-left: 20px;
+    margin-top: 30px;
+}
+
