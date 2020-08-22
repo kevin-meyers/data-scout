@@ -3,7 +3,7 @@
 <nav .navbar.navbar-default.navbar-static-top>
     <div class="navcontainer">
         <div .navbar-header>
-            <img src="@{StaticR images_dswhite_png}" height="50" className="dslogo">
+            <a href=@{HomeR}><img src="@{StaticR images_dswhite_png}" height="50" className="dslogo">
             <button type="button" .navbar-toggle.collapsed data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation
                 <span class="icon-bar">
