@@ -1,19 +1,24 @@
-<h1 class="teamName">#{teamName team}
-$maybe description <- teamDescription team
-    <p>#{description}
-<p>
-    $maybe phoneNumber <- teamPhoneNumber team
-        <p>The phone number is: #{phoneNumber}
-    $maybe emailAddress <- teamEmailAddress team
-        <p>The email address is: #{emailAddress}
+<div class="col-box">
+    <div class="row-box">
+        <h1 class="teamName">#{teamName team}
+        <div class="col-box">
+            $maybe phoneNumber <- teamPhoneNumber team
+                <p>The phone number is: #{phoneNumber}
+            $maybe emailAddress <- teamEmailAddress team
+                <p>The email address is: #{emailAddress}
 
-$if not $ null tables
-    <h4>Tables:
-    $forall Entity tableId table <- tables
-        <a href=@{TableR tableId TableDetailR}>#{tableName table}
+    <div class="row-box">
+        $maybe description <- teamDescription team
+            <p class="description">#{description}
+        <div class="col-box">
+            $if not $ null profiles
+                <h4>Team members:
+                $forall Entity profileId profile <- profiles
+                    <a href=@{ProfileR profileId ProfileDetailR}>#{profileName profile}
 
-$if not $ null profiles
-    <h4>Team members:
-    $forall Entity profileId profile <- profiles
-        <a href=@{ProfileR profileId ProfileDetailR}>#{profileName profile}
 
+    <div class="tables">
+        $if not $ null tables
+            <h4>Tables:
+            $forall Entity tableId table <- tables
+                <a href=@{TableR tableId TableDetailR}>#{tableName table}
