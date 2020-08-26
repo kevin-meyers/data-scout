@@ -13,7 +13,7 @@ ip-from-header: "_env:YESOD_IP_FROM_HEADER:false"
 # By default, `yesod devel` runs in development, and built executables use
 # production settings (see below). To override this, use the following:
 #
-# development: false
+development: false
 
 # Optional values with the following production defaults.
 # In development, they default to the inverse.
@@ -29,9 +29,9 @@ ip-from-header: "_env:YESOD_IP_FROM_HEADER:false"
 # See https://github.com/yesodweb/yesod/wiki/Configuration#parsing-numeric-values-as-strings
 
 database:
-  user:     "_env:YESOD_PGUSER:datascout"
-  password: "_env:YESOD_PGPASS:Hero0531"
-  host:     "_env:YESOD_PGHOST:localhost"
+  user:     "_env:YESOD_PGUSER:postgres"
+  password: "_env:YESOD_PGPASS:81FviMb9E4Fd"
+  host:     "_env:YESOD_PGHOST:data-scout.cg35mrcbauen.us-west-1.rds.amazonaws.com"
   port:     "_env:YESOD_PGPORT:5432"
   # See config/test-settings.yml for an override during tests
   database: "_env:YESOD_PGDATABASE:datascout"
