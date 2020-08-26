@@ -24,7 +24,7 @@ stanzas:
       # You can specify one or more hostnames for your application to respond
       # to. The primary hostname will be used for generating your application
       # root.
-      - ec2-18-144-155-182.us-west-1.compute.amazonaws.com
+      - ec2-54-177-195-232.us-west-1.compute.amazonaws.com
 
     # Enable to force Keter to redirect to https
     # Can be added to any stanza
@@ -33,7 +33,7 @@ stanzas:
   # Static files.
   - type: static-files
     hosts:
-      - static.ec2-18-144-155-182.us-west-1.compute.amazonaws.com
+      - static.ec2-54-177-195-232.us-west-1.compute.amazonaws.com
     root: ../static
 
     # Uncomment to turn on directory listings.
@@ -43,9 +43,9 @@ stanzas:
   - type: redirect
 
     hosts:
-      - ec2-18-144-155-182.us-west-1.compute.amazonaws.com
+      - ec2-54-177-195-232.us-west-1.compute.amazonaws.com
     actions:
-      - host: ec2-18-144-155-182.us-west-1.compute.amazonaws.com
+      - host: ec2-54-177-195-232.us-west-1.compute.amazonaws.com
         # secure: false
         # port: 80
 
