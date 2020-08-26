@@ -15,7 +15,7 @@ dependencies:
 - bytestring >=0.10 && <0.11
 - text >=0.11 && <2.0
 - persistent >=2.9 && <2.11
-- persistent-sqlite >=2.9 && <2.11
+- persistent-postgresql >=2.9 && <2.11
 - persistent-template >=2.5 && <2.9
 - template-haskell
 - shakespeare >=2.0 && <2.1
