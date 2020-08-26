@@ -66,4 +66,4 @@ stanzas:
 # and set appropriate environment variables for it to be discovered, uncomment
 # the following line.
 # plugins:
-#    postgres: true
+#   postgres: true
