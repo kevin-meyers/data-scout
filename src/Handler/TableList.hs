@@ -16,16 +16,14 @@ import Import
 import qualified Database.Esqueleto as E
 import           Database.Esqueleto      ((^.))
 
-import Data.Maybe (fromJust)
-
 getTableListR :: Handler Html
 getTableListR = do
-    muid <- maybeAuthId
+    uid <- requireAuthId
     tables <- runDB 
         $ E.select
         $ E.from $ \(table `E.InnerJoin` permission) -> do
             E.on $ table ^. TableId E.==. permission ^. PermissionTableId
-            E.where_ $ permission ^. PermissionUserId E.==. E.val (fromJust muid)
+            E.where_ $ permission ^. PermissionUserId E.==. E.val uid
             return
                 ( table ^. TableId
                 , table ^. TableName

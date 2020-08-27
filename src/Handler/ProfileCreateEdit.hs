@@ -72,7 +72,7 @@ postProfileCreateR = do
 
 getProfileEditR :: ProfileId -> Handler Html
 getProfileEditR profileId = do
-    profile <- runDB $ getJust profileId
+    profile <- runDB $ get404 profileId
     (widget, enctype) <- generateFormPost $ profileForm $ Just profile
     defaultLayout $ do
         setTitle . toHtml $ "Edit " <> profileName profile <> "'s profile"

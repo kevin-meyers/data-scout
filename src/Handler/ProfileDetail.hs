@@ -17,7 +17,7 @@ data ProfileData = ProfileData
 
 getProfileDetailR :: ProfileId -> Handler Html
 getProfileDetailR profileId = do
-    profile <- runDB $ getJust profileId
+    profile <- runDB $ get404 profileId
     muid <- maybeAuthId
     let canEdit = case muid of
             Nothing -> False

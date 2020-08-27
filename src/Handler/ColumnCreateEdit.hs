@@ -51,8 +51,8 @@ columnForm column = renderDivs $ ColumnData
 
 getColumnEditR :: TableId -> ColumnId -> Handler Html
 getColumnEditR tableId columnId = do
-    column <- runDB $ getJust columnId
-    table <- runDB $ getJust tableId
+    column <- runDB $ get404 columnId
+    table <- runDB $ get404 tableId
     (widget, enctype) <- generateFormPost $ columnForm $ Just column
     defaultLayout $ do
         setTitle . toHtml $ "Update column " <> columnName column
@@ -76,7 +76,7 @@ postColumnEditR tableId columnId = do
 getColumnCreateR :: TableId -> Handler Html
 getColumnCreateR tableId = do
     (widget, enctype) <- generateFormPost $ columnForm Nothing
-    table <- runDB $ getJust tableId
+    table <- runDB $ get404 tableId
     defaultLayout $ do
         setTitle . toHtml $ "Add column to " <> tableName table
         $(widgetFile "column-create")

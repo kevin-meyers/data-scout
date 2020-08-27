@@ -9,7 +9,6 @@ module Handler.TableCreateEdit where
 
 import Import
 
-import Data.Maybe (fromJust)
 import qualified Data.Text as T
 
 data TableData = TableData
@@ -55,9 +54,9 @@ postTableCreateR = do
                 (tableDataName tableData)
                 Nothing
                 (tableDataDescription tableData)
-            muid <- maybeAuthId
+            uid <- requireAuthId
             _ <- runDB $ insert $ Permission
-                (fromJust muid)
+                uid
                 tableId
                 Own
             redirect $ TableR tableId TableDetailR
@@ -66,7 +65,7 @@ postTableCreateR = do
 
 getTableEditR :: TableId -> Handler Html
 getTableEditR tableId = do
-    table <- runDB $ getJust tableId
+    table <- runDB $ get404 tableId
     (widget, enctype) <- generateFormPost $ tableForm $ Just table
     defaultLayout $ do
         setTitle . toHtml $ "Update table " <> tableName table

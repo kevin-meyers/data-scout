@@ -18,13 +18,12 @@ import Data.Maybe (fromJust)
 getTableDetailR :: TableId -> Handler Html
 getTableDetailR tableId = do
     columns <- runDB $ selectList [ColumnTableId ==. tableId] []
-    table <- runDB $ getJust tableId
+    table <- runDB $ get404 tableId
     maybeTeamEntity <- case tableTeamId table of
         Nothing -> pure Nothing
         Just teamId -> runDB $ getEntity teamId
-    muid <- maybeAuthId
-    mperm <- runDB $ getBy $ UniquePair (fromJust muid) tableId
-    let (Entity _ perm) = fromJust mperm
+    uid <- requireAuthId
+    Entity _ perm <- runDB $ getBy404 $ UniquePair uid tableId
     defaultLayout $ do
         setTitle . toHtml $ tableName table
         $(widgetFile "table-detail")
