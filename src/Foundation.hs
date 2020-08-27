@@ -323,7 +323,7 @@ userProfileNotExists = do
 
 userPermittedProfile :: ProfileId -> Handler AuthResult
 userPermittedProfile profileId = do
-    (userId, _) <- requireAuthPair
+    userId <- requireAuthId
     mprofile <- runDB $ get profileId
     return $ case mprofile of
         Nothing -> Unauthorized $ T.pack ""
@@ -339,6 +339,12 @@ canJoinTeam teamId = do
     case mprofile of
         Nothing -> do
             redirectProfile
+            return Authorized
+        Just (Entity _ profile) -> return $ case profileTeamId profile of
+            Nothing -> Authorized
+            Just pTeamId -> if pTeamId == teamId 
+                              then Unauthorized ("Already joined" :: Text)
+                              else Unauthorized ("Part of a different team" :: Text)
 
 redirectProfile :: Handler ()
 redirectProfile = do
