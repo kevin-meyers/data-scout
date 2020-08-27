@@ -29,15 +29,15 @@
         /edit ColumnEditR GET POST
         /delete ColumnDeleteR POST
 
+/tables TablesR:
+    / TableListR GET
 
 /team/#TeamId TeamR:
     / TeamDetailR GET
     /edit TeamEditR GET POST
     /add-table TeamAddTableR GET POST
     /join TeamJoinR GET POST
-    /tables TablesR:
-        / TableListR GET
-        /create TableCreateR GET POST
+    /table/create TableCreateR GET POST
 
 
 /company/#CompanyId CompanyR:

@@ -57,15 +57,15 @@ teamForm team = renderDivs $ TeamData
     <*> aopt textField emailAddressAttributes (teamEmailAddress <$> team)
 
 
-getTeamCreateR :: Handler Html
-getTeamCreateR = do
+getTeamCreateR :: CompanyId -> Handler Html
+getTeamCreateR companyId = do
     (widget, enctype) <- generateFormPost $ teamForm Nothing
     defaultLayout $ do
         setTitle . toHtml $ ("Create a team" :: Text)
         $(widgetFile "team-create")
    
-postTeamCreateR :: Handler ()
-postTeamCreateR = do
+postTeamCreateR :: CompanyId -> Handler ()
+postTeamCreateR companyId = do
     ((result, _), _) <- runFormPost $ teamForm Nothing
     case result of
         FormSuccess teamData -> do
@@ -74,8 +74,9 @@ postTeamCreateR = do
                 (teamDataDescription teamData)
                 (teamDataPhoneNumber teamData)
                 (teamDataEmailAddress teamData)
+                companyId
             redirect $ TeamR teamId TeamDetailR
-        _ -> redirect $ TeamsR TeamCreateR
+        _ -> redirect $ CompanyR companyId $ TeamsR TeamCreateR
 
 
 getTeamEditR :: TeamId -> Handler Html

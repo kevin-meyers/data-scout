@@ -122,12 +122,12 @@ instance Yesod App where
                     }
                 , NavbarLeft MenuItem
                     { menuItemLabel = "Tables"
-                    , menuItemRoute = TablesR TableListR
+                    , menuItemRoute =  ProfilesR ProfileRedirectR -- TablesR TableListR
                     , menuItemAccessCallback = isJust muser
                     }
                 , NavbarLeft MenuItem
                     { menuItemLabel = "Teams"
-                    , menuItemRoute = TeamsR TeamListR
+                    , menuItemRoute = ProfilesR ProfileRedirectR-- TeamsR TeamListR
                     , menuItemAccessCallback = isJust muser
                     }
 
@@ -185,8 +185,8 @@ instance Yesod App where
     isAuthorized (ProfilesR ProfileRedirectR) _ = isAuthenticated
     isAuthorized (ProfilesR ProfileCreateR) _ = userProfileNotExists
     isAuthorized MetadataFormR _ = isAuthenticated
-    isAuthorized (TeamR _ (TablesR TableListR)) _ = isAuthenticated
-    isAuthorized (TeamR _ (TablesR TableCreateR)) _ = isAuthenticated 
+    isAuthorized (TablesR TableListR) _ = isAuthenticated
+    isAuthorized (TeamR teamId TableCreateR) _ = isAuthenticated 
     isAuthorized (TableR tableId TableDetailR) _ = userPermittedTable tableId View
     isAuthorized (TableR tableId TableEditR) _ = userPermittedTable tableId Edit
     isAuthorized (TableR tableId TablePermissionsR) _ = userPermittedTable tableId Own
@@ -200,6 +200,7 @@ instance Yesod App where
     isAuthorized (TeamR _ TeamEditR) _ = isAuthenticated
     isAuthorized (TeamR _ TeamAddTableR) _ = isAuthenticated
     isAuthorized (TeamR teamId TeamJoinR) _ = canJoinTeam teamId
+    isAuthorized (CompanyR _ CompanyDetailR) _ = isAuthenticated
 
     -- This function creates static content files in the static folder
     -- and names them based on a hash of their content. This allows
