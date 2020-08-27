@@ -1,4 +1,4 @@
-<a href=@{TablesR TableCreateR}>Create a table
+Visit your teams page to create a new table.
 
 <ul>
     $forall (E.Value tableId, E.Value name) <- tables
