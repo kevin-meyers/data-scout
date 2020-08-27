@@ -1,4 +1,5 @@
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -198,6 +199,7 @@ instance Yesod App where
     isAuthorized (TeamsR TeamListR) _ = isAuthenticated
     isAuthorized (TeamR _ TeamEditR) _ = isAuthenticated
     isAuthorized (TeamR _ TeamAddTableR) _ = isAuthenticated
+    isAuthorized (TeamR teamId TeamJoinR) _ = canJoinTeam teamId
 
     -- This function creates static content files in the static folder
     -- and names them based on a hash of their content. This allows
@@ -329,6 +331,20 @@ userPermittedProfile profileId = do
             if userId == profileUserId profile 
               then Authorized 
               else Unauthorized $ T.pack ""
+
+canJoinTeam :: TeamId -> Handler AuthResult
+canJoinTeam teamId = do
+    userId <- requireAuthId
+    mprofile <- runDB $ selectFirst [ProfileUserId ==. userId] []
+    case mprofile of
+        Nothing -> do
+            redirectProfile
+
+redirectProfile :: Handler ()
+redirectProfile = do
+    setUltDestCurrent
+    redirect $ ProfilesR ProfileCreateR
+
 
 instance YesodAuthPersist App
 
