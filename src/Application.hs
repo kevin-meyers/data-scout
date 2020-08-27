@@ -62,6 +62,7 @@ import Handler.TeamDetail
 import Handler.TeamCreateEdit
 import Handler.TeamAddTable
 import Handler.TeamList
+import Handler.TeamJoin
 
 
 -- This line actually creates our YesodDispatch instance. It is the second half
