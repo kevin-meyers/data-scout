@@ -80,7 +80,7 @@ postTeamCreateR = do
 
 getTeamEditR :: TeamId -> Handler Html
 getTeamEditR teamId = do
-    team <- runDB $ getJust teamId
+    team <- runDB $ get404 teamId
     (widget, enctype) <- generateFormPost $ teamForm $ Just team
     defaultLayout $ do
         setTitle . toHtml $ "Edit team " <> teamName team

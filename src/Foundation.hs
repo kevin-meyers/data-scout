@@ -300,23 +300,20 @@ isAuthenticated = do
 
 userPermittedTable :: TableId -> PermissionType -> Handler AuthResult
 userPermittedTable tableId permissionType = do
-    muid <- maybeAuthId
-    case muid of
-        Nothing -> return $ Unauthorized "You must login to access this page"
-        Just uid -> do
-            mPermissionRow <- runDB $ getBy $ UniquePair uid tableId
-            return $ case mPermissionRow of
-                Nothing -> Unauthorized $ T.pack $ "You do not have the correct permissions to " ++ show permissionType ++ " this table."
-                Just (Entity _ permissionRow) -> 
-                    if permissionPermissionType permissionRow >= permissionType 
-                    then Authorized 
-                    else Unauthorized $ T.pack $ "You do not have the correct permissions to " ++ show permissionType ++ " this table."
+    uid <- requireAuthId
+    mPermissionRow <- runDB $ getBy $ UniquePair uid tableId
+    return $ case mPermissionRow of
+        Nothing -> Unauthorized $ T.pack $ "You do not have the correct permissions to " ++ show permissionType ++ " this table."
+        Just (Entity _ permissionRow) -> 
+            if permissionPermissionType permissionRow >= permissionType 
+            then Authorized 
+            else Unauthorized $ T.pack $ "You do not have the correct permissions to " ++ show permissionType ++ " this table."
 
 
 userProfileNotExists :: Handler AuthResult
 userProfileNotExists = do
     userId <- requireAuthId
-    mprofile <- runDB $ selectFirst [ProfileUserId ==. userId] []
+    mprofile <- runDB $ getBy $ UniqueProfile userId
     return $ case mprofile of
         Nothing -> Authorized
         Just (Entity _ profile) -> Unauthorized $ T.pack "Profile for " ++ profileName profile ++ " already exists."
@@ -324,13 +321,10 @@ userProfileNotExists = do
 userPermittedProfile :: ProfileId -> Handler AuthResult
 userPermittedProfile profileId = do
     userId <- requireAuthId
-    mprofile <- runDB $ get profileId
-    return $ case mprofile of
-        Nothing -> Unauthorized $ T.pack ""
-        Just profile -> 
-            if userId == profileUserId profile 
-              then Authorized 
-              else Unauthorized $ T.pack ""
+    profile <- runDB $ get404 profileId
+    return $ if userId == profileUserId profile 
+               then Authorized 
+               else Unauthorized ("" :: Text)
 
 canJoinTeam :: TeamId -> Handler AuthResult
 canJoinTeam teamId = do

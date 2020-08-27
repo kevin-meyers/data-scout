@@ -44,7 +44,7 @@ permissionForm = renderDivs $ PermissionData
 
 getTablePermissionsR :: TableId -> Handler Html
 getTablePermissionsR tableId = do
-    table <- runDB $ getJust tableId
+    table <- runDB $ get404 tableId
     (widget, enctype) <- generateFormPost permissionForm
     defaultLayout $ do
         setTitle . toHtml $ "Add permissions for table: " <> tableName table

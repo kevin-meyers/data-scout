@@ -15,7 +15,7 @@ import Import
 
 getTeamDetailR :: TeamId -> Handler Html
 getTeamDetailR teamId = do
-    team <- runDB $ getJust teamId
+    team <- runDB $ get404 teamId
     tables <- runDB $ selectList [TableTeamId ==. Just teamId] []
     profiles <- runDB $ selectList [ProfileTeamId ==. Just teamId] []
     defaultLayout $ do
