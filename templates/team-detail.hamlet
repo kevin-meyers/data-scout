@@ -24,3 +24,8 @@
             <h4>Tables:
             $forall Entity tableId table <- tables
                 <a href=@{TableR tableId TableDetailR}>#{tableName table}
+
+
+        <p>
+            Join this team by using this link:
+            <a class="join" href=@{TeamR teamId TeamJoinR}>Join team
