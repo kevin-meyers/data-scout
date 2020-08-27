@@ -1,0 +1,4 @@
+<h1>Are you sure you want to join team #{teamName team}?
+
+<form action=@{TeamR teamId TeamJoinR} method="POST">
+    <input type="submit" value="Join team #{teamName team}">
