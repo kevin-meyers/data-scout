@@ -38,15 +38,15 @@ tableForm table = renderDivs $ TableData
     <$> areq textField nameAttributes (tableName <$> table)
     <*> aopt textField descriptionAttributes (tableDescription <$> table)
 
-getTableCreateR :: Handler Html
-getTableCreateR = do
+getTableCreateR :: TeamId -> Handler Html
+getTableCreateR teamId = do
     (widget, enctype) <- generateFormPost $ tableForm Nothing
     defaultLayout $ do
         setTitle . toHtml $ T.pack "Create new table"
         $(widgetFile "table-create")
   
-postTableCreateR :: Handler ()
-postTableCreateR = do
+postTableCreateR :: TeamId -> Handler ()
+postTableCreateR teamId = do
     ((result, _), _) <- runFormPost $ tableForm Nothing
     case result of
         FormSuccess tableData -> do
@@ -60,7 +60,7 @@ postTableCreateR = do
                 tableId
                 Own
             redirect $ TableR tableId TableDetailR
-        _ -> redirect $ TablesR TableCreateR
+        _ -> redirect $ TeamR teamId TableCreateR
 
 
 getTableEditR :: TableId -> Handler Html

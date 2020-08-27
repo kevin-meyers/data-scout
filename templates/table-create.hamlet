@@ -1,9 +1,8 @@
 <h1>Create a new table!
 <p>You will become the owner of this table. You will also be able to add columns later.
 
-
 <div class="box">
-    <form method=post action=@{TablesR TableCreateR} enctype=#{enctype}>
+    <form method=post action=@{TeamR teamId TableCreateR} enctype=#{enctype}>
         ^{widget}
         <button>Submit
 <a href=@{TablesR TableListR}>Go Home!
