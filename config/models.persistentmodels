@@ -4,6 +4,7 @@
 User
     ident Text
     password Text Maybe
+    teamId TeamId Maybe
     UniqueUser ident
     deriving Typeable
     deriving Eq
@@ -12,7 +13,6 @@ Profile
     userId UserId
     bio Text Maybe
     photoUrl Text Maybe
-    teamId TeamId Maybe
     UniqueProfile userId
 Email
     email Text
