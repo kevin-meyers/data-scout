@@ -18,12 +18,10 @@ data ProfileData = ProfileData
 getProfileDetailR :: ProfileId -> Handler Html
 getProfileDetailR profileId = do
     profile <- runDB $ get404 profileId
-    muid <- maybeAuthId
-    let canEdit = case muid of
-            Nothing -> False
-            Just uid -> uid == profileUserId profile
+    (uid, user) <- requireAuthPair
+    let canEdit = uid == profileUserId profile
 
-    mteam <- case profileTeamId profile of
+    mteam <- case userTeamId user of
         Nothing -> pure Nothing
         Just teamId -> runDB $ getEntity teamId
     defaultLayout $ do

@@ -64,7 +64,6 @@ postProfileCreateR = do
                 userId
                 (profileDataBio profileData)
                 (profileDataPhotoUrl profileData)
-                Nothing
 
             redirect $ ProfileR profileId ProfileDetailR
         _ -> redirect $ ProfilesR ProfileCreateR
