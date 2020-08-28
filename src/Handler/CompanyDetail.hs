@@ -13,4 +13,8 @@ module Handler.CompanyDetail where
 import Import
 
 getCompanyDetailR :: CompanyId -> Handler Html
-getCompanyDetailR companyId = return
+getCompanyDetailR companyId = do
+    company <- runDB $ get404 companyId
+    defaultLayout $ do
+        setTitle . toHtml $ companyName company <> "'s page"
+        $(widgetFile "company-detail")

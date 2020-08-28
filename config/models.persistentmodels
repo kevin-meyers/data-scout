@@ -51,4 +51,4 @@ Permission
     deriving Eq
 Company
     name Text
-    description Text
+    description Text Maybe
