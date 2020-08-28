@@ -13,8 +13,6 @@ module Handler.TableDetail where
 
 import Import
 
-import Data.Maybe (fromJust)
-
 getTableDetailR :: TableId -> Handler Html
 getTableDetailR tableId = do
     columns <- runDB $ selectList [ColumnTableId ==. tableId] []
