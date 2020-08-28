@@ -1,4 +1,4 @@
-<a href=@{TeamsR TeamCreateR}>Create a new team
+<a href=@{CompanyR companyId $ TeamsR TeamCreateR}>Create a new team
 
 <ul>
     $forall  (Entity teamId team) <- teams

@@ -1,6 +1,3 @@
--- By default this file is used by `parseRoutesFile` in Foundation.hs
--- Syntax for this file here: https://www.yesodweb.com/book/routing-and-handlers
-
 /static StaticR Static appStatic
 /auth   AuthR   Auth   getAuth
 
@@ -21,10 +18,6 @@
 
 /metadata-form MetadataFormR GET POST
 
-/tables TablesR:
-    / TableListR GET
-    /create TableCreateR GET POST
-
 /table/#TableId TableR:
     / TableDetailR GET
     /edit TableEditR GET POST
@@ -36,12 +29,19 @@
         /edit ColumnEditR GET POST
         /delete ColumnDeleteR POST
 
-/teams TeamsR:
-    / TeamListR GET
-    /create TeamCreateR GET POST
+/tables TablesR:
+    / TableListR GET
 
 /team/#TeamId TeamR:
     / TeamDetailR GET
     /edit TeamEditR GET POST
     /add-table TeamAddTableR GET POST
     /join TeamJoinR GET POST
+    /table/create TableCreateR GET POST
+
+
+/company/#CompanyId CompanyR:
+    / CompanyDetailR GET
+    /teams TeamsR:
+        / TeamListR GET
+        /create TeamCreateR GET POST

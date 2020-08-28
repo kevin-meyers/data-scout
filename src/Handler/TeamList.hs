@@ -13,8 +13,8 @@ module Handler.TeamList where
 
 import Import
 
-getTeamListR :: Handler Html
-getTeamListR = do
+getTeamListR :: CompanyId -> Handler Html
+getTeamListR companyId = do
     --uid <- requireAuthId
     teams <- runDB $ selectList ([] :: [Filter Team]) []
     defaultLayout $ do

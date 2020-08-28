@@ -33,6 +33,7 @@ Team
     description Text Maybe
     phoneNumber Text Maybe
     emailAddress Text Maybe
+    companyId CompanyId
 Column
     name Text
     description Text Maybe
@@ -48,3 +49,6 @@ Permission
     permissionType PermissionType
     UniquePair userId tableId
     deriving Eq
+Company
+    name Text
+    description Text Maybe

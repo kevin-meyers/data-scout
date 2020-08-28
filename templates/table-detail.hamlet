@@ -4,8 +4,6 @@ $maybe description <- tableDescription table
 
 $maybe Entity teamId team <- maybeTeamEntity
     <a href=@{TeamR teamId TeamDetailR}>#{teamName team}
-$nothing
-    <a href=@{TeamsR TeamCreateR}>Add your team!
 
 $if permissionPermissionType perm >= Own
     <a href=@{TableR tableId $ ColumnsR ColumnCreateR}>Create new column
