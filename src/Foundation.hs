@@ -122,7 +122,7 @@ instance Yesod App where
                     }
                 , NavbarLeft MenuItem
                     { menuItemLabel = "Tables"
-                    , menuItemRoute =  ProfilesR ProfileRedirectR -- TablesR TableListR
+                    , menuItemRoute = TablesR TableListR
                     , menuItemAccessCallback = isJust muser
                     }
                 , NavbarLeft MenuItem
