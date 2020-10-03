@@ -28,4 +28,4 @@ $if permissionPermissionType perm >= Own
                 <form method="POST" action=@{TableR tableId $ ColumnR columnId ColumnDeleteR}>
                     <input type="submit" value="Delete column">
 
-<a href=@{TablesR TableListR}>Go home
+<a href=@{TablesR TableListR}>Go to tables
