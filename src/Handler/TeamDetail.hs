@@ -19,7 +19,7 @@ import           Database.Esqueleto      ((^.))
 getTeamDetailR :: TeamId -> Handler Html
 getTeamDetailR teamId = do
     team <- runDB $ get404 teamId
-    tables <- runDB $ selectList [TableTeamId ==. Just teamId] []
+    tables <- runDB $ selectList [TableTeamId ==. teamId] []
     profiles <- runDB
         $ E.select
         $ E.from $ \(user `E.InnerJoin` profile) -> do
