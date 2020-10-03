@@ -35,7 +35,6 @@
 /team/#TeamId TeamR:
     / TeamDetailR GET
     /edit TeamEditR GET POST
-    /add-table TeamAddTableR GET POST
     /join TeamJoinR GET POST
     /table/create TableCreateR GET POST
 

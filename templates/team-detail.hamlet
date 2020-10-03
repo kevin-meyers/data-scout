@@ -18,7 +18,6 @@
                 $forall Entity profileId profile <- profiles
                     <a href=@{ProfileR profileId ProfileDetailR}>#{profileName profile}
 
-    <a href=@{TeamR teamId TeamAddTableR}>Claim a table
     <a href=@{TeamR teamId TableCreateR}>Create a new table
     <div class="col-box">
         $if not $ null tables

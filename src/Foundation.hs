@@ -198,7 +198,6 @@ instance Yesod App where
     isAuthorized (CompanyR _ (TeamsR TeamCreateR)) _ = isAuthenticated
     isAuthorized (CompanyR _ (TeamsR TeamListR)) _ = isAuthenticated
     isAuthorized (TeamR _ TeamEditR) _ = isAuthenticated
-    isAuthorized (TeamR _ TeamAddTableR) _ = isAuthenticated
     isAuthorized (TeamR teamId TeamJoinR) _ = canJoinTeam teamId
     isAuthorized (CompanyR _ CompanyDetailR) _ = isAuthenticated
 
