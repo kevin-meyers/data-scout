@@ -52,7 +52,7 @@ postTableCreateR teamId = do
         FormSuccess tableData -> do
             tableId <- runDB $ insert $ Table
                 (tableDataName tableData)
-                Nothing
+                teamId
                 (tableDataDescription tableData)
             uid <- requireAuthId
             _ <- runDB $ insert $ Permission

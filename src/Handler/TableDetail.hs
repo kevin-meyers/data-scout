@@ -17,9 +17,8 @@ getTableDetailR :: TableId -> Handler Html
 getTableDetailR tableId = do
     columns <- runDB $ selectList [ColumnTableId ==. tableId] []
     table <- runDB $ get404 tableId
-    maybeTeamEntity <- case tableTeamId table of
-        Nothing -> pure Nothing
-        Just teamId -> runDB $ getEntity teamId
+    let teamId = tableTeamId table
+    team <- runDB $ get404 teamId 
     uid <- requireAuthId
     Entity _ perm <- runDB $ getBy404 $ UniquePair uid tableId
     defaultLayout $ do
