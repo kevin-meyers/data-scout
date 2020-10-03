@@ -5,4 +5,4 @@
     <form method=post action=@{TeamR teamId TableCreateR} enctype=#{enctype}>
         ^{widget}
         <button>Submit
-<a href=@{TablesR TableListR}>Go Home!
+<a href=@{TeamR teamId TeamDetailR}>Go back!

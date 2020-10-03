@@ -18,12 +18,12 @@
                 $forall Entity profileId profile <- profiles
                     <a href=@{ProfileR profileId ProfileDetailR}>#{profileName profile}
 
+    <a href=@{TeamR teamId TableCreateR}>Create a new table
     <div class="col-box">
         $if not $ null tables
             <h4>Tables:
             $forall Entity tableId table <- tables
                 <a href=@{TableR tableId TableDetailR}>#{tableName table}
-
 
         <p>
             Join this team by using this link:
