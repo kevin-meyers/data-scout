@@ -52,3 +52,4 @@ Permission
 Company
     name Text
     description Text Maybe
+    adminUserId UserId
