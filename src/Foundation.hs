@@ -183,7 +183,7 @@ instance Yesod App where
     -- delegate to that function
     isAuthorized (ProfileR profileId ProfileEditR) _ = userPermittedProfile profileId
     isAuthorized (ProfilesR ProfileRedirectR) _ = isAuthenticated
-    isAuthorized (ProfilesR ProfileCreateR) _ = userProfileNotExists
+    isAuthorized (TeamR teamId ProfileCreateR) _ = userProfileNotExists
     isAuthorized MetadataFormR _ = isAuthenticated
     isAuthorized (TablesR TableListR) _ = isAuthenticated
     isAuthorized (TeamR _ TableCreateR) _ = isAuthenticated 
@@ -335,12 +335,6 @@ canJoinTeam teamId = do
         Just (Entity _ profile) -> if profileTeamId profile == teamId
                           then Unauthorized ("Already joined" :: Text)
                           else Unauthorized ("Part of a different team" :: Text)
-
-redirectProfile :: Handler ()
-redirectProfile = do
-    setUltDestCurrent
-    redirect $ ProfilesR ProfileCreateR
-
 
 instance YesodAuthPersist App
 

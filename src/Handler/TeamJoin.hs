@@ -23,5 +23,6 @@ getTeamJoinR teamId = do
 postTeamJoinR :: TeamId -> Handler ()
 postTeamJoinR teamId = do
     userId <- requireAuthId
-    runDB $ update userId [UserTeamId =. Just teamId]
-    redirect $ TeamR teamId TeamDetailR
+
+    runDB $ update profileId [UserTeamId =. Just teamId]
+    redirect $ TeamR teamId ProfileCreateR
