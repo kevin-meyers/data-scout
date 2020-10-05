@@ -53,3 +53,4 @@ Company
     name Text
     description Text Maybe
     adminUserId UserId
+    UniqueAdmin adminUserId

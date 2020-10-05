@@ -197,6 +197,8 @@ instance Yesod App where
     isAuthorized (TeamR _ TeamDetailR) _ = isAuthenticated -- userPermittedTeam teamId View
     isAuthorized (CompanyR _ (TeamsR TeamCreateR)) _ = isAuthenticated
     isAuthorized (CompanyR _ (TeamsR TeamListR)) _ = isAuthenticated
+    isAuthorized (CompanyR companyId CompanyEditR) _ = isCompanyAdmin companyId
+    isAuthorized CompanyCreateR _ = hasNoCompany
     isAuthorized (TeamR _ TeamEditR) _ = isAuthenticated
     isAuthorized (TeamR teamId TeamJoinR) _ = canJoinTeam teamId
     isAuthorized (CompanyR _ CompanyDetailR) _ = isAuthenticated
@@ -306,7 +308,7 @@ userPermittedTable tableId permissionType = do
         Nothing -> Unauthorized $ T.pack $ "You do not have the correct permissions to " ++ show permissionType ++ " this table."
         Just (Entity _ permissionRow) -> 
             if permissionPermissionType permissionRow >= permissionType 
-            then Authorized 
+            then Authorized
             else Unauthorized $ T.pack $ "You do not have the correct permissions to " ++ show permissionType ++ " this table."
 
 
@@ -322,8 +324,8 @@ userPermittedProfile :: ProfileId -> Handler AuthResult
 userPermittedProfile profileId = do
     userId <- requireAuthId
     profile <- runDB $ get404 profileId
-    return $ if userId == profileUserId profile 
-               then Authorized 
+    return $ if userId == profileUserId profile
+               then Authorized
                else Unauthorized ("" :: Text)
 
 canJoinTeam :: TeamId -> Handler AuthResult
@@ -335,6 +337,22 @@ canJoinTeam teamId = do
         Just (Entity _ profile) -> if profileTeamId profile == teamId
                           then Unauthorized ("Already joined" :: Text)
                           else Unauthorized ("Part of a different team" :: Text)
+
+isCompanyAdmin :: CompanyId -> Handler AuthResult
+isCompanyAdmin companyId = do
+    uid <- requireAuthId
+    company <- runDB $ get404 companyId
+    return $ if companyAdminUserId company == uid
+               then Authorized
+               else Unauthorized ("" :: Text)
+
+hasNoCompany :: Handler AuthResult
+hasNoCompany = do
+    uid <- requireAuthId
+    mcompany <- runDB $ getBy $ UniqueAdmin uid
+    return $ case mcompany of
+        Nothing -> Authorized
+        Just _ -> Unauthorized ("" :: Text)
 
 instance YesodAuthPersist App
 

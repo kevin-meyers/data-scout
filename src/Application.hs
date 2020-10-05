@@ -64,6 +64,7 @@ import Handler.TeamList
 import Handler.TeamJoin
 
 import Handler.CompanyDetail
+import Handler.CompanyCreateEdit
 
 
 -- This line actually creates our YesodDispatch instance. It is the second half

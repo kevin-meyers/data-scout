@@ -1,0 +1,6 @@
+<h1>Edit company: #{companyName company}
+
+<form method=post action=@{CompanyR companyId CompanyEditR} enctype=#{enctype}>
+    ^{widget}
+    <button>Submit
+<a href=@{CompanyR companyId CompanyDetailR}>Go back!

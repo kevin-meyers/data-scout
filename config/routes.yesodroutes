@@ -39,8 +39,11 @@
     /profile/create ProfileCreateR GET POST
 
 
+/create-company CompanyCreateR GET POST
+
 /company/#CompanyId CompanyR:
     / CompanyDetailR GET
+    /edit CompanyEditR GET POST
     /teams TeamsR:
         / TeamListR GET
         /create TeamCreateR GET POST
