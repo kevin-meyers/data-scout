@@ -46,15 +46,15 @@ profileForm profile = renderDivs $ ProfileData
     <*> aopt textField bioAttributes (profileBio <$> profile)
     <*> aopt textField photoUrlAttributes (profilePhotoUrl <$> profile)
 
-getProfileCreateR :: Handler Html
-getProfileCreateR = do
+getProfileCreateR :: TeamId -> Handler Html
+getProfileCreateR teamId = do
     (widget, enctype) <- generateFormPost $ profileForm Nothing
     defaultLayout $ do
         setTitle . toHtml $ ("Create a new profile" :: Text)
         $(widgetFile "profile-create")
    
-postProfileCreateR :: Handler ()
-postProfileCreateR = do
+postProfileCreateR :: TeamId -> Handler ()
+postProfileCreateR teamId = do
     ((result, _), _) <- runFormPost $ profileForm Nothing
     case result of
         FormSuccess profileData -> do
@@ -64,9 +64,10 @@ postProfileCreateR = do
                 userId
                 (profileDataBio profileData)
                 (profileDataPhotoUrl profileData)
+                teamId
 
             redirect $ ProfileR profileId ProfileDetailR
-        _ -> redirect $ ProfilesR ProfileCreateR
+        _ -> redirect $ TeamR teamId ProfileCreateR
 
 
 getProfileEditR :: ProfileId -> Handler Html

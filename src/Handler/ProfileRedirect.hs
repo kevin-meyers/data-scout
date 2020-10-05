@@ -15,5 +15,5 @@ getProfileRedirectR = do
     uid <- requireAuthId
     mprofile <- runDB $ getBy $ UniqueProfile uid
     case mprofile of
-        Nothing -> redirect $ TeamsR TeamListR
+        Nothing -> redirect HomeR
         Just (Entity profileId _) -> redirect $ ProfileR profileId ProfileDetailR

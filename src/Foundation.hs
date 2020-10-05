@@ -183,7 +183,7 @@ instance Yesod App where
     -- delegate to that function
     isAuthorized (ProfileR profileId ProfileEditR) _ = userPermittedProfile profileId
     isAuthorized (ProfilesR ProfileRedirectR) _ = isAuthenticated
-    isAuthorized (TeamR teamId ProfileCreateR) _ = userProfileNotExists
+    isAuthorized (TeamR _ ProfileCreateR) _ = userProfileNotExists
     isAuthorized MetadataFormR _ = isAuthenticated
     isAuthorized (TablesR TableListR) _ = isAuthenticated
     isAuthorized (TeamR _ TableCreateR) _ = isAuthenticated 

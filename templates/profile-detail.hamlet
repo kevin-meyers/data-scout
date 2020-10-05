@@ -7,10 +7,7 @@ $maybe photoUrl <- profilePhotoUrl profile
     <p>The photo url is #{photoUrl}
 
 <p>#{profileName profile} belongs to team:
-$maybe (Entity teamId team) <- mteam
-    <a href=@{TeamR teamId TeamDetailR}>#{teamName team}
-$nothing
-    <p>No team yet.
+<a href=@{TeamR teamId TeamDetailR}>#{teamName team}
 
 $if canEdit
     <a href=@{ProfileR profileId ProfileEditR}>Edit your info!
