@@ -9,11 +9,9 @@ module Handler.CompanyCreateEdit where
 
 import Import
 
-data ColumnData = ColumnData
-    { columnDataName :: Text
-    , columnDataDescription :: Maybe Text
-    , columnDataDatatype :: Maybe Datatype
-    , columnDataExample :: Maybe Text
+data CompanyData = CompanyData
+    { companyDataName :: Text
+    , companyDataDescription :: Maybe Text
     }
   deriving Show
 
@@ -33,66 +31,48 @@ descriptionAttributes = FieldSettings
     Nothing
     [("class", "")] -- list of attributes and their values
 
-exampleAttributes :: FieldSettings master
-exampleAttributes = FieldSettings 
-    "Example" -- The label
-    Nothing -- The tooltip
-    Nothing -- The Id
-    Nothing
-    [("class", "")] -- list of attributes and their values
+companyForm :: Maybe Company -> Form CompanyData
+companyForm company = renderDivs $ CompanyData
+    <$> areq textField nameAttributes (companyName <$> company)
+    <*> aopt textField descriptionAttributes (companyDescription <$> company)
 
-columnForm :: Maybe Column -> Form ColumnData
-columnForm column = renderDivs $ ColumnData
-    <$> areq textField nameAttributes (columnName <$> column)
-    <*> aopt textField descriptionAttributes (columnDescription <$> column)
-    <*> pure Nothing -- aopt textField "Datatype (leave empty)" Nothing
-    <*> aopt textField exampleAttributes (columnExample <$> column)
-
-
-getColumnEditR :: TableId -> ColumnId -> Handler Html
-getColumnEditR tableId columnId = do
-    column <- runDB $ get404 columnId
-    table <- runDB $ get404 tableId
-    (widget, enctype) <- generateFormPost $ columnForm $ Just column
+getCompanyCreateR :: Handler Html
+getCompanyCreateR = do
+    (widget, enctype) <- generateFormPost $ companyForm Nothing
     defaultLayout $ do
-        setTitle . toHtml $ "Update column " <> columnName column
-        $(widgetFile "column-edit")
+        setTitle . toHtml $ ("Create new company" :: Text)
+        $(widgetFile "company-create")
 
-postColumnEditR :: TableId -> ColumnId -> Handler ()
-postColumnEditR tableId columnId = do
-    ((result, _), _) <- runFormPost $ columnForm Nothing
+postCompanyCreateR :: Handler ()
+postCompanyCreateR = do
+    ((result, _), _) <- runFormPost $ companyForm Nothing
     case result of
-        FormSuccess columnData -> do
-            runDB $ update columnId
-                [ ColumnName =. columnDataName columnData
-                , ColumnDescription =. columnDataDescription columnData
-                , ColumnDatatype =. columnDataDatatype columnData
-                , ColumnExample =. columnDataExample columnData
+        FormSuccess companyData -> do
+            uid <- requireAuthId
+            companyId <- runDB $ insert $ Company
+                (companyDataName companyData)
+                (companyDataDescription companyData)
+                uid
+            redirect $ CompanyR companyId CompanyDetailR
+        _ -> redirect CompanyCreateR
+
+getCompanyEditR :: CompanyId -> Handler Html
+getCompanyEditR companyId = do
+    company <- runDB $ get404 companyId
+    (widget, enctype) <- generateFormPost $ companyForm $ Just company
+    defaultLayout $ do
+        setTitle . toHtml $ "Update company " <> companyName company
+        $(widgetFile "company-edit")
+
+postCompanyEditR :: CompanyId -> Handler ()
+postCompanyEditR companyId = do
+    ((result, _), _) <- runFormPost $ companyForm Nothing
+    case result of
+        FormSuccess companyData -> do
+            runDB $ update companyId
+                [ CompanyName =. companyDataName companyData
+                , CompanyDescription =. companyDataDescription companyData
                 ]
-            redirect $ TableR tableId TableDetailR
-        _ -> redirect $ TableR tableId $ ColumnR columnId ColumnEditR
-
-
-getColumnCreateR :: TableId -> Handler Html
-getColumnCreateR tableId = do
-    (widget, enctype) <- generateFormPost $ columnForm Nothing
-    table <- runDB $ get404 tableId
-    defaultLayout $ do
-        setTitle . toHtml $ "Add column to " <> tableName table
-        $(widgetFile "column-create")
-   
-
-postColumnCreateR :: TableId -> Handler ()
-postColumnCreateR tableId = do
-    ((result, _), _) <- runFormPost $ columnForm Nothing
-    case result of
-        FormSuccess columnData -> do
-            _ <- runDB $ insert $ Column
-                (columnDataName columnData)
-                (columnDataDescription columnData)
-                Nothing
-                (columnDataExample columnData)
-                tableId
-            redirect $ TableR tableId TableDetailR
-        _ -> redirect $ TableR tableId $ ColumnsR ColumnCreateR
+            redirect $ CompanyR companyId CompanyDetailR
+        _ -> redirect $ CompanyR companyId CompanyEditR
 

@@ -1,0 +1,7 @@
+<h1>Create a new company!
+
+<form method=post action=@{CompanyCreateR} enctype=#{enctype}>
+    ^{widget}
+    <button>Submit
+
+<a href=@{HomeR}>Go home
