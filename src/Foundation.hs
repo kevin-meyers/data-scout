@@ -183,7 +183,7 @@ instance Yesod App where
     -- delegate to that function
     isAuthorized (ProfileR profileId ProfileEditR) _ = userPermittedProfile profileId
     isAuthorized (ProfilesR ProfileRedirectR) _ = isAuthenticated
-    isAuthorized (ProfilesR ProfileCreateR) _ = userProfileNotExists
+    isAuthorized (TeamR _ ProfileCreateR) _ = userProfileNotExists
     isAuthorized MetadataFormR _ = isAuthenticated
     isAuthorized (TablesR TableListR) _ = isAuthenticated
     isAuthorized (TeamR _ TableCreateR) _ = isAuthenticated 
@@ -284,7 +284,6 @@ instance YesodAuth App where
             Nothing -> Authenticated <$> insert User
                 { userIdent = credsIdent creds
                 , userPassword = Nothing
-                , userTeamId = Nothing
                 }
 
     -- You can add other plugins like Google Email, email or OAuth here
@@ -329,18 +328,13 @@ userPermittedProfile profileId = do
 
 canJoinTeam :: TeamId -> Handler AuthResult
 canJoinTeam teamId = do
-    (_, user) <- requireAuthPair
-    return $ case userTeamId user of
+    uid <- requireAuthId
+    mprofile <- runDB $ getBy $ UniqueProfile uid
+    return $ case mprofile of
         Nothing -> Authorized
-        Just pTeamId -> if pTeamId == teamId 
+        Just (Entity _ profile) -> if profileTeamId profile == teamId
                           then Unauthorized ("Already joined" :: Text)
                           else Unauthorized ("Part of a different team" :: Text)
-
-redirectProfile :: Handler ()
-redirectProfile = do
-    setUltDestCurrent
-    redirect $ ProfilesR ProfileCreateR
-
 
 instance YesodAuthPersist App
 

@@ -18,12 +18,12 @@ data ProfileData = ProfileData
 getProfileDetailR :: ProfileId -> Handler Html
 getProfileDetailR profileId = do
     profile <- runDB $ get404 profileId
-    (uid, user) <- requireAuthPair
+    uid <- requireAuthId
     let canEdit = uid == profileUserId profile
+        teamId = profileTeamId profile
 
-    mteam <- case userTeamId user of
-        Nothing -> pure Nothing
-        Just teamId -> runDB $ getEntity teamId
+    team <- runDB $ get404 teamId
+
     defaultLayout $ do
         setTitle . toHtml $ profileName profile <> "'s User page"
         $(widgetFile "profile-detail")

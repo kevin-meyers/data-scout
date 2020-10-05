@@ -10,7 +10,6 @@
 
 /profiles ProfilesR:
     /redirect ProfileRedirectR GET
-    /create ProfileCreateR GET POST
 
 /profile/#ProfileId ProfileR:
     / ProfileDetailR GET
@@ -37,6 +36,7 @@
     /edit TeamEditR GET POST
     /join TeamJoinR GET POST
     /table/create TableCreateR GET POST
+    /profile/create ProfileCreateR GET POST
 
 
 /company/#CompanyId CompanyR:
