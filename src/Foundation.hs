@@ -284,7 +284,6 @@ instance YesodAuth App where
             Nothing -> Authenticated <$> insert User
                 { userIdent = credsIdent creds
                 , userPassword = Nothing
-                , userTeamId = Nothing
                 }
 
     -- You can add other plugins like Google Email, email or OAuth here
@@ -329,10 +328,11 @@ userPermittedProfile profileId = do
 
 canJoinTeam :: TeamId -> Handler AuthResult
 canJoinTeam teamId = do
-    (_, user) <- requireAuthPair
-    return $ case userTeamId user of
+    uid <- requireAuthId
+    mprofile <- runDB $ getBy $ UniqueProfile uid
+    return $ case mprofile of
         Nothing -> Authorized
-        Just pTeamId -> if pTeamId == teamId 
+        Just (Entity _ profile) -> if profileTeamId profile == teamId
                           then Unauthorized ("Already joined" :: Text)
                           else Unauthorized ("Part of a different team" :: Text)
 
