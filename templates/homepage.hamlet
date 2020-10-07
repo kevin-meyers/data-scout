@@ -29,7 +29,4 @@
             You have a problem, your tables and tables of data are getting underutilized, misused and often forgotten! Data Scout can help. Data Scout is a platform where you can add documentation to each of your databases, tables, and columns!
         <p>
             The process is: you register your company and pick an administrator, they can transfer administration at any time. Then they can invite people to join the company using several tiers of permissions. Usually, they would invite managers first, and the managers will set up their team profiles and invite their employees.
-        <p>
-            Teams can add their tables to be documented either manually, or with the command line tool to gather basic metadata about their tables like names and how they connect to other tables.
-        <p>
-            Once a table is added, the owner of the table can grant either edit or view permissions to other employees individually or in groups called "user groups". An easy example is if they wanted to grant edit permissions to everyone on their team they would use that user group!
+        
