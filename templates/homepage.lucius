@@ -24,6 +24,24 @@ h1 {
 
 }
 
+.right-card > h1 {
+  color: #333333;
+}
+
+.right-card > p {
+  color: #1F1F1F;
+  font-size: 24px;
+}
+
+.left-card > h1 {
+  color: #333333;
+}
+
+.left-card > p {
+  color: #1F1F1F;
+  font-size: 24px;
+}
+
 p {
   font-family: 'Open Sans', sans-serif;
 }
@@ -56,6 +74,43 @@ hr {
   font-size: 16px;
   border-radius: 10px;
   font-family: 'Copse', serif;
+}
+
+.right-card {
+  background-color: #D8D8D8;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 10px;
+  width: 40%;
+  position: absolute;
+  right: 5%;
+  top: 125%;
+}
+
+.left-card {
+  background-color: #D8D8D8;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 10px;
+  width: 40%;
+  position: absolute;
+  left: 5%;
+  top: 190%;
+}
+
+.inspector {
+  position: absolute;
+  top: 108%;
 }
 
 .subtext {
