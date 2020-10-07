@@ -58,16 +58,19 @@ p {
 }
 
 hr {
-  border: 1px solid black;
-  width:20%;
+  border: 2px solid black;
   margin: 0 auto;
+  border-radius: 10px;
+  width: 12%;
+  text-align: left;
+  margin-left: 0;
 }
 
 .button {
   background-color: #16191D;
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 15px 70px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -117,6 +120,8 @@ hr {
   width: 420px;
   line-height: 25px;
   font-size: 18px;
+  padding-top: 15px;
+  padding-bottom: 10px;
 
 }
 .landing-text {
