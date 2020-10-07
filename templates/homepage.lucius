@@ -4,6 +4,7 @@
 li {
     line-height: 2em;
     font-size: 16px
+    
 }
 
 body {
@@ -12,10 +13,24 @@ body {
 
 h1 {
   font-family: 'Copse', serif;
+  color: #fff;
+  font-size: 48px;
+
+}
+h2 {
+  color: #D1D1D1;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 24px;
 
 }
 
 p {
   font-family: 'Open Sans', sans-serif;
+}
+
+.hero {
+  position: absolute;
+  right: 0px;
+  top: 10px;
 }
 

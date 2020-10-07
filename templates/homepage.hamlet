@@ -1,6 +1,7 @@
 <div>
     <div>
         <div>
+            <img src="@{StaticR images_dshero_png}" height="1000" .hero>
             <h1>
                 Solve your data challenges faster
             <h2>
