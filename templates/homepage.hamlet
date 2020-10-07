@@ -1,28 +1,28 @@
-<div .masthead>
-    <div .container>
-        <div .row>
-            <h1 .header>
+<div>
+    <div>
+        <div>
+            <h1>
                 Solve your data challenges faster
             <h2>
                 Data Scout makes your data discoverable so there is less repeated efforts, and no more long email chain searching for permissions
             <a href=@{AuthR LoginR} .btn.btn-info.btn-lg>
                 Get started now
 
-<div .container>
+<div>
     <!-- Starting
         ================================================== -->
-    <div .bs-docs-section>
-        <div .row>
-            <div .col-lg-12>
-                <div .page-header>
-                    <h1 #start>What is Data Scout?
+    <div>
+        <div>
+            <div>
+                <div>
+                    <h1>What is Data Scout?
 
                     <p>
                         Data Scout is a data documentation web app with a focus on making your data easier to find for people solving data challenges.
                     <p>
                         We make your data discoverable with a search engine that connects your business keywords to the names and descriptions of the tables. Now finding data is as easy as playing around with the search engine, and if you have any questions or want access to the data, the contact information for the owning team is available both on the table, and on the teams profile page!
 
-                    <h1 #start>Why you need Data Scout
+                    <h1>Why you need Data Scout
                     <p>
                         You have a problem, your tables and tables of data are getting underutilized, misused and often forgotten! Data Scout can help. Data Scout is a platform where you can add documentation to each of your databases, tables, and columns!
                     <p>
