@@ -1,13 +1,16 @@
-<div>
-    <div>
-        <div>
-            <img src="@{StaticR images_dshero_png}" height="1000" .hero>
+<div .landing>
+    <div .landing-text>
+        <div .maintext>
+            <img src="@{StaticR images_dshero_png}" .hero>
             <h1>
-                Solve your data challenges faster
-            <h2>
+                Solve Your Data
+            <h1>
+                Challenges Faster
+            <hr>
+            <p .subtext>
                 Data Scout makes your data discoverable so there is less repeated efforts, and no more long email chain searching for permissions
-            <a href=@{AuthR LoginR} .btn.btn-info.btn-lg>
-                Get started now
+            <a href=@{AuthR LoginR} .button>
+                Get Started
 
 <div>
     <!-- Starting

@@ -17,7 +17,7 @@ h1 {
   font-size: 48px;
 
 }
-h2 {
+.subtext {
   color: #D1D1D1;
   font-family: 'Open Sans', sans-serif;
   font-size: 24px;
@@ -28,9 +28,46 @@ p {
   font-family: 'Open Sans', sans-serif;
 }
 
-.hero {
+
+.hero{
   position: absolute;
-  right: 0px;
-  top: 10px;
+  width: auto;
+  height: 108%;
+
+	right: 0px;
+	top: 10px;
+	margin-left: -20px;
+}
+
+hr {
+  border: 1px solid black;
+  width:20%;
+  margin: 0 auto;
+}
+
+.button {
+  background-color: #16191D;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 10px;
+  font-family: 'Copse', serif;
+}
+
+.subtext {
+  width: 420px;
+  line-height: 25px;
+  font-size: 18px;
+
+}
+.landing-text {
+  color: white;
+  text-align: left;
+  padding-left: 10%;
+  padding-top: 12%;
 }
 
