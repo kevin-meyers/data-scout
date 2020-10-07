@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Copse&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
 li {
     line-height: 2em;
     font-size: 16px
@@ -5,5 +8,14 @@ li {
 
 body {
   background-color: #202328;
+}
+
+h1 {
+  font-family: 'Copse', serif;
+
+}
+
+p {
+  font-family: 'Open Sans', sans-serif;
 }
 
