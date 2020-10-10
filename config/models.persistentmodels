@@ -44,10 +44,10 @@ Connections
     columnId ColumnId
     columnMatchId Int
 Permission
-    userId UserId
+    profileId ProfileId
     tableId TableId
     permissionType PermissionType
-    UniquePair userId tableId
+    UniquePair profileId tableId
     deriving Eq
 Company
     name Text

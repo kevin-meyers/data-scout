@@ -303,13 +303,17 @@ isAuthenticated = do
 userPermittedTable :: TableId -> PermissionType -> Handler AuthResult
 userPermittedTable tableId permissionType = do
     uid <- requireAuthId
-    mPermissionRow <- runDB $ getBy $ UniquePair uid tableId
-    return $ case mPermissionRow of
-        Nothing -> Unauthorized $ T.pack $ "You do not have the correct permissions to " ++ show permissionType ++ " this table."
-        Just (Entity _ permissionRow) -> 
-            if permissionPermissionType permissionRow >= permissionType 
-            then Authorized
-            else Unauthorized $ T.pack $ "You do not have the correct permissions to " ++ show permissionType ++ " this table."
+    mProfile <- runDB $ getBy $ UniqueProfile uid
+    case mProfile of
+        Nothing -> return $ Unauthorized $ T.pack "You need to have a profile first."
+        Just (Entity profileId _) -> do
+            mPermissionRow <- runDB $ getBy $ UniquePair profileId tableId
+            return $ case mPermissionRow of
+                Nothing -> Unauthorized $ T.pack $ "You do not have the correct permissions to " ++ show permissionType ++ " this table."
+                Just (Entity _ permissionRow) ->
+                    if permissionPermissionType permissionRow >= permissionType 
+                    then Authorized
+                    else Unauthorized $ T.pack $ "You do not have the correct permissions to " ++ show permissionType ++ " this table."
 
 
 userProfileNotExists :: Handler AuthResult
