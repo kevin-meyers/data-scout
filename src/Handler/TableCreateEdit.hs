@@ -55,10 +55,14 @@ postTableCreateR teamId = do
                 teamId
                 (tableDataDescription tableData)
             uid <- requireAuthId
-            _ <- runDB $ insert $ Permission
-                uid
-                tableId
-                Own
+            mProfile <- runDB $ getBy $ UniqueProfile uid
+            _ <- case mProfile of
+                Nothing -> notFound
+                Just (Entity profileId _) -> runDB $ 
+                    insert $ Permission
+                        profileId
+                        tableId
+                        Own
             redirect $ TableR tableId TableDetailR
         _ -> redirect $ TeamR teamId TableCreateR
 
