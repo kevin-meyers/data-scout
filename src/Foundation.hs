@@ -112,9 +112,7 @@ instance Yesod App where
             Nothing -> return Nothing
             Just (uid, _) -> runDB $ getBy $ UniqueProfile uid
 
-        mteam <- case mprofile of
-            Nothing -> return Nothing
-            Just (Entity _ profile) -> return $ Just $ profileTeamId profile
+        let mteam = profileTeamId . entityVal <$> mprofile
 
         mcurrentRoute <- getCurrentRoute
 
