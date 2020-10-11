@@ -108,6 +108,10 @@ instance Yesod App where
         mmsg <- getMessage
 
         muser <- maybeAuthPair
+        mprofile <- maybe (pure Nothing) (runDB . getBy . UniqueProfile . fst) muser
+
+        let mteam = profileTeamId . entityVal <$> mprofile
+
         mcurrentRoute <- getCurrentRoute
 
         -- Get the breadcrumbs, as defined in the YesodBreadcrumbs instance.
@@ -117,8 +121,10 @@ instance Yesod App where
         let menuItems =
                 [ NavbarLeft MenuItem
                     { menuItemLabel = "Profile"
-                    , menuItemRoute = ProfilesR ProfileRedirectR
-                    , menuItemAccessCallback = isJust muser
+                    , menuItemRoute = case mprofile of
+                        Nothing -> HomeR
+                        Just (Entity profileId _) -> ProfileR profileId ProfileDetailR
+                    , menuItemAccessCallback = isJust mprofile
                     }
                 , NavbarLeft MenuItem
                     { menuItemLabel = "Tables"
@@ -126,9 +132,11 @@ instance Yesod App where
                     , menuItemAccessCallback = isJust muser
                     }
                 , NavbarLeft MenuItem
-                    { menuItemLabel = "Teams"
-                    , menuItemRoute = ProfilesR ProfileRedirectR-- TeamsR TeamListR
-                    , menuItemAccessCallback = isJust muser
+                    { menuItemLabel = "Team"
+                    , menuItemRoute = case mteam of
+                        Nothing -> HomeR
+                        Just teamId -> TeamR teamId TeamDetailR
+                    , menuItemAccessCallback = isJust mteam
                     }
 
                 , NavbarRight MenuItem
@@ -182,7 +190,6 @@ instance Yesod App where
     -- the profile route requires that the user is authenticated, so we
     -- delegate to that function
     isAuthorized (ProfileR profileId ProfileEditR) _ = userPermittedProfile profileId
-    isAuthorized (ProfilesR ProfileRedirectR) _ = isAuthenticated
     isAuthorized (TeamR _ ProfileCreateR) _ = userProfileNotExists
     isAuthorized MetadataFormR _ = isAuthenticated
     isAuthorized (TablesR TableListR) _ = isAuthenticated
@@ -249,7 +256,6 @@ instance YesodBreadcrumbs App where
         -> Handler (Text, Maybe (Route App))
     breadcrumb HomeR = return ("Home", Nothing)
     breadcrumb (AuthR _) = return ("Login", Just HomeR)
-    breadcrumb (ProfilesR ProfileRedirectR) = return ("Profile", Just HomeR)
     breadcrumb  _ = return ("home", Nothing)
 
 -- How to run database actions.

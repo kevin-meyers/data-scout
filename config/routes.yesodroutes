@@ -8,9 +8,6 @@
 
 /comments CommentR POST
 
-/profiles ProfilesR:
-    /redirect ProfileRedirectR GET
-
 /profile/#ProfileId ProfileR:
     / ProfileDetailR GET
     /edit ProfileEditR GET POST
