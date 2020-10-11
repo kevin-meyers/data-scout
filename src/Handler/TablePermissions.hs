@@ -55,9 +55,9 @@ postTablePermissionsR tableId = do
     ((result, _), _) <- runFormPost permissionForm
     case result of
         FormSuccess permissionData -> do
-            profile <- runDB $ get404 $ permissionDataProfileId permissionData
+            let profileId = permissionDataProfileId permissionData
             _ <- runDB $ insert $ Permission
-                (profileUserId profile)
+                profileId
                 tableId
                 (permissionDataType permissionData)
             redirect $ TableR tableId TableDetailR

@@ -20,7 +20,11 @@ getTableDetailR tableId = do
     let teamId = tableTeamId table
     team <- runDB $ get404 teamId 
     uid <- requireAuthId
-    Entity _ perm <- runDB $ getBy404 $ UniquePair uid tableId
-    defaultLayout $ do
-        setTitle . toHtml $ tableName table
-        $(widgetFile "table-detail")
+    mProfile <- runDB $ getBy $ UniqueProfile uid
+    case mProfile of
+        Nothing -> notFound
+        Just (Entity profileId _) -> do
+            Entity _ perm <- runDB $ getBy404 $ UniquePair profileId tableId
+            defaultLayout $ do
+                setTitle . toHtml $ tableName table
+                $(widgetFile "table-detail")
