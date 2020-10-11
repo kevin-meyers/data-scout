@@ -108,9 +108,7 @@ instance Yesod App where
         mmsg <- getMessage
 
         muser <- maybeAuthPair
-        mprofile <- case muser of
-            Nothing -> return Nothing
-            Just (uid, _) -> runDB $ getBy $ UniqueProfile uid
+        mprofile <- maybe (pure Nothing) (runDB . getBy . UniqueProfile . fst) muser
 
         let mteam = profileTeamId . entityVal <$> mprofile
 
