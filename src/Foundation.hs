@@ -118,8 +118,7 @@ instance Yesod App where
                 mteam <- runDB $ get teamId
                 case mteam of
                     Nothing -> pure Nothing
-                    Just (Entity _ team) -> pure $ Just $ teamCompanyId team
-
+                    Just team -> pure $ Just $ teamCompanyId team
 
         mcurrentRoute <- getCurrentRoute
 
