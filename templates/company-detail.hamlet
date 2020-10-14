@@ -1,0 +1,9 @@
+<h1>#{companyName company}
+
+$maybe description <- companyDescription company
+    <p>#{description}
+
+$maybe (Entity adminProfileId _) <- mAdminProfile
+    <a href=@{ProfileR adminProfileId ProfileDetailR}>Admins profile
+
+<a href=@{CompanyR companyId $ TeamsR TeamListR}>Team List

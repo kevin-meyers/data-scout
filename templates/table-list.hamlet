@@ -1,6 +1,6 @@
 $if isJust mProfile
     $maybe (Entity _ profile) <- mProfile
-        <p><a href=@{TeamR (profileTeamId profile) TableCreateR}
+        <p><a href=@{TeamR (profileTeamId profile) TableCreateR}>Create a table</a>
 
 $elseif not $ isJust mCompany
     <p>Before you can make tables, you will need to create a company, at least 1 team, and your user profile! <a href=@{CompanyCreateR}>Create a company now</a>
