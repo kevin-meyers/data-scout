@@ -19,6 +19,13 @@ import           Database.Esqueleto      ((^.))
 getTableListR :: Handler Html
 getTableListR = do
     uid <- requireAuthId
+    mCompany <- runDB $ getBy $ UniqueAdmin uid
+    areTeams <- case mCompany of
+            Nothing -> pure False
+            Just (Entity companyId _) -> do
+                num_teams <- runDB $ count [TeamCompanyId ==. companyId]
+                pure $ num_teams > 0
+
     mProfile <- runDB $ getBy $ UniqueProfile uid
     tables <- case mProfile of
         Nothing -> return []
