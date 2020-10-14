@@ -113,7 +113,12 @@ instance Yesod App where
         let mTeamId = profileTeamId . entityVal <$> mProfile
 
         mCompanyId <- case mTeamId of
-            Nothing -> pure Nothing
+            Nothing -> case muser of
+                Nothing -> pure Nothing
+                Just (uid, _) -> do
+                    mCompanyAdmin <- runDB $ getBy $ UniqueAdmin uid
+                    pure $ entityKey <$> mCompanyAdmin
+
             Just teamId -> do
                 mteam <- runDB $ get teamId
                 case mteam of
