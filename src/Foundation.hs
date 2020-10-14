@@ -108,9 +108,17 @@ instance Yesod App where
         mmsg <- getMessage
 
         muser <- maybeAuthPair
-        mprofile <- maybe (pure Nothing) (runDB . getBy . UniqueProfile . fst) muser
+        mProfile <- maybe (pure Nothing) (runDB . getBy . UniqueProfile . fst) muser
 
-        let mteam = profileTeamId . entityVal <$> mprofile
+        let mTeamId = profileTeamId . entityVal <$> mProfile
+
+        mCompanyId <- case mTeamId of
+            Nothing -> pure Nothing
+            Just teamId -> do
+                mteam <- runDB $ get teamId
+                case mteam of
+                    Nothing -> pure Nothing
+                    Just team -> pure $ Just $ teamCompanyId team
 
         mcurrentRoute <- getCurrentRoute
 
@@ -121,10 +129,10 @@ instance Yesod App where
         let menuItems =
                 [ NavbarLeft MenuItem
                     { menuItemLabel = "Profile"
-                    , menuItemRoute = case mprofile of
+                    , menuItemRoute = case mProfile of
                         Nothing -> HomeR
                         Just (Entity profileId _) -> ProfileR profileId ProfileDetailR
-                    , menuItemAccessCallback = isJust mprofile
+                    , menuItemAccessCallback = isJust mProfile
                     }
                 , NavbarLeft MenuItem
                     { menuItemLabel = "Tables"
@@ -133,12 +141,18 @@ instance Yesod App where
                     }
                 , NavbarLeft MenuItem
                     { menuItemLabel = "Team"
-                    , menuItemRoute = case mteam of
+                    , menuItemRoute = case mTeamId of
                         Nothing -> HomeR
                         Just teamId -> TeamR teamId TeamDetailR
-                    , menuItemAccessCallback = isJust mteam
+                    , menuItemAccessCallback = isJust mTeamId
                     }
-
+                , NavbarLeft MenuItem
+                    { menuItemLabel = "Company"
+                    , menuItemRoute = case mCompanyId of
+                        Nothing -> HomeR
+                        Just companyId -> CompanyR companyId CompanyDetailR
+                    , menuItemAccessCallback = isJust mCompanyId
+                    }
                 , NavbarRight MenuItem
                     { menuItemLabel = "Login"
                     , menuItemRoute = AuthR LoginR
