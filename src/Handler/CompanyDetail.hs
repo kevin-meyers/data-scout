@@ -15,6 +15,7 @@ import Import
 getCompanyDetailR :: CompanyId -> Handler Html
 getCompanyDetailR companyId = do
     company <- runDB $ get404 companyId
+    mAdminProfile <- runDB $ getBy $ UniqueProfile $ companyAdminUserId company
     defaultLayout $ do
         setTitle . toHtml $ companyName company <> "'s page"
         $(widgetFile "company-detail")
