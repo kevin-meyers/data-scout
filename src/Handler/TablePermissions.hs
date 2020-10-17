@@ -34,13 +34,26 @@ permissionAttributes = FieldSettings
     Nothing -- The name attr
     [("class", "")] -- list of attributes and their values
 
+
+validProfiles :: Handler [Filter Profile]
+validProfiles = do
+    uid <- requireAuthId
+    mProfile <- runDB $ getBy $ UniqueProfile uid
+    team <- case mProfile of
+        Nothing -> notFound
+        Just (Entity _ profile) -> runDB $ get404 $ profileTeamId profile
+    teams <- runDB $ selectList [TeamCompanyId ==. teamCompanyId team] []
+    pure $ map ((ProfileTeamId ==.) . entityKey) teams
+
 permissionForm :: Form PermissionData
 permissionForm = renderDivs $ PermissionData
     <$> areq (selectField uTuples) profileAttributes Nothing
     <*> areq (selectFieldList pTuples) permissionAttributes Nothing
       where
           pTuples = [("Own" :: Text, Own), ("Edit", Edit), ("View", View)]
-          uTuples = optionsPersistKey ([] :: [Filter Profile]) [] profileName
+          uTuples = do
+              profiles <- validProfiles
+              optionsPersistKey profiles [] profileName
 
 getTablePermissionsR :: TableId -> Handler Html
 getTablePermissionsR tableId = do
