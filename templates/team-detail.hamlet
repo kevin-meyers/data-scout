@@ -1,7 +1,9 @@
 <div class="col-box">
     <div class="row-box">
         <h1 class="teamName">#{teamName team}
-        <a class="edit" href=@{TeamR teamId TeamEditR}>Edit team
+        $if isMember
+            <a class="edit" href=@{TeamR teamId TeamEditR}>Edit team
+
         <div class="col-box">
             $maybe phoneNumber <- teamPhoneNumber team
                 <p>The phone number is: #{phoneNumber}
@@ -18,13 +20,15 @@
                 $forall Entity profileId profile <- profiles
                     <a href=@{ProfileR profileId ProfileDetailR}>#{profileName profile}
 
-    <a href=@{TeamR teamId TableCreateR}>Create a new table
+    $if isMember
+        <a href=@{TeamR teamId TableCreateR}>Create a new table
     <div class="col-box">
         $if not $ null tables
             <h4>Tables:
             $forall (E.Value tableId, E.Value tName)<- tables
                 <a href=@{TableR tableId TableDetailR}>#{tName}
 
-        <p>
-            Join this team by using this link:
-            <a class="join" href=@{TeamR teamId TeamJoinR}>Join team
+        $if isMember
+            <p>
+                Join this team by using this link:
+                <a class="join" href=@{TeamR teamId TeamJoinR}>Join team
