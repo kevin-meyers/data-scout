@@ -15,8 +15,7 @@ import Import
 
 getTeamListR :: CompanyId -> Handler Html
 getTeamListR companyId = do
-    --uid <- requireAuthId
-    teams <- runDB $ selectList ([] :: [Filter Team]) []
+    teams <- runDB $ selectList [TeamCompanyId ==. companyId] []
     defaultLayout $ do
         setTitle . toHtml $ ("All teams" :: Text)
         $(widgetFile "team-list")
