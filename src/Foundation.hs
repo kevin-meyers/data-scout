@@ -220,7 +220,7 @@ instance Yesod App where
 
     isAuthorized (TeamR teamId TeamDetailR) _ = inTeamInCompany teamId
     isAuthorized (CompanyR companyId (TeamsR TeamCreateR)) _ = inCompany companyId
-    isAuthorized (CompanyR companyId (TeamsR TeamListR)) _ =inCompany companyId
+    isAuthorized (CompanyR companyId (TeamsR TeamListR)) _ = inCompany companyId
     isAuthorized (TeamR teamId TeamJoinR) _ = canJoinTeam teamId
     isAuthorized (TeamR teamId TeamEditR) _ = inTeam teamId
 
