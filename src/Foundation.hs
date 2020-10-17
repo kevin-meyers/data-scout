@@ -220,14 +220,14 @@ instance Yesod App where
     isAuthorized (TableR tableId TableDeleteR) _ = userPermittedTable tableId Own
     isAuthorized (TableR tableId (ColumnR _ ColumnDeleteR)) _ = userPermittedTable tableId Own
     isAuthorized (TableR tableId (ColumnsR ColumnCreateR)) _ = userPermittedTable tableId Edit
-    isAuthorized (TeamR _ TeamDetailR) _ = isAuthenticated -- userPermittedTeam teamId View
-    isAuthorized (CompanyR _ (TeamsR TeamCreateR)) _ = isAuthenticated
-    isAuthorized (CompanyR _ (TeamsR TeamListR)) _ = isAuthenticated
+    isAuthorized (TeamR teamId TeamDetailR) _ = inTeamInCompany teamId
+    isAuthorized (CompanyR companyId (TeamsR TeamCreateR)) _ = inCompany companyId
+    isAuthorized (CompanyR companyId (TeamsR TeamListR)) _ = inCompany
     isAuthorized (CompanyR companyId CompanyEditR) _ = isCompanyAdmin companyId
     isAuthorized CompanyCreateR _ = hasNoCompany
-    isAuthorized (TeamR _ TeamEditR) _ = isAuthenticated
+    isAuthorized (TeamR teamId TeamEditR) _ = inTeam teamId
     isAuthorized (TeamR teamId TeamJoinR) _ = canJoinTeam teamId
-    isAuthorized (CompanyR _ CompanyDetailR) _ = isAuthenticated
+    isAuthorized (CompanyR companyId CompanyDetailR) _ = inCompany companyId
 
     -- This function creates static content files in the static folder
     -- and names them based on a hash of their content. This allows
@@ -382,6 +382,20 @@ hasNoCompany = do
     return $ case mcompany of
         Nothing -> Authorized
         Just _ -> Unauthorized ("" :: Text)
+
+inCompany :: CompanyId -> Handler AuthResult
+inCompany companyId = do
+    uid <- requireAuthId
+    mProfile <- runDB $ getBy $ UniqueProfile uid
+    case mProfile of
+        Nothing -> isCompanyAdmin companyId
+        Just (Entity _ profile) -> do
+            team <- runDB $ get404 $ profileTeamId profile
+            return $ if teamCompanyId team == companyId 
+              then Authorized
+              else Unauthorized ("" :: Text)
+
+
 
 instance YesodAuthPersist App
 
