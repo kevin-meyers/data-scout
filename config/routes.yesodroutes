@@ -6,13 +6,9 @@
 
 / HomeR GET
 
-/comments CommentR POST
-
 /profile/#ProfileId ProfileR:
     / ProfileDetailR GET
     /edit ProfileEditR GET POST
-
-/metadata-form MetadataFormR GET POST
 
 /table/#TableId TableR:
     / TableDetailR GET

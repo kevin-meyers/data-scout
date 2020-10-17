@@ -197,37 +197,36 @@ instance Yesod App where
         :: Route App  -- ^ The route the user is visiting.
         -> Bool       -- ^ Whether or not this is a "write" request.
         -> Handler AuthResult
-    -- Routes not requiring authentication.
     isAuthorized (AuthR _) _ = return Authorized
-    isAuthorized CommentR _ = return Authorized
     isAuthorized HomeR _ = return Authorized
     isAuthorized FaviconR _ = return Authorized
     isAuthorized RobotsR _ = return Authorized
     isAuthorized (StaticR _) _ = return Authorized
-    isAuthorized (ProfileR _ ProfileDetailR) _ = return Authorized
 
-    -- the profile route requires that the user is authenticated, so we
-    -- delegate to that function
+    isAuthorized (ProfileR _ ProfileDetailR) _ = return Authorized -- should be inCompany
     isAuthorized (ProfileR profileId ProfileEditR) _ = userPermittedProfile profileId
     isAuthorized (TeamR _ ProfileCreateR) _ = userProfileNotExists
-    isAuthorized MetadataFormR _ = isAuthenticated
+
     isAuthorized (TablesR TableListR) _ = isAuthenticated
-    isAuthorized (TeamR _ TableCreateR) _ = isAuthenticated 
+    isAuthorized (TeamR teamId TableCreateR) _ = inTeam teamId
     isAuthorized (TableR tableId TableDetailR) _ = userPermittedTable tableId View
     isAuthorized (TableR tableId TableEditR) _ = userPermittedTable tableId Edit
     isAuthorized (TableR tableId TablePermissionsR) _ = userPermittedTable tableId Own
-    isAuthorized (TableR tableId (ColumnR _ ColumnEditR)) _ = userPermittedTable tableId Edit
     isAuthorized (TableR tableId TableDeleteR) _ = userPermittedTable tableId Own
+
+    isAuthorized (TableR tableId (ColumnR _ ColumnEditR)) _ = userPermittedTable tableId Edit
     isAuthorized (TableR tableId (ColumnR _ ColumnDeleteR)) _ = userPermittedTable tableId Own
     isAuthorized (TableR tableId (ColumnsR ColumnCreateR)) _ = userPermittedTable tableId Edit
-    isAuthorized (TeamR _ TeamDetailR) _ = isAuthenticated -- userPermittedTeam teamId View
-    isAuthorized (CompanyR _ (TeamsR TeamCreateR)) _ = isAuthenticated
-    isAuthorized (CompanyR _ (TeamsR TeamListR)) _ = isAuthenticated
+
+    isAuthorized (TeamR teamId TeamDetailR) _ = inTeamInCompany teamId
+    isAuthorized (CompanyR companyId (TeamsR TeamCreateR)) _ = inCompany companyId
+    isAuthorized (CompanyR companyId (TeamsR TeamListR)) _ = inCompany companyId
+    isAuthorized (TeamR teamId TeamJoinR) _ = canJoinTeam teamId
+    isAuthorized (TeamR teamId TeamEditR) _ = inTeam teamId
+
     isAuthorized (CompanyR companyId CompanyEditR) _ = isCompanyAdmin companyId
     isAuthorized CompanyCreateR _ = hasNoCompany
-    isAuthorized (TeamR _ TeamEditR) _ = isAuthenticated
-    isAuthorized (TeamR teamId TeamJoinR) _ = canJoinTeam teamId
-    isAuthorized (CompanyR _ CompanyDetailR) _ = isAuthenticated
+    isAuthorized (CompanyR companyId CompanyDetailR) _ = inCompany companyId
 
     -- This function creates static content files in the static folder
     -- and names them based on a hash of their content. This allows
@@ -382,6 +381,35 @@ hasNoCompany = do
     return $ case mcompany of
         Nothing -> Authorized
         Just _ -> Unauthorized ("" :: Text)
+
+inCompany :: CompanyId -> Handler AuthResult
+inCompany companyId = do
+    uid <- requireAuthId
+    mProfile <- runDB $ getBy $ UniqueProfile uid
+    case mProfile of
+        Nothing -> isCompanyAdmin companyId
+        Just (Entity _ profile) -> do
+            team <- runDB $ get404 $ profileTeamId profile
+            return $ if teamCompanyId team == companyId
+              then Authorized
+              else Unauthorized ("" :: Text)
+
+inTeam :: TeamId -> Handler AuthResult
+inTeam teamId = do
+    uid <- requireAuthId
+    lookupTeam <- runDB $ get404 teamId
+    mProfile <- runDB $ getBy $ UniqueProfile uid
+    case mProfile of
+        Nothing -> isCompanyAdmin $ teamCompanyId lookupTeam
+        Just (Entity _ profile) -> return $ if profileTeamId profile == teamId
+                                              then Authorized
+                                              else Unauthorized ("" :: Text)
+
+inTeamInCompany :: TeamId -> Handler AuthResult
+inTeamInCompany teamId = do
+    lookupTeam <- runDB $ get404 teamId
+    inCompany $ teamCompanyId lookupTeam
+
 
 instance YesodAuthPersist App
 
