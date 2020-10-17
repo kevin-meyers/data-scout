@@ -22,8 +22,8 @@
     <div class="col-box">
         $if not $ null tables
             <h4>Tables:
-            $forall Entity tableId table <- tables
-                <a href=@{TableR tableId TableDetailR}>#{tableName table}
+            $forall (E.Value tableId, E.Value tName)<- tables
+                <a href=@{TableR tableId TableDetailR}>#{tName}
 
         <p>
             Join this team by using this link:
