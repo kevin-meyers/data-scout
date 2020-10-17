@@ -21,15 +21,17 @@ getTeamDetailR :: TeamId -> Handler Html
 getTeamDetailR teamId = do
     uid <- requireAuthId
     team <- runDB $ get404 teamId
-    profileId <- do
+    eProfile <- do
         mprofile <- runDB $ getBy $ UniqueProfile uid
-        maybe notFound (pure . entityKey) mprofile
+        maybe notFound pure mprofile
+
+    let isMember = (profileTeamId . entityVal) eProfile == teamId
 
     tables <- runDB
         $ E.select
         $ E.from $ \(table `E.InnerJoin` permission) -> do
             E.on $ table ^. TableId E.==. permission ^. PermissionTableId
-            E.where_ $ permission ^. PermissionProfileId E.==. E.val profileId
+            E.where_ $ permission ^. PermissionProfileId E.==. E.val (entityKey eProfile)
             E.where_ $ table ^. TableTeamId E.==. E.val teamId
             return
                 ( table ^. TableId
