@@ -25,6 +25,8 @@ import qualified Data.CaseInsensitive as CI
 import qualified Data.Text.Encoding as TE
 import qualified Data.Text as T
 
+import CustomQueries
+
 -- Replace with Google client ID.
 clientId :: Text
 clientId = "116467907892-u186h8n1tec5lb7alru80gjp6isk4n9f.apps.googleusercontent.com"
@@ -205,7 +207,7 @@ instance Yesod App where
 
     isAuthorized (ProfileR _ ProfileDetailR) _ = return Authorized -- should be inCompany
     isAuthorized (ProfileR profileId ProfileEditR) _ = userPermittedProfile profileId
-    isAuthorized (TeamR _ ProfileCreateR) _ = userProfileNotExists
+    isAuthorized (TeamR teamId ProfileCreateR) _ = canJoinTeam teamId
 
     isAuthorized (TablesR TableListR) _ = isAuthenticated
     isAuthorized (TeamR teamId TableCreateR) _ = inTeam teamId
@@ -221,7 +223,6 @@ instance Yesod App where
     isAuthorized (TeamR teamId TeamDetailR) _ = inTeamInCompany teamId
     isAuthorized (CompanyR companyId (TeamsR TeamCreateR)) _ = inCompany companyId
     isAuthorized (CompanyR companyId (TeamsR TeamListR)) _ = inCompany companyId
-    isAuthorized (TeamR teamId TeamJoinR) _ = canJoinTeam teamId
     isAuthorized (TeamR teamId TeamEditR) _ = inTeam teamId
 
     isAuthorized (CompanyR companyId CompanyEditR) _ = isCompanyAdmin companyId
@@ -359,12 +360,17 @@ userPermittedProfile profileId = do
 canJoinTeam :: TeamId -> Handler AuthResult
 canJoinTeam teamId = do
     uid <- requireAuthId
-    mprofile <- runDB $ getBy $ UniqueProfile uid
-    return $ case mprofile of
-        Nothing -> Authorized
-        Just (Entity _ profile) -> if profileTeamId profile == teamId
-                          then Unauthorized ("Already joined" :: Text)
-                          else Unauthorized ("Part of a different team" :: Text)
+    team <- runDB $ get404 teamId
+    let companyId = teamCompanyId team
+    company <- runDB $ get404 companyId
+    companySeatsUsed <- runDB $ usedSeats companyId
+    if (companyNumSeats company - companySeatsUsed) > 0
+      then do
+          mprofile <- runDB $ getBy $ UniqueProfile uid
+          case mprofile of
+               Nothing -> hasNoCompany
+               Just _ -> return $ Unauthorized ("Already part of another team." :: Text)
+      else return $ Unauthorized ("No seats remaining." :: Text)
 
 isCompanyAdmin :: CompanyId -> Handler AuthResult
 isCompanyAdmin companyId = do
@@ -378,9 +384,9 @@ hasNoCompany :: Handler AuthResult
 hasNoCompany = do
     uid <- requireAuthId
     mcompany <- runDB $ getBy $ UniqueAdmin uid
-    return $ case mcompany of
-        Nothing -> Authorized
-        Just _ -> Unauthorized ("" :: Text)
+    case mcompany of
+        Nothing -> userProfileNotExists
+        Just _ -> return $ Unauthorized ("" :: Text)
 
 inCompany :: CompanyId -> Handler AuthResult
 inCompany companyId = do
