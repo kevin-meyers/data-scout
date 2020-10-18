@@ -58,7 +58,6 @@ import Handler.ColumnDelete
 import Handler.TeamDetail
 import Handler.TeamCreateEdit
 import Handler.TeamList
-import Handler.TeamJoin
 
 import Handler.CompanyDetail
 import Handler.CompanyCreateEdit

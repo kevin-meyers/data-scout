@@ -52,6 +52,7 @@ postCompanyCreateR = do
             companyId <- runDB $ insert $ Company
                 (companyDataName companyData)
                 (companyDataDescription companyData)
+                0 -- default number of seats
                 uid
             redirect $ CompanyR companyId CompanyDetailR
         _ -> redirect CompanyCreateR

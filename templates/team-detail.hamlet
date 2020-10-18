@@ -31,4 +31,4 @@
         $if isMember
             <p>
                 Join this team by using this link:
-                <a class="join" href=@{TeamR teamId TeamJoinR}>Join team
+                <a class="join" href=@{TeamR teamId ProfileCreateR}>Join team

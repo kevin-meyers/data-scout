@@ -52,5 +52,6 @@ Permission
 Company
     name Text
     description Text Maybe
+    numSeats Int
     adminUserId UserId
     UniqueAdmin adminUserId
