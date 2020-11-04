@@ -189,3 +189,67 @@ hr {
   top: 500px;
 }
 
+.square-outline-background {
+  position: absolute;
+  height: 150px;
+  width: 150px;
+  border-width:5px;  
+  border-style:dotted;
+  border-color: #fff;
+  border-radius: 15px;
+  
+}
+
+.square-solid {
+  position: absolute;
+  border-radius: 15px;
+  height: 150px;
+  width: 150px;
+  background-color: #fff;
+  transform: rotate(45deg);
+}
+
+.square-outline-foreground {
+  position: absolute;
+  z-index: 5;
+  height: 105px;
+  width: 105px;
+  border-width:5px;  
+  border-style:dotted;
+  border-color: #000;
+  border-radius: 15px;
+  left: 21px;
+  top: 21px;
+}
+
+.pricing-cards-container {
+  height: 1000px;
+  width: 100%;
+  position: absolute;
+  top: 400px;
+}
+
+.card-title {
+  position: absolute;
+  z-index: 10;
+  color: black;
+  left: 35px;
+  top: 45px;
+  font-weight: bold;
+  font-size: 32px;
+}
+
+.main-card-dark {
+  background-color: #303030;
+  width: 425px;
+  height: 650px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 12px #000;
+}
+
+.title-design {
+  position: absolute;
+  left: 130px;
+  top: -70px;
+}
+

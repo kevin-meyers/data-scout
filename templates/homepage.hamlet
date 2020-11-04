@@ -34,3 +34,15 @@
     <div .oval2>
     <div .pricing-container>
         <h1 .pricing-plans-text>Pricing Plans
+
+    <div .pricing-cards-container>
+        <div .pricing-card>
+            <div .title-design>
+                <div .square-outline-background>
+                <div .square-solid>
+                <div .square-outline-foreground>
+                <p .card-title>FREE
+            <div .main-card-dark>
+            <div .main-card-light>
+              
+    
