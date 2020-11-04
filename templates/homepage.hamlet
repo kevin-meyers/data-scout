@@ -12,7 +12,7 @@
             <a href=@{AuthR LoginR} .button>
                 Get Started
 
-<div>
+<div .info-section>
     <!-- Starting
         ================================================== -->
     <img src="@{StaticR images_dsinspector_png}" .inspector>
@@ -29,6 +29,8 @@
             You have a problem, your tables and tables of data are getting underutilized, misused and often forgotten! Data Scout can help. Data Scout is a platform where you can add documentation to each of your databases, tables, and columns!
         <p>
             The process is: you register your company and pick an administrator, they can transfer administration at any time. Then they can invite people to join the company using several tiers of permissions. Usually, they would invite managers first, and the managers will set up their team profiles and invite their employees.
-    <div .pricing-section>
+<div .pricing-section>
     <div .oval1>
     <div .oval2>
+    <div .pricing-container>
+        <h1 .pricing-plans-text>Pricing Plans
