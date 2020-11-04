@@ -37,6 +37,9 @@ packages:
 extra-deps:
 - yesod-auth-oauth2-0.6.1.2@sha256:181c757c8ba0f57c23119414db90e1859271bfeb85667d88a99746001c064aba,2891
 - hoauth2-1.8.9@sha256:63929253f6cdeb096a369980d2acf0d7eedd0c98ac46f962f717c56b724069a4,5734
+- stripe-haskell-2.6.2
+- stripe-core-2.6.2
+- stripe-http-client-2.6.2
 
 # - acme-missiles-0.3
 # - git: https://github.com/commercialhaskell/stack.git

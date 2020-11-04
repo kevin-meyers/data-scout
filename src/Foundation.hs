@@ -24,6 +24,7 @@ import qualified Yesod.Core.Unsafe as Unsafe
 import qualified Data.CaseInsensitive as CI
 import qualified Data.Text.Encoding as TE
 import qualified Data.Text as T
+import Web.Stripe
 
 import CustomQueries
 
@@ -34,6 +35,9 @@ clientId = "116467907892-u186h8n1tec5lb7alru80gjp6isk4n9f.apps.googleusercontent
 -- Replace with Google secret ID.
 clientSecret :: Text
 clientSecret = "jMSGqDcwnzQFSBt6-YJAVB0E"
+
+stripeSecretKey :: ByteString
+stripeSecretKey = "sk_test_51HL8erJCMPJnQkbqosaZqRZoQczTIobgkh7DIyrMtQtBOFTi8Bif7jRnYwgwJFiXSEVCrrZ6w1SMxzy5LB4lvEDc00AWzLPkhj"
 
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -56,6 +60,10 @@ data MenuItem = MenuItem
 data MenuTypes
     = NavbarLeft MenuItem
     | NavbarRight MenuItem
+
+stripeConfig :: StripeConfig
+stripeConfig = StripeConfig (StripeKey stripeSecretKey) Nothing
+
 
 -- This is where we define all of the routes in our application. For a full
 -- explanation of the syntax, please see:
@@ -104,6 +112,7 @@ instance Yesod App where
     yesodMiddleware :: ToTypedContent res => Handler res -> Handler res
     yesodMiddleware = defaultYesodMiddleware
 
+    
     defaultLayout :: Widget -> Handler Html
     defaultLayout widget = do
         master <- getYesod

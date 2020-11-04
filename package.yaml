@@ -44,6 +44,8 @@ dependencies:
 - foreign-store
 - esqueleto
 - yesod-auth-oauth2
+- stripe-haskell
+- stripe-core
 
 # The library contains all of our application code. The executable
 # defined below is just a thin wrapper.
