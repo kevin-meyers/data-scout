@@ -43,6 +43,7 @@
                 <div .square-outline-foreground>
                 <p .card-title>FREE
             <div .main-card-dark>
+                <p .card-subtitle>Standard Plan
             <div .main-card-light>
               
     
