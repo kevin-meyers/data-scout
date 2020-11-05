@@ -45,5 +45,28 @@
             <div .main-card-dark>
                 <p .card-subtitle>Standard Plan
             <div .main-card-light>
+                <h3>Perfect for documenting a small project
+                    <ul>
+                        <li>✔ Full access to table documentation
+                        <li>✔ Access to company and team documentation
+                        <li>✔ Access to table search
               
-    
+        <div .pricing-card>
+            <div .title-design>
+                <div .square-outline-background>
+                <div .square-solid>
+                <div .square-outline-foreground>
+                <p .card-title>   PRO
+            <div .main-card-dark>
+                <p .card-subtitle>Premium Plan
+            <div .main-card-light>
+                <h3>For medium to enterprise sized projects
+                    <ul>
+                        <li>✔ Full access to table documentation
+                        <li>✔ Access to company and team documentation
+                        <li>✔ Access to table search
+                        <li>➕ Model your team hierarchy just like in real life
+                        <li>➕ Assign table and team best contacts
+                        <li>➕ Permission system so no one can view or edit tables they dont have permission to.
+                        <li>➕ Easily import tables from your databases using the import tool
+                        <li>➕ Delegate documentation to the appropriate people
