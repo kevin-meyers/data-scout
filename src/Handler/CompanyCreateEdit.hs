@@ -49,6 +49,11 @@ postCompanyCreateR = do
     case result of
         FormSuccess companyData -> do
             uid <- requireAuthId
+            result <- stripe config $ createCustomer
+            case result of
+                (Left stripeError) -> undefined
+                (Right (Customer {customerId = cId})) -> do
+                    result <- stripe stripeConfig $ createSubscription
             companyId <- runDB $ insert $ Company
                 (companyDataName companyData)
                 (companyDataDescription companyData)

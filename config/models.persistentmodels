@@ -54,6 +54,7 @@ Permission
 Company
     name Text
     description Text Maybe
+    stripeId Text
     numSeats Int
     adminUserId UserId
     UniqueAdmin adminUserId
