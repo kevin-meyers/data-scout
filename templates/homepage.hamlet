@@ -27,9 +27,9 @@
     <div .left-card>
         <h1>Why you need Data Scout
         <p>
-            You have a problem, your tables and tables of data are getting underutilized, misused and often forgotten! Data Scout can help. Data Scout is a platform where you can add documentation to each of your databases, tables, and columns!
+          <b><u>You have a problem:</b></u> your tables and tables of data are getting underutilized, misused and often forgotten! Data Scout can help. Data Scout is a platform where you can add documentation to each of your databases, tables, and columns!
         <p>
-            The process is: you register your company and pick an administrator, they can transfer administration at any time. Then they can invite people to join the company using several tiers of permissions. Usually, they would invite managers first, and the managers will set up their team profiles and invite their employees.
+            <b><u>The process is:</b></u> you register your company and pick an administrator, they can transfer administration at any time. Then they can invite people to join the company using several tiers of permissions. Usually, they would invite managers first, and the managers will set up their team profiles and invite their employees.
 <div .pricing-section>
     <div .oval1>
     <div .oval2>
