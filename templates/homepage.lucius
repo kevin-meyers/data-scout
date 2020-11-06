@@ -33,20 +33,24 @@ h1 {
 
 .right-card > h1 {
   color: #333333;
+  padding-bottom: 20px;
 }
 
 .right-card > p {
   color: #1F1F1F;
-  font-size: 24px;
+  font-size: 20px;
+  text-align: left;
 }
 
 .left-card > h1 {
   color: #333333;
+  padding-bottom: 20px;
 }
 
 .left-card > p {
   color: #1F1F1F;
-  font-size: 24px;
+  font-size: 20px;
+  text-align: left;
 }
 
 p {
@@ -90,11 +94,11 @@ hr {
   background-color: #D8D8D8;
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 40px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+
   border-radius: 10px;
   width: 40%;
   position: absolute;
@@ -107,11 +111,11 @@ hr {
   background-color: #D8D8D8;
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 40px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+
   border-radius: 10px;
   width: 40%;
   position: absolute;
