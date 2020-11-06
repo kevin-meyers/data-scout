@@ -342,7 +342,7 @@ h3 {
   width: 1000px;
   height: 600px;
   position: absolute;
-
+  padding: 40px;
 
   z-index: 6;  
 }
@@ -350,4 +350,18 @@ h3 {
 .contact-img {
   text-align: right;
   height: 300px;
+}
+
+.top-left > h1 {
+  color: #333333;
+}
+
+.top-left > p {
+  color: #1F1F1F;
+  font-size: 24px;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
 }
