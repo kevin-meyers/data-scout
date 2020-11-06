@@ -70,3 +70,9 @@
                         <li>➕ Permission system so no one can view or edit tables they dont have permission to.
                         <li>➕ Easily import tables from your databases using the import tool
                         <li>➕ Delegate documentation to the appropriate people
+
+    <div .contact-section>
+        <div .contact-card>
+            <img src="@{StaticR images_contactimageds_png}" .contact-img>
+        <img src="@{StaticR images_contactbottom_png}" .contact-bottom>
+        
