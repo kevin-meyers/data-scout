@@ -1,33 +1,94 @@
-<div .masthead>
-    <div .container>
-        <div .row>
-            <h1 .header>
-                Solve your data challenges faster
-            <h2>
+<div .landing>
+    <div .landing-text>
+        <div .maintext>
+            <img src="@{StaticR images_dshero_png}" .hero>
+            <h1>
+                Solve Your Data <br> Challenges Faster
+            
+                
+            <hr>
+            <p .subtext>
                 Data Scout makes your data discoverable so there is less repeated efforts, and no more long email chain searching for permissions
-            <a href=@{AuthR LoginR} .btn.btn-info.btn-lg>
-                Get started now
+            <a href=@{AuthR LoginR} .button>
+                Get Started
 
-<div .container>
+<div .info-section>
     <!-- Starting
         ================================================== -->
-    <div .bs-docs-section>
-        <div .row>
-            <div .col-lg-12>
-                <div .page-header>
-                    <h1 #start>What is Data Scout?
+    <img src="@{StaticR images_dsinspector_png}" .inspector>
+    <img src="@{StaticR images_dscollab_png}" .collab>
+    <div .right-card>
+        <h1>What is Data Scout?
 
-                    <p>
-                        Data Scout is a data documentation web app with a focus on making your data easier to find for people solving data challenges.
-                    <p>
-                        We make your data discoverable with a search engine that connects your business keywords to the names and descriptions of the tables. Now finding data is as easy as playing around with the search engine, and if you have any questions or want access to the data, the contact information for the owning team is available both on the table, and on the teams profile page!
+        <p>
+            Data Scout is a data documentation web app with a focus on making your data easier to find for people solving data challenges.
+        <p>
+            We make your data discoverable with a search engine that connects your business keywords to the names and descriptions of the tables. Now finding data is as easy as playing around with the search engine, and if you have any questions or want access to the data, the contact information for the owning team is available both on the table, and on the teams profile page!
+    <div .left-card>
+        <h1>Why you need Data Scout
+        <p>
+          <b><u>You have a problem:</b></u> your tables and tables of data are getting underutilized, misused and often forgotten! Data Scout can help. Data Scout is a platform where you can add documentation to each of your databases, tables, and columns!
+        <p>
+            <b><u>The process is:</b></u> you register your company and pick an administrator, they can transfer administration at any time. Then they can invite people to join the company using several tiers of permissions. Usually, they would invite managers first, and the managers will set up their team profiles and invite their employees.
+<div .pricing-section>
+    <div .oval1>
+    <div .oval2>
+    <div .pricing-container>
+        <h1 .pricing-plans-text>Pricing Plans
 
-                    <h1 #start>Why you need Data Scout
-                    <p>
-                        You have a problem, your tables and tables of data are getting underutilized, misused and often forgotten! Data Scout can help. Data Scout is a platform where you can add documentation to each of your databases, tables, and columns!
-                    <p>
-                        The process is: you register your company and pick an administrator, they can transfer administration at any time. Then they can invite people to join the company using several tiers of permissions. Usually, they would invite managers first, and the managers will set up their team profiles and invite their employees.
-                    <p>
-                        Teams can add their tables to be documented either manually, or with the command line tool to gather basic metadata about their tables like names and how they connect to other tables.
-                    <p>
-                        Once a table is added, the owner of the table can grant either edit or view permissions to other employees individually or in groups called "user groups". An easy example is if they wanted to grant edit permissions to everyone on their team they would use that user group!
+    <div .pricing-cards-container>
+        <div .pricing-card>
+            <div .title-design>
+                <div .square-outline-background>
+                <div .square-solid>
+                <div .square-outline-foreground>
+                <p .card-title>FREE
+            <div .main-card-dark>
+                <p .card-subtitle>Standard Plan
+            <div .main-card-light>
+                <h3>Perfect for documenting a small project
+                    <ul>
+                        <li>✔ Full access to table documentation
+                        <li>✔ Access to company and team documentation
+                        <li>✔ Access to table search
+              
+        <div .pricing-card>
+            <div .title-design>
+                <div .square-outline-background>
+                <div .square-solid>
+                <div .square-outline-foreground>
+                <p .card-title>   PRO
+            <div .main-card-dark>
+                <p .card-subtitle>Premium Plan
+            <div .main-card-light>
+                <h3>For medium to enterprise sized projects
+                    <ul>
+                        <li>✔ Full access to table documentation
+                        <li>✔ Access to company and team documentation
+                        <li>✔ Access to table search
+                        <li>➕ Model your team hierarchy just like in real life
+                        <li>➕ Assign table and team best contacts
+                        <li>➕ Permission system so no one can view or edit tables they dont have permission to.
+                        <li>➕ Easily import tables from your databases using the import tool
+                        <li>➕ Delegate documentation to the appropriate people
+
+    <div .contact-section>
+        <div .contact-card>
+            <div .top>
+                <div .top-left>
+                    <h1>Contact Us
+                    <p .contact-subtext>If you have any questions or want 
+                        to know more about how Data Scout
+                        can save your company time, 
+                        contact us below
+                    <p for="email">Your Name</br>
+                    <input .name-form type="text" id="name" name="name"></br>
+                    <p for="email">Your Email</br>
+                    <input type="text" id="email" name="email" ></br>
+                <div .top-right>
+                    <img src="@{StaticR images_contactimageds_png}" .contact-img>
+                    <p for="message">Your Message</br>
+                    <textarea type="text" id="message" name="message" rows="7" cols="40" placeholder="Type something if you'd like!">
+            <input .submit-button type="submit" value="Submit">
+        <img src="@{StaticR images_contactbottom_png}" .contact-bottom>
+        
