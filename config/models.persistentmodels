@@ -14,6 +14,7 @@ Profile
     photoUrl Text Maybe
     teamId TeamId
     UniqueProfile userId
+    deriving Show
 Email
     email Text
     userId UserId Maybe
@@ -34,6 +35,7 @@ Team
     phoneNumber Text Maybe
     emailAddress Text Maybe
     companyId CompanyId
+    deriving Show
 Column
     name Text
     description Text Maybe
@@ -55,3 +57,4 @@ Company
     numSeats Int
     adminUserId UserId
     UniqueAdmin adminUserId
+    deriving Show
