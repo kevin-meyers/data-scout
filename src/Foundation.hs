@@ -294,7 +294,7 @@ instance YesodAuth App where
 
     -- Where to send a user after successful login
     loginDest :: App -> Route App
-    loginDest _ = HomeR
+    loginDest _ = TablesR TableListR
     -- Where to send a user after logout
     logoutDest :: App -> Route App
     logoutDest _ = HomeR
@@ -370,7 +370,8 @@ canJoinTeam teamId = do
           case mprofile of
                Nothing -> hasNoCompany
                Just _ -> return $ Unauthorized ("Already part of another team." :: Text)
-      else return $ Unauthorized ("No seats remaining." :: Text)
+      -- No seats remaining
+      else isCompanyAdmin companyId
 
 isCompanyAdmin :: CompanyId -> Handler AuthResult
 isCompanyAdmin companyId = do
