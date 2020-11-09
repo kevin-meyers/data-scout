@@ -11,6 +11,7 @@ li {
   width: 100vw;
   height: 100vh;
   position: relative;
+  top: 0px;
 }
 
 body {
@@ -403,4 +404,131 @@ input {
   font-size: 16px;
   border-radius: 10px;
   font-family: 'Copse', serif;
+}
+
+.hero-mobile {
+  display: none;
+}
+
+@media screen and (max-device-width: 480px) {
+  .hero, .inspector {
+    display: none;
+  }
+
+  .collab {
+    width: 100%;
+    position: relative;
+    top: 0px;
+  }
+
+  .mobile-hero-box {
+    width: 90%;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: #202328;
+    position: relative;
+    z-index: 5;
+    top: 0px;
+    padding: 15px;
+    padding-left: 25px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 12px #000;
+  }
+
+  .hero-mobile { 
+    width: 100vw;
+    display: flex;
+    position: absolute;
+    top: -20px;
+    z-index: 0;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+  .subtext {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  body, html {
+    overflow-x: hidden;
+  }
+
+  .button {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: #919191;
+    margin-top: 15px;
+    box-shadow: 0px 0px 12px #000;
+
+  }
+
+  .landing-text {
+  color: white;
+  text-align: left;
+  padding-left: 0px;
+  padding-top: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.right-card {
+  background-color: transparent;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+
+  border-radius: 10px;
+  width: 100%;
+  position: relative;
+  right: 0px;
+  top: 0px;
+  z-index: 7;
+}
+.right-card > p {
+  color: #E6E6E6;
+}
+.right-card > h1 {
+  color: #E6E6E6;
+}
+
+.left-card {
+  background-color: transparent;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+
+  border-radius: 10px;
+  width: 100%;
+  position: relative;
+  left: 0px;
+  top: 0px;
+  z-index: 7;
+}
+.left-card > p {
+  color: #E6E6E6;
+}
+.left-card > h1 {
+  color: #E6E6E6;
+}
+
+.info-section {
+  top: 0px;
+  position: relative;
+
+}
+.landing {
+  height: 90vh;
+}
 }
