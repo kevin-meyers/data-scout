@@ -421,6 +421,10 @@ input {
     top: 0px;
   }
 
+  html, body {
+    overflow-x: hidden;
+  }
+
   .mobile-hero-box {
     width: 90%;
     margin-left: 20px;
@@ -451,9 +455,7 @@ input {
     font-size: 15px;
   }
 
-  body, html {
-    overflow-x: hidden;
-  }
+
 
   .button {
     position: relative;
@@ -531,4 +533,31 @@ input {
 .landing {
   height: 90vh;
 }
+
+.pricing-cards-container {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.pricing-card {
+  height: 800px;
+  width: 100vw;
+
+}
+
+.contact-section {
+  display: none;
+}
+
+.main-card-dark {
+  background-color: #303030;
+  width: 100vw;
+  height: 650px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 12px #000;
+  position: absolute;
+  z-index: 0;
+}
+
 }
