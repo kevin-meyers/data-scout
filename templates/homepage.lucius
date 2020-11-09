@@ -608,7 +608,7 @@ input {
 }
 
 .pricing-container {
-  height: 260vh;
+  height: 1870px;
 }
 .top {
   display: flex;
@@ -666,6 +666,15 @@ input {
 .interested {
   display: block;
   position: relative;
+}
+
+hr {
+  border: 2px solid black;
+  margin: 0 auto;
+  border-radius: 10px;
+  width: 40%;
+  text-align: left;
+  margin-left: 0;
 }
 
 }
