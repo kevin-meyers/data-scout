@@ -76,11 +76,13 @@
                         <li>➕ Delegate documentation to the appropriate people
 
     <div .contact-section>
+        <h1 .interested>Interested?
         <div .contact-card>
+            
             <div .top>
                 <div .top-left>
                     <h1>Contact Us
-                        <img src="@{StaticR images_contactimageds_png}" .contact-mobile>
+                    <img src="@{StaticR images_contactimageds_png}" .contact-mobile>
                     <p .contact-subtext>If you have any questions or want 
                         to know more about how Data Scout
                         can save your company time, 

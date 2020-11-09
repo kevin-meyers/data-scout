@@ -410,6 +410,14 @@ input {
   display: none;
 }
 
+.contact-mobile {
+  display: none;
+}
+
+.interested {
+  display: none;
+}
+
 @media screen and (max-device-width: 480px) {
   .hero, .inspector {
     display: none;
@@ -455,7 +463,9 @@ input {
     font-size: 15px;
   }
 
-
+  .contact-img {
+    display: none;
+  }
 
   .button {
     position: relative;
@@ -537,7 +547,6 @@ input {
 .pricing-cards-container {
   display: flex;
   flex-direction: column;
-
 }
 
 .pricing-card {
@@ -546,9 +555,7 @@ input {
 
 }
 
-.contact-section {
-  display: none;
-}
+
 
 .main-card-dark {
   background-color: #303030;
@@ -569,6 +576,96 @@ input {
   bottom:-180px;
   left: -30px;
   z-index: 5;
+}
+
+.contact-section {
+  background-color: #1C1B1D;
+  width: 100%;
+  height: 800px;
+  top: 0px;
+  position: relative;
+
+}
+
+.contact-card {
+  background-color: #D8D8D8;
+  border: none;
+  
+  border-radius: 40px;
+  width: 95vw;
+  height: 700px;
+  position: absolute;
+  padding: 30px;
+  top: 100px;
+  z-index: 6;  
+}
+
+.top-left {
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+
+.pricing-container {
+  height: 260vh;
+}
+.top {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  width: 80vw;
+  height: 45px;
+}
+.name-form {
+  margin-bottom: 0px;
+}
+
+.submit-button {
+  position: absolute;
+  left: 0px;
+  background-color: #303030;
+  border: none;
+  color: white;
+  width: 90vw;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 10px;
+  font-family: 'Copse', serif;
+}
+
+.contact-mobile {
+  display: flex;
+  width: 180px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  padding: 10px;
+}
+
+.top-left > h1 {
+  color: #333333;
+  padding-bottom: 40px;
+  
+}
+
+.contact-subtext {
+  color: #1F1F1F;
+  font-size: 18px;
+  width: 90vw;
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+
+.interested {
+  display: block;
+  position: relative;
 }
 
 }
