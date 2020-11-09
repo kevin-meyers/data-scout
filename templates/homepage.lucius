@@ -560,4 +560,15 @@ input {
   z-index: 0;
 }
 
+.oval1 {
+  width: 80%;
+  height: 400px;
+  background-color: #202328;
+  border-radius: 50%;
+  position: absolute;
+  bottom:-180px;
+  left: -30px;
+  z-index: 5;
+}
+
 }
