@@ -1,22 +1,24 @@
 <div .landing>
+    <img src="@{StaticR images_dslandingmobile_png}" .hero-mobile>
     <div .landing-text>
-        <div .maintext>
             <img src="@{StaticR images_dshero_png}" .hero>
-            <h1>
-                Solve Your Data <br> Challenges Faster
             
+            <div .mobile-hero-box>
+                <h1>
+                    Solve Your Data <br> Challenges Faster
                 
-            <hr>
-            <p .subtext>
-                Data Scout makes your data discoverable so there is less repeated efforts, and no more long email chain searching for permissions
+                    
+                <hr>
+                <p .subtext>
+                    Data Scout makes your data discoverable so there is less repeated efforts, and no more long email chain searching for permissions
             <a href=@{AuthR LoginR} .button>
-                Get Started
+                    Get Started
 
 <div .info-section>
     <!-- Starting
         ================================================== -->
     <img src="@{StaticR images_dsinspector_png}" .inspector>
-    <img src="@{StaticR images_dscollab_png}" .collab>
+
     <div .right-card>
         <h1>What is Data Scout?
 
@@ -24,6 +26,7 @@
             Data Scout is a data documentation web app with a focus on making your data easier to find for people solving data challenges.
         <p>
             We make your data discoverable with a search engine that connects your business keywords to the names and descriptions of the tables. Now finding data is as easy as playing around with the search engine, and if you have any questions or want access to the data, the contact information for the owning team is available both on the table, and on the teams profile page!
+    <img src="@{StaticR images_dscollab_png}" .collab>
     <div .left-card>
         <h1>Why you need Data Scout
         <p>
@@ -73,10 +76,13 @@
                         <li>➕ Delegate documentation to the appropriate people
 
     <div .contact-section>
+        <h1 .interested>Interested?
         <div .contact-card>
+            
             <div .top>
                 <div .top-left>
                     <h1>Contact Us
+                    <img src="@{StaticR images_contactimageds_png}" .contact-mobile>
                     <p .contact-subtext>If you have any questions or want 
                         to know more about how Data Scout
                         can save your company time, 
