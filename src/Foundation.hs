@@ -18,6 +18,7 @@ import Text.Jasmine         (minifym)
 import Control.Monad.Logger (LogSource)
 
 import Yesod.Auth.OAuth2.Google
+import qualified Yesod.Auth.Message as Msg
 import Yesod.Default.Util   (addStaticContentExternal)
 import Yesod.Core.Types     (Logger)
 import qualified Yesod.Core.Unsafe as Unsafe
@@ -291,6 +292,18 @@ instance YesodPersistRunner App where
 
 instance YesodAuth App where
     type AuthId App = UserId
+
+    loginHandler = do
+        muid <- maybeAuthId
+        when (isJust muid) $
+            redirect HomeR
+        tp <- getRouteToParent
+        authLayout $ do
+            setTitleI Msg.LoginTitle
+            master <- getYesod
+            mapM_ (`apLogin` tp) (authPlugins master)
+            setTitle . toHtml $ T.pack "Login here plz"
+            $(widgetFile "login")
 
     -- Where to send a user after successful login
     loginDest :: App -> Route App
