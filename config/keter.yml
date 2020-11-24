@@ -24,11 +24,11 @@ stanzas:
       # You can specify one or more hostnames for your application to respond
       # to. The primary hostname will be used for generating your application
       # root.
-      - www.datascout.io
+      - datascout.io
 
     # Enable to force Keter to redirect to https
     # Can be added to any stanza
-    requires-secure: true
+    requires-secure: false
 
   # Static files.
   - type: static-files
@@ -43,9 +43,9 @@ stanzas:
   - type: redirect
 
     hosts:
-      - datascout.io
+      - www.datascout.io
     actions:
-      - host: www.datascout.io
+      - host: datascout.io
         # secure: false
         # port: 80
 
