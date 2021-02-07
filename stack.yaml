@@ -28,6 +28,7 @@ resolver: lts-16.8
 #   subdirs:
 #   - auto-update
 #   - wai
+
 packages:
 - .
 # Dependency packages to be pulled from upstream that are not in the resolver.

@@ -1,0 +1,8 @@
+version: '2'
+services:
+  data-scout:
+    build: .
+    ports:
+      - "3000:80"
+    tty: true
+    command: /opt/data-scout/data-dictionary
