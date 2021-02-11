@@ -35,7 +35,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update && apt-get install -y tzdata
 
-RUN apt-get install postgresql -y
+RUN apt-get install postgresql -y && apt-get install ca-certificates -y
 
 
 
@@ -45,6 +45,9 @@ RUN dpkg -i /tmp/libgmp.deb && rm /tmp/libgmp.deb
 
 COPY static /opt/data-scout/static
 COPY config /opt/data-scout/config
+COPY entrypoint /opt/data-scout
 COPY --from=build /opt/build/bin .
 
+
+# This is the port we set in settings.yaml
 EXPOSE 80
