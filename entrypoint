@@ -1,0 +1,15 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+echo 'Waiting for database to start'
+
+PGPASSWORD=$YESOD_PGUSER timeout --foreground 30 sh -c '
+  while ! psql -h $YESOD_PGHOST -U $YESOD_PGUSER -d $YESOD_PGDATABASE -p $YESOD_PGPORT -c "\list" 1>/dev/null
+  do
+    echo "."
+    sleep 1
+  done
+'
+echo 'Hi database!'
+
+/opt/data-scout/data-dictionary

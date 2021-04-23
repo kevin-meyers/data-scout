@@ -1,0 +1,28 @@
+version: '2'
+services:
+  data-scout:
+    build: .
+    ports:
+      - "3000:80"
+    tty: true
+    command: /opt/data-scout/entrypoint
+    # Local env info, not sure how I can set up the distinction
+    environment:
+      YESOD_PGUSER: postgres
+      YESOD_PGPASS: "postgres"
+      YESOD_PGHOST: "postgres"
+      YESOD_PGDATABASE: "datascout"
+      YESOD_PGPORT: "5432"
+  postgres:
+    image: postgres:11.2-alpine
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    ports:
+      - "5432:5432"
+    # Unfortunately I am not sure how to use persistants migrations
+    # with it.
+    # I might need to generate an init.sql file using printed
+    # migrations on startup? That will require extra complexity though
+    volumes:
+      - ./init-db/init-db.sql:/docker-entrypoint-initdb.d/init.sql

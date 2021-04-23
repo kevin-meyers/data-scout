@@ -29,14 +29,14 @@ ip-from-header: "_env:YESOD_IP_FROM_HEADER:false"
 # See https://github.com/yesodweb/yesod/wiki/Configuration#parsing-numeric-values-as-strings
 
 database:
-  user:     "_env:YESOD_PGUSER:postgres"
-  password: "_env:YESOD_PGPASS:81FviMb9E4Fd"
-  host:     "_env:YESOD_PGHOST:data-scout.cg35mrcbauen.us-west-1.rds.amazonaws.com"
-  port:     "_env:YESOD_PGPORT:5432"
+  user:     "_env:YESOD_PGUSER"
+  password: "_env:YESOD_PGPASS"
+  host:     "_env:YESOD_PGHOST"
+  port:     "_env:YESOD_PGPORT"
   # See config/test-settings.yml for an override during tests
-  database: "_env:YESOD_PGDATABASE:datascout"
+  database: "_env:YESOD_PGDATABASE"
   poolsize: "_env:YESOD_PGPOOLSIZE:10"
 
 
-copyright: Insert copyright statement here
+copyright: The Data Scouts LLC.
 #analytics: UA-YOURCODE

@@ -1,6 +1,9 @@
-# Data Dictionary
+### Notice
+I am currently going through and changing my entire production style from keter to docker and terraform. Odds are the site is down!
 
-The purpose of the data dictionary is to be a companion to usually undocumented, hard to understand, hard to extend, and even harder to discover databases!
+# Data Scout
+
+The purpose of Data Scout is to be a companion to usually undocumented, hard to understand, hard to extend, and even harder to discover databases!
 
 ### User stories
 
@@ -13,7 +16,7 @@ In fact, the columns that could very well help you solve their problem could be 
 
 How these problems are solved now is you would go ask your coworkers or manager: "Hey, do you know of any tables that deal with tracking bugs?" and they might connect you with someone who might know, and that person might connect you with someone else, and eventually you might either give up and make YOUR OWN "score" column or find it after weeks of emails.
 
-Now here is my proposed solution, and of course my vision for data dictionary:
+Now here is my proposed solution, and of course my vision for Data Scout:
 
 ### Vision
 
@@ -25,7 +28,7 @@ Custom permission system: you can only view the tables that you have access to, 
 
 Searchable documentation: You can search the documentation to help you locate data to solve your problem! I.e. searching "bug time" or "time spent in queue" will surface tables and columns that have documentation that relates!
 
-This combined with the custom permission system will give a powerful discovery combination where other teams can let you discover their tables in the data dictionary even if you dont have permission to use the data itself. So if you discover tables that you want to use, you can reach out to the team and request access!
+This combined with the custom permission system will give a powerful discovery combination where other teams can let you discover their tables in the Data Scout even if you dont have permission to use the data itself. So if you discover tables that you want to use, you can reach out to the team and request access!
 
 ### Existing solution and difference
 The most similar existing solution I found was dataedo, with their ability to add documentation very similar to how I would like to. The main differentiating factor will be my novel combination of permission system and searchability of documentation. Also mine will be much more focused on usability by people searching for data to solve their problems like data and business analysts, data scientists, management, and software engineers. 
