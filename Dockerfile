@@ -37,8 +37,6 @@ RUN apt-get update && apt-get install -y tzdata
 
 RUN apt-get install postgresql -y && apt-get install ca-certificates -y
 
-
-
 # Install lib gmp
 COPY --from=dependencies /opt/build/libgmp.deb /tmp
 RUN dpkg -i /tmp/libgmp.deb && rm /tmp/libgmp.deb
