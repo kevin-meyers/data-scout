@@ -1,9 +1,47 @@
 ### Notice
-I am currently going through and changing my entire production style from keter to docker and terraform. Odds are the site is down!
+I haven't had a lot of time to work on new features recently, but a couple months ago I decided I wanted to get away from keter and use docker/terraform ([terraform repo](https://github.com/kevin-meyers/data-scout-terraform)) to bring my code to production! The current code works perfectly with the docker-compose, so the image created is what I want (and pretty small!).
+
+Unfortunately learning terraform has been hard going, and I haven't been able to get the image up yet. I have had a lot of fun with it, and I will keep hammering at it until its finally working, then I will come back to adding more features!
+
+I also wasn't planning on taking this off private, so it's probably not the cleanist it should be!
 
 # Data Scout
 
 The purpose of Data Scout is to be a companion to usually undocumented, hard to understand, hard to extend, and even harder to discover databases!
+
+## Pros and Cons of Using Haskell
+Pros:
+* More fun than other langauges - felt a lot more motivation to wake up and get going again!
+* Very accessible community of experts - Using the FP chat, I could ask questions to the contributors and creators of libaries that I use daily!
+* Type safety on everything including routes made it easy to drastically change the layout of the site. For example, I wanted to break down an entire branch of the domain and add their pieces to other route children. All I needed to do was modify the config/routes exactly how I wanted it to look, and the compiler told me all the locations of routes that I needed to change!
+* The scaffolded site came with lots of best practices built in, I ramped up quickly by mimicking and extending them.
+
+Cons:
+* I had a good amount of trouble using outdated libraries. Including some that were recommended by the yesod website and book.
+* Ran into some complex type errors, but luckily I got great support from the FP community.
+
+### Current functionality
+Company:
+* (In payments branch): When signing up, you can choose to either create a new company, or join an existing one.
+* Has many Teams, to help model the hierarchy of the real business
+* Only the founding User can edit the company, but anyone can create a new Team
+
+Teams:
+* The teams are used to allow hierarchy, they are owned by one user, and that user can belong to another team.
+
+Tables:
+* Creating a table will make you the Owner, which gives you the ability to grant permissions, edit, and delete the table.
+* Having Edit Permission gives you the ability to edit the Table description, and all the columns on it.
+* Having View Permission (unsurprisingly) allows you to view the Table, including it showing up in the list of accessible Tables.
+
+In Progress:
+* Stripe Payments
+* Bulk actions for table permissions, like "grant Edit access to my team, or View access to the whole company"
+* I have 2 search systems in progress, one using postgresql raw sql search to find columns, the other using [bloodhound elasticsearch](https://github.com/bitemyapp/bloodhound)
+
+Most interesting upcoming issue:
+* Adding table skeletons by providing db connection information instead of doing each one manually.
+
 
 ### User stories
 
