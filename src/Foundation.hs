@@ -28,14 +28,6 @@ import qualified Data.Text as T
 
 import CustomQueries
 
--- Replace with Google client ID.
-clientId :: Text
-clientId = "116467907892-u186h8n1tec5lb7alru80gjp6isk4n9f.apps.googleusercontent.com"
-
--- Replace with Google secret ID.
-clientSecret :: Text
-clientSecret = "jMSGqDcwnzQFSBt6-YJAVB0E"
-
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
 -- starts running, such as database connections. Every handler will have
@@ -328,7 +320,7 @@ instance YesodAuth App where
 
     -- You can add other plugins like Google Email, email or OAuth here
     authPlugins :: App -> [AuthPlugin App]
-    authPlugins _ = [oauth2GoogleScoped ["email", "profile"] clientId clientSecret]
+    authPlugins app = [oauth2GoogleScoped ["email", "profile"] (appClientId $ appSettings app) (appClientSecret $ appSettings app)]
 
 -- | Access function to determine if a user is logged in.
 isAuthenticated :: Handler AuthResult

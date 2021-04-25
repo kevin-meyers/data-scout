@@ -13,6 +13,8 @@ services:
       YESOD_PGHOST: "postgres"
       YESOD_PGDATABASE: "datascout"
       YESOD_PGPORT: "5432"
+      GCP_CLIENT_ID: "116467907892-u186h8n1tec5lb7alru80gjp6isk4n9f.apps.googleusercontent.com"
+      GCP_CLIENT_SECRET: "b6iHKv4rRz5bFHLN1mcAIlE5"
   postgres:
     image: postgres:11.2-alpine
     environment:

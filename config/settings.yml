@@ -10,6 +10,11 @@ ip-from-header: "_env:YESOD_IP_FROM_HEADER:false"
 # Uncomment to set an explicit approot
 #approot:        "_env:YESOD_APPROOT:http://localhost:3000"
 
+# MY ENV VARIABLES
+auth-client-id:     "_env:GCP_CLIENT_ID:na"
+auth-client-secret: "_env:GCP_CLIENT_SECRET:na"
+
+
 # By default, `yesod devel` runs in development, and built executables use
 # production settings (see below). To override this, use the following:
 #
@@ -28,13 +33,14 @@ ip-from-header: "_env:YESOD_IP_FROM_HEADER:false"
 # NB: If you need a numeric value (e.g. 123) to parse as a String, wrap it in single quotes (e.g. "_env:YESOD_PGPASS:'123'")
 # See https://github.com/yesodweb/yesod/wiki/Configuration#parsing-numeric-values-as-strings
 
+# I have to provide defaults to type check
 database:
-  user:     "_env:YESOD_PGUSER"
-  password: "_env:YESOD_PGPASS"
-  host:     "_env:YESOD_PGHOST"
-  port:     "_env:YESOD_PGPORT"
+  user:     "_env:YESOD_PGUSER:na"
+  password: "_env:YESOD_PGPASS:na"
+  host:     "_env:YESOD_PGHOST:na"
+  port:     "_env:YESOD_PGPORT:0000"
   # See config/test-settings.yml for an override during tests
-  database: "_env:YESOD_PGDATABASE"
+  database: "_env:YESOD_PGDATABASE:na"
   poolsize: "_env:YESOD_PGPOOLSIZE:10"
 
 
